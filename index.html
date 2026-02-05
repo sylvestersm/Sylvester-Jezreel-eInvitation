@@ -4,34 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sylvester & Jezreel Wedding Invitation</title>
-<meta name="description" content="Join Sylvester & Jezreel for their wedding celebration at Piasau Boat Club, Miri on 31 May 2026. RSVP now!">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 <style>
-/* RESET + BODY */
 body, html{
-  margin:0;
-  padding:0;
+  margin:0; padding:0;
   font-family:'Poppins',sans-serif;
   scroll-behavior:smooth;
-  overflow-x:hidden;
-  position:relative;
   background:#eef6f4;
 }
 
-/* BATIK BACKGROUND OVERLAY */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background-image: url('batik.png');
-  background-size:cover;
-  background-repeat:repeat;
-  opacity:0.08;
-  pointer-events:none;
-  z-index:0;
-}
-
-/* FULL SCREEN SECTIONS */
+/* SECTIONS */
 section{
   min-height:100vh;
   display:flex;
@@ -41,88 +23,30 @@ section{
   text-align:center;
   padding:20px;
   box-sizing:border-box;
-  position:relative;
-  overflow:hidden;
-  z-index:1;
-  opacity:0;
-  transform:translateY(30px);
-  transition:all 0.8s ease;
-}
-section.visible{
-  opacity:1;
-  transform:translateY(0);
 }
 
 /* HEADINGS */
-h1,h2{
-  font-family:'Playfair Display',serif;
-  margin:0 0 10px;
-}
-h1{font-size:2.4rem; line-height:1.2; color:#333;}
-h2{font-size:1.3rem; color:#555;}
-.soft{color:#666; font-size:0.9rem; margin-bottom:10px;}
-.big{font-size:1.2rem; font-weight:500; margin-bottom:10px;}
-.divider{width:50px; height:2px; background:linear-gradient(to right,#a8e6cf,#b3d9ff); margin:12px auto 20px;}
+h1,h2{font-family:'Playfair Display',serif;margin:0 0 10px;}
+h1{font-size:2.4rem;color:#333;}
+h2{font-size:1.3rem;color:#555;}
+.soft{color:#666;font-size:0.9rem;margin-bottom:10px;}
+.big{font-size:1.2rem;font-weight:500;margin-bottom:10px;}
+.divider{width:50px;height:2px;background:linear-gradient(to right,#a8e6cf,#b3d9ff);margin:12px auto 20px;}
 
 /* BUTTONS */
 .btn{
-  display:inline-block;
-  margin:8px 4px;
-  padding:10px 20px;
-  border-radius:24px;
+  display:inline-block;margin:8px 4px;
+  padding:10px 20px;border-radius:24px;
   background:linear-gradient(135deg,#a8e6cf,#b3d9ff);
-  color:#333;
-  text-decoration:none;
-  font-weight:500;
-  font-size:0.85rem;
+  color:#333;text-decoration:none;font-weight:500;font-size:0.85rem;
   transition:transform 0.2s;
 }
 .btn:hover{transform:scale(1.05);}
 .btn.secondary{background:#f0f0f0;}
 
 /* TIMELINE */
-.timeline{
-  max-width:280px;
-  margin:0 auto;
-  text-align:left;
-  font-size:0.85rem;
-}
-.timeline p{
-  display:flex; justify-content:space-between; margin:6px 0;
-}
-
-/* FLOATING ORNAMENTS */
-.ornament{
-  position:absolute;
-  opacity:0.2;
-  animation:floatAnim 12s ease-in-out infinite;
-  pointer-events:none;
-}
-.flower{
-  width:40px; height:40px; background:#a8e6cf; border-radius:50%; clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-.heart{
-  width:30px; height:30px; background:#b3d9ff; clip-path: polygon(50% 0%, 61% 18%, 98% 35%, 79% 63%, 50% 100%, 21% 63%, 2% 35%, 39% 18%);
-}
-.orn1{top:10%; left:15%; animation-delay:0s;}
-.orn2{top:60%; left:80%; animation-delay:3s;}
-.orn3{top:30%; left:50%; animation-delay:6s;}
-.orn4{top:80%; left:25%; animation-delay:2s;}
-.orn5{top:20%; left:70%; animation-delay:5s;}
-@keyframes floatAnim{
-  0%{transform:translateY(0px) rotate(0deg);}
-  50%{transform:translateY(-20px) rotate(10deg);}
-  100%{transform:translateY(0px) rotate(0deg);}
-}
-
-/* SVG BORDER */
-#border{
-  position:fixed; inset:0; width:100%; height:100%; z-index:0;
-}
-#border path{
-  stroke-width:1.5; fill:none;
-  stroke-dasharray:400; stroke-dashoffset:400;
-}
+.timeline{max-width:280px;margin:0 auto;text-align:left;font-size:0.85rem;}
+.timeline p{display:flex; justify-content:space-between; margin:6px 0;}
 
 /* MUSIC BUTTON */
 #musicBtn{
@@ -135,107 +59,61 @@ h2{font-size:1.3rem; color:#555;}
   cursor:pointer;
   font-weight:bold;
 }
-#musicBtn.playing{
-  background:#b3d9ff;
-  animation: pulse 1s infinite;
-}
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.1);}
-  100%{transform:scale(1);}
-}
+#musicBtn.playing{background:#b3d9ff;animation:pulse 1s infinite;}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
 
 /* COUNTDOWN */
-#countdown{
-  font-size:1.2rem; margin:15px 0; color:#333;
-}
+#countdown{font-size:1.2rem;margin:15px 0;color:#333;}
 
 /* GALLERY */
 .gallery{
   display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
 }
 .gallery img{
-  width:120px; height:120px; object-fit:cover; border-radius:12px; transition:transform 0.3s;
-  cursor:pointer;
+  width:120px; height:120px; object-fit:cover; border-radius:12px; cursor:pointer;
 }
-.gallery img:hover{transform:scale(1.1);}
 
 /* LIGHTBOX */
 #lightbox{
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.9);
-  justify-content:center;
-  align-items:center;
-  z-index:2000;
+  display:none; position:fixed; top:0; left:0;
+  width:100%; height:100%; background:rgba(0,0,0,0.9);
+  justify-content:center; align-items:center; z-index:2000;
 }
-#lightbox img{
-  max-width:90%; max-height:80%;
-  border-radius:12px;
-}
-#lightbox .close{
-  position:absolute; top:20px; right:20px; font-size:2rem; color:#fff; cursor:pointer;
-}
+#lightbox img{max-width:90%; max-height:80%; border-radius:12px;}
+#lightbox .close{position:absolute; top:20px; right:20px; font-size:2rem; color:#fff; cursor:pointer;}
 #lightbox .prev, #lightbox .next{
-  position:absolute; top:50%; font-size:3rem; color:#fff;
-  cursor:pointer; user-select:none;
+  position:absolute; top:50%; font-size:3rem; color:#fff; cursor:pointer;
   transform:translateY(-50%);
 }
 #lightbox .prev{left:20px;}
 #lightbox .next{right:20px;}
 
 /* SHARE BUTTONS */
-.share-buttons{
-  margin-top:15px;
-  display:flex; justify-content:center; gap:10px;
-}
+.share-buttons{margin-top:15px; display:flex; justify-content:center; gap:10px;}
 .share-buttons a{
   display:inline-block; padding:8px 12px; border-radius:20px;
   text-decoration:none; color:#fff; font-size:0.85rem;
-  background:#a8e6cf;
-  transition:transform 0.2s;
+  background:#a8e6cf; transition:transform 0.2s;
 }
 .share-buttons a:hover{transform:scale(1.1);}
 .share-whatsapp{background:#25D366;}
 .share-facebook{background:#3b5998;}
 .share-twitter{background:#1DA1F2;}
 
-/* CONFETTI CANVAS */
-#confettiCanvas{
-  position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1000;
-}
+/* MAP */
+.map-container{width:100%; max-width:600px; height:350px; margin:15px auto; border-radius:12px; overflow:hidden;}
+.map-container iframe{width:100%; height:100%; border:0; pointer-events:none;}
+.map-container a{position:absolute; inset:0; z-index:1;} /* overlay clickable area */
 
 /* RESPONSIVE */
 @media(max-width:600px){
-  section{min-height:80vh; padding:15px;}
   h1{font-size:2rem;}
   h2{font-size:1.1rem;}
   .big{font-size:1rem;}
-  .orn1,.orn2,.orn4{display:none;}
 }
 </style>
 </head>
 <body>
-
-<!-- SVG BORDER ANIMATED -->
-<svg id="border" viewBox="0 0 100 100" preserveAspectRatio="none">
-  <path d="M2 2 H98 V98 H2 V2 Z" stroke="url(#grad)"/>
-  <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#a8e6cf"/>
-      <stop offset="100%" stop-color="#b3d9ff"/>
-    </linearGradient>
-  </defs>
-</svg>
-
-<!-- FLOATING ORNAMENTS -->
-<div class="ornament flower orn1"></div>
-<div class="ornament heart orn2"></div>
-<div class="ornament flower orn3"></div>
-<div class="ornament heart orn4"></div>
-<div class="ornament flower orn5"></div>
 
 <!-- MUSIC -->
 <audio id="bgMusic" loop>
@@ -243,12 +121,8 @@ h2{font-size:1.3rem; color:#555;}
 </audio>
 <button id="musicBtn">🎵</button>
 
-<!-- CONFETTI -->
-<canvas id="confettiCanvas"></canvas>
-
 <!-- SECTIONS -->
-
-<section class="animate" id="cover">
+<section id="cover">
   <p class="soft">THE WEDDING OF</p>
   <h1>Sylvester<br>&<br>Jezreel</h1>
   <div class="divider"></div>
@@ -256,28 +130,33 @@ h2{font-size:1.3rem; color:#555;}
   <a class="btn" href="#countdownSection">View Details ↓</a>
 </section>
 
-<section id="countdownSection" class="animate">
+<section id="countdownSection">
   <h2>Countdown to Our Wedding</h2>
   <p id="countdown">Loading...</p>
   <a class="btn" href="#date">Next →</a>
 </section>
 
-<section id="date" class="animate">
+<section id="date">
   <h2>Save The Date</h2>
   <p class="big">31 May 2026</p>
   <p class="soft">Sunday · 4:30 PM – 10:00 PM</p>
   <a class="btn" href="#venue">Venue →</a>
 </section>
 
-<section id="venue" class="animate">
+<section id="venue">
   <h2>Venue</h2>
   <p class="big">Piasau Boat Club</p>
   <p class="soft">Miri, Sarawak</p>
-  <a class="btn" href="https://maps.app.goo.gl/nNiAL6Xs8dCX8zsK7" target="_blank">Open Map</a>
-  <a class="btn" href="#program">Program →</a>
+  <div class="map-container">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.981562!3d4.416950!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32171fef9dbdfd45%3A0x6b6e8f6e5e0a8c84!2sPiasau%20Boat%20Club!5e0!3m2!1sen!2smy!4v1696532000000!5m2!1sen!2smy" 
+      allowfullscreen="" loading="lazy">
+    </iframe>
+    <a href="https://maps.google.com/?q=Piasau+Boat+Club+Miri" target="_blank"></a>
+  </div>
 </section>
 
-<section id="program" class="animate">
+<section id="program">
   <h2>Wedding Program</h2>
   <div class="timeline">
     <p><span>3:00 PM</span><span>Guest Arrival</span></p>
@@ -288,21 +167,21 @@ h2{font-size:1.3rem; color:#555;}
   <a class="btn" href="#dress">Next →</a>
 </section>
 
-<section id="dress" class="animate">
+<section id="dress">
   <h2>Dress Code</h2>
   <p class="big">Batik</p>
   <p class="soft">Light Green & Light Blue</p>
   <a class="btn" href="#rsvp">RSVP →</a>
 </section>
 
-<section id="rsvp" class="animate">
+<section id="rsvp">
   <h2>RSVP</h2>
   <p class="soft">Please confirm your attendance</p>
   <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">✅ Attend</a>
   <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20NOT%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">❌ Not Attend</a>
 </section>
 
-<section id="gallery" class="animate">
+<section id="gallery">
   <h2>Gallery</h2>
   <div class="gallery">
     <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
@@ -312,7 +191,7 @@ h2{font-size:1.3rem; color:#555;}
   </div>
 </section>
 
-<section class="animate">
+<section>
   <p class="soft">Share Our Love 💌</p>
   <div class="share-buttons">
     <a class="share-whatsapp" href="https://wa.me/?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!" target="_blank">WhatsApp</a>
@@ -331,111 +210,48 @@ h2{font-size:1.3rem; color:#555;}
 </div>
 
 <script>
-// Animate sections on scroll
-const sections = document.querySelectorAll('section.animate');
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-    }
-  });
-},{threshold:0.2});
-sections.forEach(section=>observer.observe(section));
-
-// Animate SVG Border
-const borderPath = document.querySelector('#border path');
-let length = borderPath.getTotalLength();
-borderPath.style.strokeDasharray = length;
-borderPath.style.strokeDashoffset = length;
-window.addEventListener('load', () => {
-  borderPath.style.transition = 'stroke-dashoffset 2s ease';
-  borderPath.style.strokeDashoffset = '0';
-});
-
 // Music toggle
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-musicBtn.addEventListener('click',()=>{
-  if(music.paused){
-    music.play();
-    musicBtn.classList.add('playing');
-  } else {
-    music.pause();
-    musicBtn.classList.remove('playing');
-  }
+musicBtn.addEventListener('click', ()=>{
+  if(music.paused){ music.play(); musicBtn.classList.add('playing'); }
+  else{ music.pause(); musicBtn.classList.remove('playing'); }
 });
 
-// Countdown Timer
+// Countdown
 const countdown = document.getElementById('countdown');
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(()=>{
   let now = new Date().getTime();
   let distance = weddingDate - now;
-  if(distance<0){countdown.innerHTML="We're Married! 🎉"; return;}
-  let days = Math.floor(distance/(1000*60*60*24));
-  let hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  let minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-  let seconds = Math.floor((distance%(1000*60))/1000);
+  if(distance<0){ countdown.innerHTML="We're Married! 🎉"; return;}
+  let days=Math.floor(distance/(1000*60*60*24));
+  let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+  let seconds=Math.floor((distance%(1000*60))/1000);
   countdown.innerHTML=`${days}d ${hours}h ${minutes}m ${seconds}s`;
 },1000);
 
-// Confetti
-const confettiCanvas = document.getElementById('confettiCanvas');
-const ctx = confettiCanvas.getContext('2d');
-confettiCanvas.width = window.innerWidth;
-confettiCanvas.height = window.innerHeight;
-let confetti = [];
-for(let i=0;i<150;i++){
-  confetti.push({x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight, r:Math.random()*6+2, d:Math.random()*150, color:`hsl(${Math.random()*360},100%,50%)`, tilt:Math.random()*10-10});
-}
-function drawConfetti(){
-  ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-  confetti.forEach(c=>{
-    ctx.beginPath();
-    ctx.moveTo(c.x + c.tilt, c.y);
-    ctx.lineTo(c.x + c.tilt + c.r/2, c.y + c.r);
-    ctx.lineTo(c.x + c.tilt - c.r/2, c.y + c.r);
-    ctx.fillStyle = c.color;
-    ctx.fill();
-  });
-  updateConfetti();
-}
-function updateConfetti(){
-  confetti.forEach(c=>{
-    c.y += Math.cos(0.01+c.d)*2+1;
-    c.x += Math.sin(0.01)*2;
-    if(c.y>window.innerHeight){c.y=0;c.x=Math.random()*window.innerWidth;}
-  });
-  requestAnimationFrame(drawConfetti);
-}
-drawConfetti();
-window.addEventListener('resize', ()=>{
-  confettiCanvas.width = window.innerWidth;
-  confettiCanvas.height = window.innerHeight;
-});
-
-// LIGHTBOX
+// Lightbox
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = lightbox.querySelector('img');
 const galleryImgs = document.querySelectorAll('.gallery img');
-let currentIndex = 0;
-
-galleryImgs.forEach((img, i)=>{
+let currentIndex=0;
+galleryImgs.forEach((img,i)=>{
   img.addEventListener('click', ()=>{
     currentIndex=i;
-    lightboxImg.src = img.src;
+    lightboxImg.src=img.src;
     lightbox.style.display="flex";
   });
 });
-
 lightbox.querySelector('.close').addEventListener('click',()=>{lightbox.style.display="none";});
 lightbox.querySelector('.prev').addEventListener('click', ()=>{
-  currentIndex = (currentIndex-1+galleryImgs.length)%galleryImgs.length;
-  lightboxImg.src = galleryImgs[currentIndex].src;
+  currentIndex=(currentIndex-1+galleryImgs.length)%galleryImgs.length;
+  lightboxImg.src=galleryImgs[currentIndex].src;
 });
 lightbox.querySelector('.next').addEventListener('click', ()=>{
-  currentIndex = (currentIndex+1)%galleryImgs.length;
-  lightboxImg.src = galleryImgs[currentIndex].src;
+  currentIndex=(currentIndex+1)%galleryImgs.length;
+  lightboxImg.src=galleryImgs[currentIndex].src;
 });
 </script>
 </body>
