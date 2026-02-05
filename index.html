@@ -11,6 +11,10 @@ body, html{
   font-family:'Poppins',sans-serif;
   scroll-behavior:smooth;
   background:#eef6f4;
+  background-image: url('https://github.com/YOURUSERNAME/YOURREPO/raw/main/batik.jpg'); /* Batik background from GitHub */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* SECTIONS */
@@ -23,6 +27,7 @@ section{
   text-align:center;
   padding:20px;
   box-sizing:border-box;
+  backdrop-filter: brightness(0.95); /* slightly soften batik for text readability */
 }
 
 /* HEADINGS */
@@ -101,9 +106,20 @@ h2{font-size:1.3rem;color:#555;}
 .share-twitter{background:#1DA1F2;}
 
 /* MAP */
-.map-container{width:100%; max-width:600px; height:350px; margin:15px auto; border-radius:12px; overflow:hidden;}
-.map-container iframe{width:100%; height:100%; border:0; pointer-events:none;}
-.map-container a{position:absolute; inset:0; z-index:1;} /* overlay clickable area */
+.map-container{position:relative;width:100%; max-width:600px; height:350px; margin:15px auto; border-radius:12px; overflow:hidden;}
+.map-container iframe{width:100%; height:100%; border:0;}
+.bring-btn{
+  margin-top:10px;
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:24px;
+  background:#a8e6cf;
+  color:#333;
+  text-decoration:none;
+  font-weight:500;
+  transition: transform 0.2s;
+}
+.bring-btn:hover{transform:scale(1.05);}
 
 /* RESPONSIVE */
 @media(max-width:600px){
@@ -145,15 +161,15 @@ h2{font-size:1.3rem;color:#555;}
 
 <section id="venue">
   <h2>Venue</h2>
-  <p class="big">Piasau Boat Club</p>
+  <p class="big">P100, Miri</p>
   <p class="soft">Miri, Sarawak</p>
   <div class="map-container">
     <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.981562!3d4.416950!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32171fef9dbdfd45%3A0x6b6e8f6e5e0a8c84!2sPiasau%20Boat%20Club!5e0!3m2!1sen!2smy!4v1696532000000!5m2!1sen!2smy" 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.9981814!3d4.441101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8bbabf9149%3A0x45f7a9f48a9e68e2!2sP100!5e0!3m2!1sen!2smy!4v1696532000000!5m2!1sen!2smy" 
       allowfullscreen="" loading="lazy">
     </iframe>
-    <a href="https://maps.google.com/?q=Piasau+Boat+Club+Miri" target="_blank"></a>
   </div>
+  <a class="bring-btn" href="https://www.google.com/maps/search/?api=1&query=4.441101,113.9981814" target="_blank">Bring me</a>
 </section>
 
 <section id="program">
