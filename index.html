@@ -4,18 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sylvester & Jezreel Wedding Invitation</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
-
 <style>
 body, html{
   margin:0; padding:0;
   font-family:'Poppins',sans-serif;
   scroll-behavior:smooth;
-  background-image:url('https://github.com/YOURUSERNAME/YOURREPO/raw/main/batik.jpg');
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
+  background:#eef6f4;
+  background-image: url('https://github.com/YOURUSERNAME/YOURREPO/raw/main/batik.jpg'); /* Batik background from GitHub */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* SECTIONS */
@@ -27,152 +26,118 @@ section{
   flex-direction:column;
   text-align:center;
   padding:20px;
-  backdrop-filter:brightness(0.95);
+  box-sizing:border-box;
+  backdrop-filter: brightness(0.95);
 }
 
-h1,h2{font-family:'Playfair Display',serif;}
-h1{font-size:2.4rem;}
-h2{font-size:1.3rem;}
-.soft{font-size:0.9rem;color:#666;}
-.big{font-size:1.2rem;font-weight:500;}
-.divider{width:50px;height:2px;background:#a8e6cf;margin:12px auto;}
+/* HEADINGS */
+h1,h2{font-family:'Playfair Display',serif;margin:0 0 10px;}
+h1{font-size:2.4rem;color:#333;}
+h2{font-size:1.3rem;color:#555;}
+.soft{color:#666;font-size:0.9rem;margin-bottom:10px;}
+.big{font-size:1.2rem;font-weight:500;margin-bottom:10px;}
+.divider{width:50px;height:2px;background:linear-gradient(to right,#a8e6cf,#b3d9ff);margin:12px auto 20px;}
 
+/* BUTTONS */
 .btn{
-  margin:8px;
-  padding:10px 22px;
-  border-radius:24px;
-  background:#a8e6cf;
-  text-decoration:none;
-  color:#333;
-  font-size:0.85rem;
+  display:inline-block;margin:8px 4px;
+  padding:10px 20px;border-radius:24px;
+  background:linear-gradient(135deg,#a8e6cf,#b3d9ff);
+  color:#333;text-decoration:none;font-weight:500;font-size:0.85rem;
+  transition:transform 0.2s;
 }
-.btn.secondary{background:#eee;}
+.btn:hover{transform:scale(1.05);}
+.btn.secondary{background:#f0f0f0;}
 
-.timeline{font-size:0.85rem;}
-.timeline p{display:flex;justify-content:space-between;}
+/* TIMELINE */
+.timeline{max-width:280px;margin:0 auto;text-align:left;font-size:0.85rem;}
+.timeline p{display:flex; justify-content:space-between; margin:6px 0;}
 
+/* MUSIC BUTTON */
 #musicBtn{
-  position:fixed;
-  top:15px;
-  right:15px;
+  position:fixed; top:15px; right:15px;
   z-index:999;
-  border:none;
+  padding:10px 14px;
   border-radius:50%;
-  padding:12px;
-  cursor:pointer;
   background:#a8e6cf;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
 }
-#musicBtn.playing{
-  background:#b3d9ff;
-  animation:pulse 1s infinite;
-}
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.1);}
-  100%{transform:scale(1);}
-}
+#musicBtn.playing{background:#b3d9ff;animation:pulse 1s infinite;}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
 
-/* ALBUM ART */
-#albumArt{
-  position:fixed;
-  top:15px;
-  left:15px;
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  overflow:hidden;
-  z-index:999;
-  border:2px solid #fff;
-  background:#fff;
-  animation:spin 4s linear infinite;
-  transition:all 0.8s ease;
-}
-#albumArt img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-#albumArt.minimize{
-  width:18px;
-  height:18px;
-  opacity:0.5;
-}
-@keyframes spin{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
+/* COUNTDOWN */
+#countdown{font-size:1.2rem;margin:15px 0;color:#333;}
 
+/* GALLERY */
 .gallery{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
 }
 .gallery img{
-  width:120px;
-  height:120px;
-  object-fit:cover;
-  border-radius:12px;
-  cursor:pointer;
+  width:120px; height:120px; object-fit:cover; border-radius:12px; cursor:pointer;
 }
 
+/* LIGHTBOX */
 #lightbox{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.9);
-  justify-content:center;
-  align-items:center;
-  z-index:2000;
+  display:none; position:fixed; top:0; left:0;
+  width:100%; height:100%; background:rgba(0,0,0,0.9);
+  justify-content:center; align-items:center; z-index:2000;
 }
-#lightbox img{max-width:90%;max-height:80%;}
-.close,.prev,.next{
-  position:absolute;
-  color:#fff;
-  font-size:2rem;
-  cursor:pointer;
+#lightbox img{max-width:90%; max-height:80%; border-radius:12px;}
+#lightbox .close{position:absolute; top:20px; right:20px; font-size:2rem; color:#fff; cursor:pointer;}
+#lightbox .prev, #lightbox .next{
+  position:absolute; top:50%; font-size:3rem; color:#fff; cursor:pointer;
+  transform:translateY(-50%);
 }
-.close{top:20px;right:20px;}
-.prev{left:20px;}
-.next{right:20px;}
+#lightbox .prev{left:20px;}
+#lightbox .next{right:20px;}
 
-.map-container{
-  width:100%;
-  max-width:600px;
-  height:350px;
-  border-radius:12px;
-  overflow:hidden;
+/* SHARE BUTTONS */
+.share-buttons{margin-top:15px; display:flex; justify-content:center; gap:10px;}
+.share-buttons a{
+  display:inline-block; padding:8px 12px; border-radius:20px;
+  text-decoration:none; color:#fff; font-size:0.85rem;
+  background:#a8e6cf; transition:transform 0.2s;
 }
-.map-container iframe{width:100%;height:100%;border:0;}
+.share-buttons a:hover{transform:scale(1.1);}
+.share-whatsapp{background:#25D366;}
+.share-facebook{background:#3b5998;}
+.share-twitter{background:#1DA1F2;}
 
+/* MAP */
+.map-container{position:relative;width:100%; max-width:600px; height:350px; margin:15px auto; border-radius:12px; overflow:hidden;}
+.map-container iframe{width:100%; height:100%; border:0;}
 .bring-btn{
   margin-top:10px;
+  display:inline-block;
   padding:10px 20px;
   border-radius:24px;
   background:#a8e6cf;
-  text-decoration:none;
   color:#333;
+  text-decoration:none;
+  font-weight:500;
+  transition: transform 0.2s;
 }
+.bring-btn:hover{transform:scale(1.05);}
 
+/* RESPONSIVE */
 @media(max-width:600px){
   h1{font-size:2rem;}
+  h2{font-size:1.1rem;}
+  .big{font-size:1rem;}
 }
 </style>
 </head>
-
 <body>
 
 <!-- MUSIC -->
-<audio id="bgMusic" loop playsinline>
-  <source src="Love on the brain - Rihanna (sax cover Graziatto).mp3" type="audio/mpeg">
+<audio id="bgMusic" loop>
+  <source src="https://github.com/YOURUSERNAME/YOURREPO/raw/main/Love%20on%20the%20brain%20-%20Rihanna%20(sax%20cover%20Graziatto).mp3" type="audio/mpeg">
 </audio>
-
 <button id="musicBtn">🎵</button>
 
-<div id="albumArt">
-  <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Music">
-</div>
-
+<!-- SECTIONS -->
 <section id="cover">
   <p class="soft">THE WEDDING OF</p>
   <h1>Sylvester<br>&<br>Jezreel</h1>
@@ -182,22 +147,26 @@ h2{font-size:1.3rem;}
 </section>
 
 <section id="countdownSection">
-  <h2>Countdown</h2>
+  <h2>Countdown to Our Wedding</h2>
   <p id="countdown">Loading...</p>
+  <a class="btn" href="#date">Next →</a>
 </section>
 
 <section id="date">
   <h2>Save The Date</h2>
   <p class="big">31 May 2026</p>
   <p class="soft">Sunday · 4:30 PM – 10:00 PM</p>
+  <a class="btn" href="#venue">Venue →</a>
 </section>
 
 <section id="venue">
   <h2>Venue</h2>
   <p class="big">P100, Miri</p>
+  <p class="soft">Miri, Sarawak</p>
   <div class="map-container">
     <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.9981814!3d4.441101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8bbabf9149%3A0x45f7a9f48a9e68e2!2sP100!5e0!3m2!1sen!2smy">
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.9981814!3d4.441101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8bbabf9149%3A0x45f7a9f48a9e68e2!2sP100!5e0!3m2!1sen!2smy!4v1696532000000!5m2!1sen!2smy" 
+      allowfullscreen="" loading="lazy">
     </iframe>
   </div>
   <a class="bring-btn" href="https://www.google.com/maps/search/?api=1&query=4.441101,113.9981814" target="_blank">Bring me</a>
@@ -211,125 +180,95 @@ h2{font-size:1.3rem;}
     <p><span>6:00 PM</span><span>Dinner</span></p>
     <p><span>8:00 PM</span><span>Celebration</span></p>
   </div>
+  <a class="btn" href="#dress">Next →</a>
 </section>
 
 <section id="dress">
   <h2>Dress Code</h2>
   <p class="big">Batik</p>
   <p class="soft">Light Green & Light Blue</p>
+  <a class="btn" href="#rsvp">RSVP →</a>
 </section>
 
 <section id="rsvp">
   <h2>RSVP</h2>
-  <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">Attend</a>
-  <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20NOT%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">Not Attend</a>
+  <p class="soft">Please confirm your attendance</p>
+  <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">✅ Attend</a>
+  <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20NOT%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">❌ Not Attend</a>
 </section>
 
 <section id="gallery">
   <h2>Gallery</h2>
   <div class="gallery">
-    <img src="https://i.ibb.co/4f7nB9t/photo1.jpg">
-    <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg">
-    <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg">
-    <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg">
+    <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
+    <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
+    <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" alt="Photo 3">
+    <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" alt="Photo 4">
   </div>
 </section>
 
+<section>
+  <p class="soft">Share Our Love 💌</p>
+  <div class="share-buttons">
+    <a class="share-whatsapp" href="https://wa.me/?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!" target="_blank">WhatsApp</a>
+    <a class="share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://your-wedding-link.com" target="_blank">Facebook</a>
+    <a class="share-twitter" href="https://twitter.com/intent/tweet?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!&url=https://your-wedding-link.com" target="_blank">Twitter</a>
+  </div>
+  <a class="btn" href="#cover">Back to Top ↑</a>
+</section>
+
+<!-- LIGHTBOX -->
 <div id="lightbox">
   <span class="close">&times;</span>
   <span class="prev">&#10094;</span>
   <span class="next">&#10095;</span>
-  <img>
+  <img src="" alt="Gallery Image">
 </div>
 
 <script>
+// Music toggle
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-const albumArt = document.getElementById('albumArt');
-let fadeTimer;
-
-/* Fade in */
-function fadeIn(){
-  music.volume = 0;
-  music.play().catch(()=>{});
-  fadeTimer = setInterval(()=>{
-    if(music.volume < 0.95){
-      music.volume += 0.05;
-    }else{
-      clearInterval(fadeTimer);
-    }
-  },200);
-}
-
-/* Fade out */
-function fadeOut(){
-  fadeTimer = setInterval(()=>{
-    if(music.volume > 0.05){
-      music.volume -= 0.05;
-    }else{
-      music.pause();
-      clearInterval(fadeTimer);
-    }
-  },200);
-}
-
-/* Try autoplay */
-window.addEventListener('load', ()=>{
-  fadeIn();
-  musicBtn.classList.add('playing');
-  setTimeout(()=>albumArt.classList.add('minimize'),5000);
+musicBtn.addEventListener('click', ()=>{
+  if(music.paused){ music.play(); musicBtn.classList.add('playing'); }
+  else{ music.pause(); musicBtn.classList.remove('playing'); }
 });
 
-musicBtn.onclick = ()=>{
-  if(music.paused){
-    fadeIn();
-    musicBtn.classList.add('playing');
-  }else{
-    fadeOut();
-    musicBtn.classList.remove('playing');
-  }
-};
-
-/* Countdown */
+// Countdown
+const countdown = document.getElementById('countdown');
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(()=>{
-  const now = Date.now();
-  const d = weddingDate - now;
-  if(d<=0){
-    countdown.innerHTML="We're Married! 🎉";
-    return;
-  }
-  countdown.innerHTML =
-    Math.floor(d/86400000)+"d "+
-    Math.floor((d%86400000)/3600000)+"h "+
-    Math.floor((d%3600000)/60000)+"m "+
-    Math.floor((d%60000)/1000)+"s";
+  let now = new Date().getTime();
+  let distance = weddingDate - now;
+  if(distance<0){ countdown.innerHTML="We're Married! 🎉"; return;}
+  let days=Math.floor(distance/(1000*60*60*24));
+  let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+  let seconds=Math.floor((distance%(1000*60))/1000);
+  countdown.innerHTML=`${days}d ${hours}h ${minutes}m ${seconds}s`;
 },1000);
 
-/* Lightbox */
-const imgs=document.querySelectorAll('.gallery img');
-const lb=document.getElementById('lightbox');
-const lbImg=lb.querySelector('img');
-let i=0;
-
-imgs.forEach((img,idx)=>{
-  img.onclick=()=>{
-    i=idx;
-    lbImg.src=img.src;
-    lb.style.display='flex';
-  }
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+const galleryImgs = document.querySelectorAll('.gallery img');
+let currentIndex=0;
+galleryImgs.forEach((img,i)=>{
+  img.addEventListener('click', ()=>{
+    currentIndex=i;
+    lightboxImg.src=img.src;
+    lightbox.style.display="flex";
+  });
 });
-lb.querySelector('.close').onclick=()=>lb.style.display='none';
-lb.querySelector('.prev').onclick=()=>{
-  i=(i-1+imgs.length)%imgs.length;
-  lbImg.src=imgs[i].src;
-}
-lb.querySelector('.next').onclick=()=>{
-  i=(i+1)%imgs.length;
-  lbImg.src=imgs[i].src;
-}
+lightbox.querySelector('.close').addEventListener('click',()=>{lightbox.style.display="none";});
+lightbox.querySelector('.prev').addEventListener('click', ()=>{
+  currentIndex=(currentIndex-1+galleryImgs.length)%galleryImgs.length;
+  lightboxImg.src=galleryImgs[currentIndex].src;
+});
+lightbox.querySelector('.next').addEventListener('click', ()=>{
+  currentIndex=(currentIndex+1)%galleryImgs.length;
+  lightboxImg.src=galleryImgs[currentIndex].src;
+});
 </script>
-
 </body>
 </html>
-
