@@ -89,7 +89,6 @@ h2 { font-size: 2rem; color: #555; }
 .btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 .btn.secondary { background: #f0f0f0; box-shadow: none; }
 
-/* Pulse animation for the Landing Button */
 .pulse { animation: pulse-animation 2s infinite; }
 @keyframes pulse-animation {
   0% { transform: scale(1); }
@@ -97,7 +96,6 @@ h2 { font-size: 2rem; color: #555; }
   100% { transform: scale(1); }
 }
 
-/* RSVP BUTTONS SIDE-BY-SIDE */
 .rsvp-group {
   display: flex;
   justify-content: center;
@@ -106,7 +104,6 @@ h2 { font-size: 2rem; color: #555; }
   max-width: 400px;
 }
 
-/* QR CODE CONTAINER */
 .qr-container {
   background: white;
   padding: 20px;
@@ -116,11 +113,9 @@ h2 { font-size: 2rem; color: #555; }
 }
 .qr-container img { width: 200px; height: 200px; }
 
-/* TIMELINE */
 .timeline { width: 100%; max-width: 320px; margin: 0 auto; text-align: left; }
 .timeline p { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
 
-/* FLOATING MUSIC BUTTON */
 #musicBtn {
   position: fixed; top: 20px; right: 20px; z-index: 1000;
   width: 50px; height: 50px; border-radius: 50%;
@@ -129,11 +124,10 @@ h2 { font-size: 2rem; color: #555; }
   display: none; align-items: center; justify-content: center;
 }
 
-/* GALLERY */
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
 
-@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.7rem; } .rsvp-group { flex-direction: row; } }
+@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.7rem; } }
 </style>
 </head>
 <body>
@@ -166,7 +160,7 @@ h2 { font-size: 2rem; color: #555; }
 
   <section id="countdownSection">
     <h2>The Countdown</h2>
-    <p id="countdown">Loading...</p>
+    <p id="countdown" style="font-size: 1.6rem; font-weight: 600;">Loading...</p>
     <a class="btn secondary" href="#date">Next →</a>
   </section>
 
@@ -182,9 +176,9 @@ h2 { font-size: 2rem; color: #555; }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.670353134376!2d113.9956064759082!3d4.441101095532889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8babbf9149%3A0x45f7a9f48aba67e2!2sP100!5e0!3m2!1sen!2smy!4v1715847423000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.3468961730436!2d114.0101!3d4.4691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f46a2be9149%3A0x75f7a4a48a9e66e2!2sP100%20Events%20Space!5e0!3m2!1sen!2smy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://maps.google.com/?cid=5041685175627311330&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank">Get Directions</a>
+    <a class="btn" href="https://maps.app.goo.gl/xyH9o7Uj9iAnS8G67" target="_blank">Get Directions</a>
   </section>
 
   <section id="program">
@@ -209,9 +203,10 @@ h2 { font-size: 2rem; color: #555; }
     <h2>RSVP</h2>
     <p class="soft">Kindly respond by 1st May 2026</p>
     <div class="rsvp-group">
-        <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND!%20Name:" target="_blank">✅ Yes</a>
+        <a class="btn" href="https://forms.gle/m16Yg9EbfEn5C1iS7" target="_blank">✅ Yes</a>
         <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20cannot%20attend.%20Name:" target="_blank">❌ No</a>
     </div>
+    <p style="font-size: 0.8rem; margin-top: 15px; color: #888;">*RSVP helps us with guest counting and seating.</p>
   </section>
 
   <section id="gift">
@@ -221,7 +216,6 @@ h2 { font-size: 2rem; color: #555; }
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=SylvesterJezreelWedding" alt="Wedding QR">
       <p style="margin-top:10px; font-weight:500; color:#333;">DuitNow / SarawakPay</p>
     </div>
-    <a class="btn secondary" href="#gallery" style="margin-top:20px;">Gallery →</a>
   </section>
 
   <section id="gallery">
@@ -235,6 +229,11 @@ h2 { font-size: 2rem; color: #555; }
   </section>
 
   <section id="share">
+    <div style="font-style: italic; margin-bottom: 40px; color: #555; padding: 0 20px;">
+        <h2 style="font-size: 1.4rem;">"And now these three remain: faith, hope and love. <br>But the greatest of these is love."</h2>
+        <p>— 1 Corinthians 13:13</p>
+    </div>
+    <div class="divider"></div>
     <p class="soft">Share Our Joy 💌</p>
     <a class="btn" href="https://wa.me/?text=You're%20invited%20to%20Sylvester%20&%20Jezreel's%20Wedding!%20View%20here:" target="_blank">Share via WhatsApp</a>
     <a class="btn secondary" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
@@ -252,17 +251,13 @@ const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 
 function openInvitation() {
-    // Hide Envelope
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
-    
-    // Reveal Content
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
         musicBtn.style.display = 'flex';
         document.getElementById('landing-cover').style.display = 'none';
     }, 1000);
 
-    // Play Music with 2s Fade-In
     music.volume = 0;
     music.play().catch(e => console.log("Autoplay blocked"));
     
@@ -304,5 +299,3 @@ function closeLightbox() { lightbox.style.display = 'none'; }
 
 </body>
 </html>
-
-
