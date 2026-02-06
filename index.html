@@ -24,7 +24,7 @@ body, html {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-image: url('https://files.catbox.moe/18v52a.png'); /* Batik Pattern */
+  background-image: url('https://files.catbox.moe/18v52a.png'); 
   background-size: 400px;
   display: flex; justify-content: center; align-items: center;
   z-index: 9999;
@@ -41,7 +41,7 @@ body, html {
   backdrop-filter: blur(10px);
 }
 
-/* MAIN CONTENT (Initially Hidden) */
+/* MAIN CONTENT */
 #main-content {
   display: none;
   background-image: url('https://files.catbox.moe/18v52a.png');
@@ -61,7 +61,6 @@ section {
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
@@ -80,7 +79,7 @@ h2 { font-size: 2rem; color: #555; }
 /* BUTTONS */
 .btn {
   display: inline-block; margin: 10px 5px;
-  padding: 14px 30px; border-radius: 30px;
+  padding: 14px 25px; border-radius: 30px;
   background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
   color: #333; text-decoration: none; font-weight: 500; font-size: 0.95rem;
   transition: all 0.3s ease;
@@ -89,6 +88,33 @@ h2 { font-size: 2rem; color: #555; }
 }
 .btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 .btn.secondary { background: #f0f0f0; box-shadow: none; }
+
+/* Pulse animation for the Landing Button */
+.pulse { animation: pulse-animation 2s infinite; }
+@keyframes pulse-animation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* RSVP BUTTONS SIDE-BY-SIDE */
+.rsvp-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* QR CODE CONTAINER */
+.qr-container {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-top: 10px;
+}
+.qr-container img { width: 200px; height: 200px; }
 
 /* TIMELINE */
 .timeline { width: 100%; max-width: 320px; margin: 0 auto; text-align: left; }
@@ -103,22 +129,11 @@ h2 { font-size: 2rem; color: #555; }
   display: none; align-items: center; justify-content: center;
 }
 
-/* COUNTDOWN */
-#countdown { font-size: 1.6rem; font-weight: 600; margin: 20px 0; color: #333; letter-spacing: 1px; }
-
-/* GALLERY & LIGHTBOX */
+/* GALLERY */
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
-#lightbox {
-  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 10000;
-}
-#lightbox img { max-width: 90%; max-height: 80%; border-radius: 8px; }
 
-/* MAP */
-.map-container { width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white; }
-
-@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.7rem; } }
+@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.7rem; } .rsvp-group { flex-direction: row; } }
 </style>
 </head>
 <body>
@@ -135,7 +150,7 @@ h2 { font-size: 2rem; color: #555; }
     <h1>Sylvester & Jezreel</h1>
     <div class="divider"></div>
     <p class="big">31 May 2026</p>
-    <button class="btn" onclick="openInvitation()">Open Invitation</button>
+    <button class="btn pulse" onclick="openInvitation()">Open Invitation</button>
   </div>
 </div>
 
@@ -166,10 +181,10 @@ h2 { font-size: 2rem; color: #555; }
     <h2>The Venue</h2>
     <p class="big">P100, Miri</p>
     <p class="soft">Miri, Sarawak</p>
-    <div class="map-container">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.4534440510126!2d113.9782419!3d4.3857642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4df963c64c7b%3A0xf69c9b6348618e90!2sMiri%2C%20Sarawak!5e0!3m2!1sen!2smy!4v1710000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.453472099307!2d113.985!3d4.39!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjMnMjQuMCJOIDExM8KwNTknMDYuMCJF!5e0!3m2!1sen!2smy!4v1620000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://maps.app.goo.gl/YourLink" target="_blank">Get Directions</a>
+    <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
   </section>
 
   <section id="program">
@@ -185,16 +200,28 @@ h2 { font-size: 2rem; color: #555; }
 
   <section id="dress">
     <h2>Dress Code</h2>
-    <p class="big">Light Green & Light Blue</p>
-    <p class="soft">Colors: Light Green & Light Blue</p>
+    <p class="big">Batik Modern</p>
+    <p class="soft">Theme: Light Green & Light Blue</p>
     <a class="btn" href="#rsvp">RSVP →</a>
   </section>
 
   <section id="rsvp">
     <h2>RSVP</h2>
     <p class="soft">Kindly respond by 1st May 2026</p>
-    <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND!%20Name:" target="_blank">✅ Confirm Attendance</a>
-    <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20cannot%20attend.%20Name:" target="_blank">❌ Decline</a>
+    <div class="rsvp-group">
+        <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND!%20Name:" target="_blank">✅ Yes</a>
+        <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20cannot%20attend.%20Name:" target="_blank">❌ No</a>
+    </div>
+  </section>
+
+  <section id="gift">
+    <h2>Wedding Gift</h2>
+    <p class="soft">For those who wish to gift digitally</p>
+    <div class="qr-container">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=SylvesterJezreelWedding" alt="Wedding QR">
+      <p style="margin-top:10px; font-weight:500; color:#333;">DuitNow / SarawakPay</p>
+    </div>
+    <a class="btn secondary" href="#gallery" style="margin-top:20px;">Gallery →</a>
   </section>
 
   <section id="gallery">
@@ -215,8 +242,8 @@ h2 { font-size: 2rem; color: #555; }
 
 </div>
 
-<div id="lightbox">
-  <span style="position:absolute; top:20px; right:30px; color:white; font-size:3rem; cursor:pointer;" onclick="closeLightbox()">&times;</span>
+<div id="lightbox" onclick="closeLightbox()">
+  <span style="position:absolute; top:20px; right:30px; color:white; font-size:3rem; cursor:pointer;">×</span>
   <img src="" id="lightbox-img">
 </div>
 
@@ -247,16 +274,14 @@ function openInvitation() {
         } else {
             clearInterval(fade);
         }
-    }, 200); // 10 steps of 200ms = 2 seconds
+    }, 200); 
 }
 
-// Music Toggle
 musicBtn.onclick = () => {
     if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; }
     else { music.pause(); musicBtn.innerHTML = "🎵"; }
 };
 
-// Countdown
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime();
@@ -269,18 +294,13 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-// Gallery Lightbox
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
 document.querySelectorAll('.gallery img').forEach(img => {
     img.onclick = () => { lbImg.src = img.src; lightbox.style.display = 'flex'; };
 });
 function closeLightbox() { lightbox.style.display = 'none'; }
-lightbox.onclick = (e) => { if(e.target !== lbImg) closeLightbox(); };
 </script>
 
 </body>
 </html>
-
-
-
