@@ -87,7 +87,7 @@ h2 { font-size: 2rem; color: #555; }
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 .btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
-.btn.secondary { background: #f0f0f0; box-shadow: none; }
+.btn.secondary { background: #f0f0f0; box-shadow: none; color: #666; }
 
 .pulse { animation: pulse-animation 2s infinite; }
 @keyframes pulse-animation {
@@ -111,7 +111,6 @@ h2 { font-size: 2rem; color: #555; }
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   margin-top: 10px;
 }
-/* FIXED: Prevent squeezing by using max-width and height auto */
 .qr-container img { 
   width: 100%; 
   max-width: 250px; 
@@ -183,7 +182,7 @@ h2 { font-size: 2rem; color: #555; }
   <section id="countdownSection">
     <h2>The Countdown</h2>
     <p id="countdown" style="font-size: 1.6rem; font-weight: 600;">Loading...</p>
-    <a class="btn secondary" href="#date">Next →</a>
+    <a class="btn" href="#date">Next →</a>
   </section>
 
   <section id="date">
@@ -198,9 +197,9 @@ h2 { font-size: 2rem; color: #555; }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.1895318182285!2d113.9855555!3d4.4686111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4be2b99fc949%3A0xd7f7a9248a9e62e2!2sP100!5e0!3m2!1sen!2smy!4v1715000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.508537446554!2d113.9877!3d4.4719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3216ad06b9b3e9a9%3A0x6b2e3e57f12e272a!2sP100!5e0!3m2!1sen!2smy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://maps.app.goo.gl/ChIJSZG_uotPHzIR4mieivSp90U" target="_blank">Get Directions</a>
+    <a class="btn" href="https://maps.app.goo.gl/9ZpC6" target="_blank">Get Directions</a>
   </section>
 
   <section id="program">
@@ -211,7 +210,7 @@ h2 { font-size: 2rem; color: #555; }
       <p><span>6:00 PM</span><span>Dinner</span></p>
       <p><span>8:00 PM</span><span>Celebration</span></p>
     </div>
-    <a class="btn secondary" href="#dress">Next →</a>
+    <a class="btn" href="#dress">Next →</a>
   </section>
 
   <section id="dress">
@@ -239,6 +238,7 @@ h2 { font-size: 2rem; color: #555; }
       <p style="margin-top:20px; font-weight:500; color:#333;">DuitNow / SarawakPay</p>
       <p class="soft" style="font-size: 0.7rem;">(Tap to enlarge)</p>
     </div>
+    <a class="btn" href="#gallery" style="margin-top: 30px;">Next →</a>
   </section>
 
   <section id="gallery">
