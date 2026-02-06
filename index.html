@@ -4,17 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sylvester & Jezreel Wedding Invitation</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
 <style>
 body, html{
-  margin:0; padding:0;
+  margin:0;
+  padding:0;
   font-family:'Poppins',sans-serif;
   scroll-behavior:smooth;
-  background:#eef6f4;
-  background-image: url('https://github.com/YOURUSERNAME/YOURREPO/raw/main/batik.jpg'); /* Batik background from GitHub */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-image:url('https://github.com/YOURUSERNAME/YOURREPO/raw/main/batik.jpg');
+  background-size:cover;
+  background-attachment:fixed;
 }
 
 /* SECTIONS */
@@ -27,117 +28,125 @@ section{
   text-align:center;
   padding:20px;
   box-sizing:border-box;
-  backdrop-filter: brightness(0.95);
+  backdrop-filter:brightness(0.95);
 }
 
 /* HEADINGS */
 h1,h2{font-family:'Playfair Display',serif;margin:0 0 10px;}
-h1{font-size:2.4rem;color:#333;}
-h2{font-size:1.3rem;color:#555;}
-.soft{color:#666;font-size:0.9rem;margin-bottom:10px;}
-.big{font-size:1.2rem;font-weight:500;margin-bottom:10px;}
+h1{font-size:2.4rem;}
+h2{font-size:1.3rem;}
+.soft{color:#666;font-size:0.9rem;}
+.big{font-size:1.2rem;font-weight:500;}
 .divider{width:50px;height:2px;background:linear-gradient(to right,#a8e6cf,#b3d9ff);margin:12px auto 20px;}
 
 /* BUTTONS */
 .btn{
-  display:inline-block;margin:8px 4px;
-  padding:10px 20px;border-radius:24px;
+  margin:8px;
+  padding:10px 20px;
+  border-radius:24px;
   background:linear-gradient(135deg,#a8e6cf,#b3d9ff);
-  color:#333;text-decoration:none;font-weight:500;font-size:0.85rem;
-  transition:transform 0.2s;
+  color:#333;
+  text-decoration:none;
+  font-size:0.85rem;
 }
-.btn:hover{transform:scale(1.05);}
-.btn.secondary{background:#f0f0f0;}
-
-/* TIMELINE */
-.timeline{max-width:280px;margin:0 auto;text-align:left;font-size:0.85rem;}
-.timeline p{display:flex; justify-content:space-between; margin:6px 0;}
+.btn.secondary{background:#eee;}
 
 /* MUSIC BUTTON */
 #musicBtn{
-  position:fixed; top:15px; right:15px;
+  position:fixed;
+  top:15px;
+  right:15px;
   z-index:999;
-  padding:10px 14px;
-  border-radius:50%;
-  background:#a8e6cf;
   border:none;
+  border-radius:50%;
+  padding:10px 14px;
   cursor:pointer;
-  font-weight:bold;
+  background:#a8e6cf;
 }
-#musicBtn.playing{background:#b3d9ff;animation:pulse 1s infinite;}
-@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
+#musicBtn.playing{
+  background:#b3d9ff;
+  animation:pulse 1s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+/* 🎵 ALBUM DISPLAY */
+#albumDisplay{
+  position:fixed;
+  top:15px;
+  left:15px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background-image:url('https://github.com/YOURUSERNAME/YOURREPO/raw/main/album.jpg');
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);
+  z-index:998;
+  opacity:0;
+  transform:scale(0.8);
+  transition:all 0.6s ease;
+  cursor:pointer;
+}
+
+#albumDisplay.show{
+  opacity:1;
+  transform:scale(1);
+}
+
+#albumDisplay.rotate{
+  animation:spin 6s linear infinite;
+}
+
+#albumDisplay.minimized{
+  width:36px;
+  height:36px;
+  opacity:0.6;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
 
 /* COUNTDOWN */
-#countdown{font-size:1.2rem;margin:15px 0;color:#333;}
-
-/* GALLERY */
-.gallery{
-  display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
-}
-.gallery img{
-  width:120px; height:120px; object-fit:cover; border-radius:12px; cursor:pointer;
-}
-
-/* LIGHTBOX */
-#lightbox{
-  display:none; position:fixed; top:0; left:0;
-  width:100%; height:100%; background:rgba(0,0,0,0.9);
-  justify-content:center; align-items:center; z-index:2000;
-}
-#lightbox img{max-width:90%; max-height:80%; border-radius:12px;}
-#lightbox .close{position:absolute; top:20px; right:20px; font-size:2rem; color:#fff; cursor:pointer;}
-#lightbox .prev, #lightbox .next{
-  position:absolute; top:50%; font-size:3rem; color:#fff; cursor:pointer;
-  transform:translateY(-50%);
-}
-#lightbox .prev{left:20px;}
-#lightbox .next{right:20px;}
-
-/* SHARE BUTTONS */
-.share-buttons{margin-top:15px; display:flex; justify-content:center; gap:10px;}
-.share-buttons a{
-  display:inline-block; padding:8px 12px; border-radius:20px;
-  text-decoration:none; color:#fff; font-size:0.85rem;
-  background:#a8e6cf; transition:transform 0.2s;
-}
-.share-buttons a:hover{transform:scale(1.1);}
-.share-whatsapp{background:#25D366;}
-.share-facebook{background:#3b5998;}
-.share-twitter{background:#1DA1F2;}
+#countdown{font-size:1.2rem;margin:15px;}
 
 /* MAP */
-.map-container{position:relative;width:100%; max-width:600px; height:350px; margin:15px auto; border-radius:12px; overflow:hidden;}
-.map-container iframe{width:100%; height:100%; border:0;}
+.map-container{
+  width:100%;
+  max-width:600px;
+  height:350px;
+  border-radius:12px;
+  overflow:hidden;
+  margin:15px auto;
+}
+.map-container iframe{width:100%;height:100%;border:0;}
+
 .bring-btn{
-  margin-top:10px;
-  display:inline-block;
   padding:10px 20px;
   border-radius:24px;
   background:#a8e6cf;
   color:#333;
   text-decoration:none;
-  font-weight:500;
-  transition: transform 0.2s;
-}
-.bring-btn:hover{transform:scale(1.05);}
-
-/* RESPONSIVE */
-@media(max-width:600px){
-  h1{font-size:2rem;}
-  h2{font-size:1.1rem;}
-  .big{font-size:1rem;}
 }
 </style>
 </head>
+
 <body>
 
 <!-- MUSIC -->
 <audio id="bgMusic" loop>
   <source src="Love on the brain - Rihanna (sax cover Graziatto).mp3" type="audio/mpeg">
 </audio>
-<button id="musicBtn">🎵</button>
 
-<!-- SECTIONS -->
+<button id="musicBtn">🎵</button>
+<div id="albumDisplay" title="Tap to play / pause"></div>
+
+<!-- COVER -->
 <section id="cover">
   <p class="soft">THE WEDDING OF</p>
   <h1>Sylvester<br>&<br>Jezreel</h1>
@@ -146,12 +155,14 @@ h2{font-size:1.3rem;color:#555;}
   <a class="btn" href="#countdownSection">View Details ↓</a>
 </section>
 
+<!-- COUNTDOWN -->
 <section id="countdownSection">
-  <h2>Countdown to Our Wedding</h2>
+  <h2>Countdown</h2>
   <p id="countdown">Loading...</p>
   <a class="btn" href="#date">Next →</a>
 </section>
 
+<!-- DATE -->
 <section id="date">
   <h2>Save The Date</h2>
   <p class="big">31 May 2026</p>
@@ -159,116 +170,76 @@ h2{font-size:1.3rem;color:#555;}
   <a class="btn" href="#venue">Venue →</a>
 </section>
 
+<!-- VENUE -->
 <section id="venue">
   <h2>Venue</h2>
   <p class="big">P100, Miri</p>
-  <p class="soft">Miri, Sarawak</p>
   <div class="map-container">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.9981814!3d4.441101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8bbabf9149%3A0x45f7a9f48a9e68e2!2sP100!5e0!3m2!1sen!2smy!4v1696532000000!5m2!1sen!2smy" 
-      allowfullscreen="" loading="lazy">
-    </iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.9981814!3d4.441101"></iframe>
   </div>
   <a class="bring-btn" href="https://www.google.com/maps/search/?api=1&query=4.441101,113.9981814" target="_blank">Bring me</a>
 </section>
 
-<section id="program">
-  <h2>Wedding Program</h2>
-  <div class="timeline">
-    <p><span>3:00 PM</span><span>Guest Arrival</span></p>
-    <p><span>4:30 PM</span><span>Ceremony</span></p>
-    <p><span>6:00 PM</span><span>Dinner</span></p>
-    <p><span>8:00 PM</span><span>Celebration</span></p>
-  </div>
-  <a class="btn" href="#dress">Next →</a>
-</section>
-
-<section id="dress">
-  <h2>Dress Code</h2>
-  <p class="big">Batik</p>
-  <p class="soft">Light Green & Light Blue</p>
-  <a class="btn" href="#rsvp">RSVP →</a>
-</section>
-
-<section id="rsvp">
-  <h2>RSVP</h2>
-  <p class="soft">Please confirm your attendance</p>
-  <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">✅ Attend</a>
-  <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20NOT%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">❌ Not Attend</a>
-</section>
-
-<section id="gallery">
-  <h2>Gallery</h2>
-  <div class="gallery">
-    <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
-    <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
-    <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" alt="Photo 3">
-    <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" alt="Photo 4">
-  </div>
-</section>
-
-<section>
-  <p class="soft">Share Our Love 💌</p>
-  <div class="share-buttons">
-    <a class="share-whatsapp" href="https://wa.me/?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!" target="_blank">WhatsApp</a>
-    <a class="share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://your-wedding-link.com" target="_blank">Facebook</a>
-    <a class="share-twitter" href="https://twitter.com/intent/tweet?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!&url=https://your-wedding-link.com" target="_blank">Twitter</a>
-  </div>
-  <a class="btn" href="#cover">Back to Top ↑</a>
-</section>
-
-<!-- LIGHTBOX -->
-<div id="lightbox">
-  <span class="close">&times;</span>
-  <span class="prev">&#10094;</span>
-  <span class="next">&#10095;</span>
-  <img src="" alt="Gallery Image">
-</div>
-
+<!-- SCRIPT -->
 <script>
-// Music toggle
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-musicBtn.addEventListener('click', ()=>{
-  if(music.paused){ music.play(); musicBtn.classList.add('playing'); }
-  else{ music.pause(); musicBtn.classList.remove('playing'); }
+const album = document.getElementById('albumDisplay');
+
+music.volume = 0;
+
+function fadeInMusic(){
+  let v = setInterval(()=>{
+    if(music.volume < 0.9){
+      music.volume += 0.05;
+    }else{
+      clearInterval(v);
+    }
+  },200);
+}
+
+window.addEventListener('load',()=>{
+  music.play().then(()=>{
+    musicBtn.classList.add('playing');
+    album.classList.add('show','rotate');
+    fadeInMusic();
+
+    setTimeout(()=>{
+      album.classList.add('minimized');
+    },5000);
+  }).catch(()=>{});
 });
 
-// Countdown
-const countdown = document.getElementById('countdown');
-const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
+function toggleMusic(){
+  if(music.paused){
+    music.play();
+    musicBtn.classList.add('playing');
+    album.classList.add('rotate');
+    fadeInMusic();
+  }else{
+    music.pause();
+    musicBtn.classList.remove('playing');
+    album.classList.remove('rotate');
+  }
+}
+
+musicBtn.addEventListener('click',toggleMusic);
+album.addEventListener('click',toggleMusic);
+
+/* COUNTDOWN */
+const countdown=document.getElementById('countdown');
+const weddingDate=new Date("May 31, 2026 16:30:00").getTime();
 setInterval(()=>{
-  let now = new Date().getTime();
-  let distance = weddingDate - now;
-  if(distance<0){ countdown.innerHTML="We're Married! 🎉"; return;}
-  let days=Math.floor(distance/(1000*60*60*24));
-  let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
-  let seconds=Math.floor((distance%(1000*60))/1000);
-  countdown.innerHTML=`${days}d ${hours}h ${minutes}m ${seconds}s`;
+  const now=new Date().getTime();
+  const d=weddingDate-now;
+  if(d<0){countdown.innerHTML="We're Married 💍";return;}
+  countdown.innerHTML=
+    Math.floor(d/(1000*60*60*24))+"d "+
+    Math.floor((d%(1000*60*60*24))/(1000*60*60))+"h "+
+    Math.floor((d%(1000*60*60))/(1000*60))+"m "+
+    Math.floor((d%(1000*60))/1000)+"s";
 },1000);
-
-// Lightbox
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = lightbox.querySelector('img');
-const galleryImgs = document.querySelectorAll('.gallery img');
-let currentIndex=0;
-galleryImgs.forEach((img,i)=>{
-  img.addEventListener('click', ()=>{
-    currentIndex=i;
-    lightboxImg.src=img.src;
-    lightbox.style.display="flex";
-  });
-});
-lightbox.querySelector('.close').addEventListener('click',()=>{lightbox.style.display="none";});
-lightbox.querySelector('.prev').addEventListener('click', ()=>{
-  currentIndex=(currentIndex-1+galleryImgs.length)%galleryImgs.length;
-  lightboxImg.src=galleryImgs[currentIndex].src;
-});
-lightbox.querySelector('.next').addEventListener('click', ()=>{
-  currentIndex=(currentIndex+1)%galleryImgs.length;
-  lightboxImg.src=galleryImgs[currentIndex].src;
-});
 </script>
+
 </body>
 </html>
