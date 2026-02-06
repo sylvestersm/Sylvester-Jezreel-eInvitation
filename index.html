@@ -111,7 +111,7 @@ h2 { font-size: 2rem; color: #555; }
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   margin-top: 10px;
 }
-.qr-container img { width: 200px; height: 200px; }
+.qr-container img { width: 200px; height: 200px; cursor: pointer; border-radius: 10px; transition: 0.3s; }
 
 .timeline { width: 100%; max-width: 320px; margin: 0 auto; text-align: left; }
 .timeline p { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
@@ -126,6 +126,20 @@ h2 { font-size: 2rem; color: #555; }
 
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
+
+/* LIGHTBOX POPUP */
+#lightbox {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 5px solid white; }
 
 @media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.7rem; } }
 </style>
@@ -176,9 +190,9 @@ h2 { font-size: 2rem; color: #555; }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.3468961730436!2d114.0101!3d4.4691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f46a2be9149%3A0x75f7a4a48a9e66e2!2sP100%20Events%20Space!5e0!3m2!1sen!2smy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.1895318182285!2d113.9855555!3d4.4686111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4be2b99fc949%3A0xd7f7a9248a9e62e2!2sP100!5e0!3m2!1sen!2smy!4v1715000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://maps.app.goo.gl/xyH9o7Uj9iAnS8G67" target="_blank">Get Directions</a>
+    <a class="btn" href="https://maps.app.goo.gl/ChIJSZG_uotPHzIR4mieivSp90U" target="_blank">Get Directions</a>
   </section>
 
   <section id="program">
@@ -213,8 +227,9 @@ h2 { font-size: 2rem; color: #555; }
     <h2>Wedding Gift</h2>
     <p class="soft">For those who wish to gift digitally</p>
     <div class="qr-container">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=SylvesterJezreelWedding" alt="Wedding QR">
+      <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg" alt="Wedding QR">
       <p style="margin-top:10px; font-weight:500; color:#333;">DuitNow / SarawakPay</p>
+      <p class="soft" style="font-size: 0.7rem;">(Tap to enlarge)</p>
     </div>
   </section>
 
@@ -291,9 +306,15 @@ setInterval(() => {
 
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
-document.querySelectorAll('.gallery img').forEach(img => {
-    img.onclick = () => { lbImg.src = img.src; lightbox.style.display = 'flex'; };
+
+// Function to handle clicks on gallery images AND the gift QR code
+document.querySelectorAll('.gallery img, .qr-container img').forEach(img => {
+    img.onclick = () => { 
+        lbImg.src = img.src; 
+        lightbox.style.display = 'flex'; 
+    };
 });
+
 function closeLightbox() { lightbox.style.display = 'none'; }
 </script>
 
