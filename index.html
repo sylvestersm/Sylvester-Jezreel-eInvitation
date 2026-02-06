@@ -37,10 +37,15 @@ h1{font-size:2.4rem;}
 h2{font-size:1.3rem;}
 .soft{color:#666;font-size:0.9rem;}
 .big{font-size:1.2rem;font-weight:500;}
-.divider{width:50px;height:2px;background:linear-gradient(to right,#a8e6cf,#b3d9ff);margin:12px auto 20px;}
+.divider{
+  width:50px;height:2px;
+  background:linear-gradient(to right,#a8e6cf,#b3d9ff);
+  margin:12px auto 20px;
+}
 
 /* BUTTONS */
 .btn{
+  display:inline-block;
   margin:8px;
   padding:10px 20px;
   border-radius:24px;
@@ -73,7 +78,7 @@ h2{font-size:1.3rem;}
   100%{transform:scale(1);}
 }
 
-/* 🎵 ALBUM DISPLAY */
+/* ALBUM DISPLAY */
 #albumDisplay{
   position:fixed;
   top:15px;
@@ -91,22 +96,9 @@ h2{font-size:1.3rem;}
   transition:all 0.6s ease;
   cursor:pointer;
 }
-
-#albumDisplay.show{
-  opacity:1;
-  transform:scale(1);
-}
-
-#albumDisplay.rotate{
-  animation:spin 6s linear infinite;
-}
-
-#albumDisplay.minimized{
-  width:36px;
-  height:36px;
-  opacity:0.6;
-}
-
+#albumDisplay.show{opacity:1;transform:scale(1);}
+#albumDisplay.rotate{animation:spin 6s linear infinite;}
+#albumDisplay.minimized{width:36px;height:36px;opacity:0.6;}
 @keyframes spin{
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
@@ -114,6 +106,10 @@ h2{font-size:1.3rem;}
 
 /* COUNTDOWN */
 #countdown{font-size:1.2rem;margin:15px;}
+
+/* TIMELINE */
+.timeline{max-width:280px;text-align:left;font-size:0.85rem;}
+.timeline p{display:flex;justify-content:space-between;margin:6px 0;}
 
 /* MAP */
 .map-container{
@@ -124,14 +120,23 @@ h2{font-size:1.3rem;}
   overflow:hidden;
   margin:15px auto;
 }
-.map-container iframe{width:100%;height:100%;border:0;}
-
+.map-container iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
 .bring-btn{
+  margin-top:10px;
   padding:10px 20px;
   border-radius:24px;
   background:#a8e6cf;
   color:#333;
   text-decoration:none;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  h1{font-size:2rem;}
 }
 </style>
 </head>
@@ -157,7 +162,7 @@ h2{font-size:1.3rem;}
 
 <!-- COUNTDOWN -->
 <section id="countdownSection">
-  <h2>Countdown</h2>
+  <h2>Countdown to Our Wedding</h2>
   <p id="countdown">Loading...</p>
   <a class="btn" href="#date">Next →</a>
 </section>
@@ -174,10 +179,47 @@ h2{font-size:1.3rem;}
 <section id="venue">
   <h2>Venue</h2>
   <p class="big">P100, Miri</p>
+  <p class="soft">Miri, Sarawak</p>
+
   <div class="map-container">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.9981814!3d4.441101"></iframe>
+    <iframe
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.9981814!3d4.441101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8bbabf9149%3A0x45f7a9f48a9e68e2!2sP100!5e0!3m2!1sen!2smy!4v1700000000000">
+    </iframe>
   </div>
-  <a class="bring-btn" href="https://www.google.com/maps/search/?api=1&query=4.441101,113.9981814" target="_blank">Bring me</a>
+
+  <a class="bring-btn" href="https://www.google.com/maps/search/?api=1&query=4.441101,113.9981814" target="_blank">
+    Bring me
+  </a>
+</section>
+
+<!-- PROGRAM -->
+<section id="program">
+  <h2>Wedding Program</h2>
+  <div class="timeline">
+    <p><span>3:00 PM</span><span>Guest Arrival</span></p>
+    <p><span>4:30 PM</span><span>Ceremony</span></p>
+    <p><span>6:00 PM</span><span>Dinner</span></p>
+    <p><span>8:00 PM</span><span>Celebration</span></p>
+  </div>
+  <a class="btn" href="#dress">Next →</a>
+</section>
+
+<!-- DRESS -->
+<section id="dress">
+  <h2>Dress Code</h2>
+  <p class="big">Batik</p>
+  <p class="soft">Light Green & Light Blue</p>
+  <a class="btn" href="#rsvp">RSVP →</a>
+</section>
+
+<!-- RSVP -->
+<section id="rsvp">
+  <h2>RSVP</h2>
+  <p class="soft">Please confirm your attendance</p>
+  <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">✅ Attend</a>
+  <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20NOT%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">❌ Not Attend</a>
 </section>
 
 <!-- SCRIPT -->
@@ -188,13 +230,10 @@ const album = document.getElementById('albumDisplay');
 
 music.volume = 0;
 
-function fadeInMusic(){
-  let v = setInterval(()=>{
-    if(music.volume < 0.9){
-      music.volume += 0.05;
-    }else{
-      clearInterval(v);
-    }
+function fadeIn(){
+  let i=setInterval(()=>{
+    if(music.volume<0.9){music.volume+=0.05;}
+    else clearInterval(i);
   },200);
 }
 
@@ -202,11 +241,8 @@ window.addEventListener('load',()=>{
   music.play().then(()=>{
     musicBtn.classList.add('playing');
     album.classList.add('show','rotate');
-    fadeInMusic();
-
-    setTimeout(()=>{
-      album.classList.add('minimized');
-    },5000);
+    fadeIn();
+    setTimeout(()=>album.classList.add('minimized'),5000);
   }).catch(()=>{});
 });
 
@@ -215,7 +251,7 @@ function toggleMusic(){
     music.play();
     musicBtn.classList.add('playing');
     album.classList.add('rotate');
-    fadeInMusic();
+    fadeIn();
   }else{
     music.pause();
     musicBtn.classList.remove('playing');
@@ -223,21 +259,20 @@ function toggleMusic(){
   }
 }
 
-musicBtn.addEventListener('click',toggleMusic);
-album.addEventListener('click',toggleMusic);
+musicBtn.onclick = toggleMusic;
+album.onclick = toggleMusic;
 
 /* COUNTDOWN */
-const countdown=document.getElementById('countdown');
-const weddingDate=new Date("May 31, 2026 16:30:00").getTime();
+const cd=document.getElementById('countdown');
+const wd=new Date("May 31, 2026 16:30:00").getTime();
 setInterval(()=>{
-  const now=new Date().getTime();
-  const d=weddingDate-now;
-  if(d<0){countdown.innerHTML="We're Married 💍";return;}
-  countdown.innerHTML=
-    Math.floor(d/(1000*60*60*24))+"d "+
-    Math.floor((d%(1000*60*60*24))/(1000*60*60))+"h "+
-    Math.floor((d%(1000*60*60))/(1000*60))+"m "+
-    Math.floor((d%(1000*60))/1000)+"s";
+  const d=wd-new Date().getTime();
+  if(d<0){cd.innerHTML="We're Married 💍";return;}
+  cd.innerHTML=
+    Math.floor(d/86400000)+"d "+
+    Math.floor(d%86400000/3600000)+"h "+
+    Math.floor(d%3600000/60000)+"m "+
+    Math.floor(d%60000/1000)+"s";
 },1000);
 </script>
 
