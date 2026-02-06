@@ -111,7 +111,15 @@ h2 { font-size: 2rem; color: #555; }
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   margin-top: 10px;
 }
-.qr-container img { width: 200px; height: 200px; cursor: pointer; border-radius: 10px; transition: 0.3s; }
+/* FIXED: Prevent squeezing by using max-width and height auto */
+.qr-container img { 
+  width: 100%; 
+  max-width: 250px; 
+  height: auto; 
+  cursor: pointer; 
+  border-radius: 10px; 
+  transition: 0.3s; 
+}
 
 .timeline { width: 100%; max-width: 320px; margin: 0 auto; text-align: left; }
 .timeline p { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
@@ -307,7 +315,6 @@ setInterval(() => {
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
 
-// Function to handle clicks on gallery images AND the gift QR code
 document.querySelectorAll('.gallery img, .qr-container img').forEach(img => {
     img.onclick = () => { 
         lbImg.src = img.src; 
@@ -320,4 +327,3 @@ function closeLightbox() { lightbox.style.display = 'none'; }
 
 </body>
 </html>
-
