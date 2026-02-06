@@ -51,6 +51,7 @@ h2{font-size:1.3rem;}
 .timeline{font-size:0.85rem;}
 .timeline p{display:flex;justify-content:space-between;}
 
+/* 🎵 MUSIC BUTTON */
 #musicBtn{
   position:fixed;
   top:15px;
@@ -70,6 +71,40 @@ h2{font-size:1.3rem;}
   0%{transform:scale(1);}
   50%{transform:scale(1.1);}
   100%{transform:scale(1);}
+}
+
+/* 🎶 ALBUM ART */
+#albumArt{
+  position:fixed;
+  top:15px;
+  left:15px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  overflow:hidden;
+  z-index:999;
+  border:2px solid white;
+  box-shadow:0 0 8px rgba(0,0,0,0.3);
+  animation:spin 3s linear infinite;
+  transition:all 0.8s ease;
+}
+
+/* Minimized state */
+#albumArt.minimized{
+  width:20px;
+  height:20px;
+  opacity:0.5;
+}
+
+#albumArt img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
 }
 
 .gallery{
@@ -132,11 +167,19 @@ h2{font-size:1.3rem;}
 
 <body>
 
-<!-- MUSIC -->
+<!-- 🎶 MUSIC -->
 <audio id="bgMusic" loop playsinline>
   <source src="https://github.com/YOURUSERNAME/YOURREPO/raw/main/Love%20on%20the%20brain%20-%20Rihanna%20(sax%20cover%20Graziatto).mp3" type="audio/mpeg">
 </audio>
+
+<!-- 🎵 Button -->
 <button id="musicBtn">🎵</button>
+
+<!-- 💿 Album Art -->
+<div id="albumArt">
+  <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Album Cover">
+</div>
+
 
 <section id="cover">
   <p class="soft">THE WEDDING OF</p>
@@ -210,21 +253,55 @@ h2{font-size:1.3rem;}
 <script>
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
+const albumArt = document.getElementById("albumArt");
+
+let fadeInterval;
+
+/* 🎶 Fade In */
+function fadeInMusic(){
+  music.volume = 0;
+  music.play();
+
+  fadeInterval = setInterval(()=>{
+    if(music.volume < 1){
+      music.volume += 0.05;
+    } else {
+      clearInterval(fadeInterval);
+    }
+  },200);
+}
+
+/* 🎵 Fade Out */
+function fadeOutMusic(){
+  fadeInterval = setInterval(()=>{
+    if(music.volume > 0.05){
+      music.volume -= 0.05;
+    } else {
+      music.pause();
+      clearInterval(fadeInterval);
+    }
+  },200);
+}
 
 /* Attempt autoplay */
-window.addEventListener('load', ()=>{
-  music.play().then(()=>{
-    musicBtn.classList.add('playing');
-  }).catch(()=>{});
+window.addEventListener("load", ()=>{
+  fadeInMusic();
+  musicBtn.classList.add("playing");
+
+  /* Auto minimize album after 5 sec */
+  setTimeout(()=>{
+    albumArt.classList.add("minimized");
+  },5000);
 });
 
+/* Toggle music */
 musicBtn.onclick = ()=>{
   if(music.paused){
-    music.play();
-    musicBtn.classList.add('playing');
-  }else{
-    music.pause();
-    musicBtn.classList.remove('playing');
+    fadeInMusic();
+    musicBtn.classList.add("playing");
+  } else {
+    fadeOutMusic();
+    musicBtn.classList.remove("playing");
   }
 };
 
@@ -258,8 +335,14 @@ imgs.forEach((img,idx)=>{
   }
 });
 lb.querySelector('.close').onclick=()=>lb.style.display='none';
-lb.querySelector('.prev').onclick=()=>{i=(i-1+imgs.length)%imgs.length;lbImg.src=imgs[i].src;}
-lb.querySelector('.next').onclick=()=>{i=(i+1)%imgs.length;lbImg.src=imgs[i].src;}
+lb.querySelector('.prev').onclick=()=>{
+  i=(i-1+imgs.length)%imgs.length;
+  lbImg.src=imgs[i].src;
+}
+lb.querySelector('.next').onclick=()=>{
+  i=(i+1)%imgs.length;
+  lbImg.src=imgs[i].src;
+}
 </script>
 
 </body>
