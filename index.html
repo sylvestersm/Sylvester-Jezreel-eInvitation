@@ -16,13 +16,40 @@ body, html {
   font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
   background-color: #eef6f4;
+  overflow-x: hidden;
+}
+
+/* ENVELOPE / LANDING PAGE */
+#landing-cover {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('https://files.catbox.moe/18v52a.png'); /* Batik Pattern */
+  background-size: 400px;
+  display: flex; justify-content: center; align-items: center;
+  z-index: 9999;
+  transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.envelope-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  max-width: 85%;
+  backdrop-filter: blur(10px);
+}
+
+/* MAIN CONTENT (Initially Hidden) */
+#main-content {
+  display: none;
   background-image: url('https://files.catbox.moe/18v52a.png');
   background-size: 400px;
   background-repeat: repeat;
   background-attachment: fixed;
 }
 
-/* SECTIONS */
 section {
   min-height: 100vh;
   display: flex;
@@ -30,258 +57,227 @@ section {
   align-items: center;
   flex-direction: column;
   text-align: center;
-  padding: 40px 20px;
+  padding: 60px 20px;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
-/* HEADINGS */
+/* TYPOGRAPHY */
 h1, h2 { font-family: 'Playfair Display', serif; margin: 0 0 10px; }
 h1 { font-size: 2.8rem; color: #333; line-height: 1.2; }
-h2 { font-size: 1.8rem; color: #555; }
-.soft { color: #666; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 1px; }
-.big { font-size: 1.3rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
+h2 { font-size: 2rem; color: #555; }
+.soft { color: #666; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
+.big { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
 .divider { 
-  width: 60px; height: 3px; 
+  width: 70px; height: 3px; 
   background: linear-gradient(to right, var(--primary-green), var(--primary-blue)); 
   margin: 15px auto 25px; 
 }
 
 /* BUTTONS */
 .btn {
-  display: inline-block; margin: 8px 4px;
-  padding: 12px 25px; border-radius: 24px;
+  display: inline-block; margin: 10px 5px;
+  padding: 14px 30px; border-radius: 30px;
   background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
-  color: #333; text-decoration: none; font-weight: 500; font-size: 0.9rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  color: #333; text-decoration: none; font-weight: 500; font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-.btn:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
-.btn.secondary { background: #f0f0f0; }
+.btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+.btn.secondary { background: #f0f0f0; box-shadow: none; }
 
 /* TIMELINE */
-.timeline { width: 100%; max-width: 300px; margin: 0 auto; text-align: left; font-size: 0.9rem; }
-.timeline p { display: flex; justify-content: space-between; margin: 10px 0; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
+.timeline { width: 100%; max-width: 320px; margin: 0 auto; text-align: left; }
+.timeline p { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
 
-/* MUSIC BUTTON */
+/* FLOATING MUSIC BUTTON */
 #musicBtn {
-  position: fixed; top: 15px; right: 15px;
-  z-index: 999;
-  width: 50px; height: 50px;
-  border-radius: 50%;
-  background: var(--primary-green);
-  border: none; cursor: pointer;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  position: fixed; top: 20px; right: 20px; z-index: 1000;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: white; border: none; cursor: pointer; font-size: 1.3rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: none; align-items: center; justify-content: center;
 }
-#musicBtn.playing { background: var(--primary-blue); animation: pulse 1.5s infinite; }
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
 /* COUNTDOWN */
-#countdown { font-size: 1.5rem; font-weight: 600; margin: 20px 0; color: #333; letter-spacing: 1px; }
+#countdown { font-size: 1.6rem; font-weight: 600; margin: 20px 0; color: #333; letter-spacing: 1px; }
 
-/* GALLERY */
+/* GALLERY & LIGHTBOX */
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
-.gallery img:hover { transform: translateY(-5px); }
-
-/* LIGHTBOX */
 #lightbox {
-  display: none; position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-  justify-content: center; align-items: center; z-index: 2000;
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 10000;
 }
 #lightbox img { max-width: 90%; max-height: 80%; border-radius: 8px; }
-#lightbox .close { position: absolute; top: 20px; right: 20px; font-size: 2.5rem; color: #fff; cursor: pointer; }
-#lightbox .prev, #lightbox .next {
-  position: absolute; top: 50%; font-size: 3rem; color: #fff; cursor: pointer;
-  transform: translateY(-50%); padding: 10px;
-}
-#lightbox .prev { left: 10px; }
-#lightbox .next { right: 10px; }
 
 /* MAP */
-.map-container { width: 100%; max-width: 600px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white; }
-.map-container iframe { width: 100%; height: 100%; border: 0; }
+.map-container { width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white; }
 
-/* RESPONSIVE */
-@media(max-width:600px){
-  h1 { font-size: 2.2rem; }
-  h2 { font-size: 1.5rem; }
-  .gallery img { width: 120px; height: 120px; }
-}
+@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.7rem; } }
 </style>
 </head>
 <body>
 
-<audio id="bgMusic" loop>
-  <source src="Love on the brain - Rihanna (sax cover Graziatto).mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://raw.githubusercontent.com/YOURUSERNAME/YOURREPO/main/Love%20on%20the%20brain%20-%20Rihanna%20(sax%20cover%20Graziatto).mp3" type="audio/mpeg">
 </audio>
-<button id="musicBtn">🎵</button>
 
-<section id="cover">
-  <p class="soft">THE WEDDING OF</p>
-  <h1>Sylvester<br>&<br>Jezreel</h1>
-  <div class="divider"></div>
-  <p class="soft">You're Invited</p>
-  <a class="btn" href="#countdownSection" id="startBtn">View Details ↓</a>
-</section>
+<button id="musicBtn">⏸️</button>
 
-<section id="countdownSection">
-  <h2>Countdown to Our Wedding</h2>
-  <p id="countdown">Loading...</p>
-  <a class="btn" href="#date">Next →</a>
-</section>
-
-<section id="date">
-  <h2>Save The Date</h2>
-  <p class="big">31 May 2026</p>
-  <p class="soft">Sunday · 4:30 PM – 10:00 PM</p>
-  <a class="btn" href="#venue">Venue →</a>
-</section>
-
-<section id="venue">
-  <h2>Venue</h2>
-  <p class="big">P100, Miri</p>
-  <p class="soft">Miri, Sarawak</p>
-  <div class="map-container">
-    <iframe src="https://www.google.com/maps/embed?pb=YOUR_EMBED_CODE" allowfullscreen="" loading="lazy"></iframe>
+<div id="landing-cover">
+  <div class="envelope-card">
+    <p class="soft">Wedding Invitation</p>
+    <h1>Sylvester & Jezreel</h1>
+    <div class="divider"></div>
+    <p class="big">31 May 2026</p>
+    <button class="btn" onclick="openInvitation()">Open Invitation</button>
   </div>
-  <a class="btn" href="https://maps.google.com" target="_blank">Bring me</a>
-</section>
+</div>
 
-<section id="program">
-  <h2>Wedding Program</h2>
-  <div class="timeline">
-    <p><span>3:00 PM</span><span>Guest Arrival</span></p>
-    <p><span>4:30 PM</span><span>Ceremony</span></p>
-    <p><span>6:00 PM</span><span>Dinner</span></p>
-    <p><span>8:00 PM</span><span>Celebration</span></p>
-  </div>
-  <a class="btn" href="#dress">Next →</a>
-</section>
+<div id="main-content">
+  
+  <section id="cover">
+    <p class="soft">THE WEDDING OF</p>
+    <h1>Sylvester<br>&<br>Jezreel</h1>
+    <div class="divider"></div>
+    <p class="big">Sunday, 31.05.2026</p>
+    <a class="btn" href="#countdownSection">View Details ↓</a>
+  </section>
 
-<section id="dress">
-  <h2>Dress Code</h2>
-  <p class="big">Batik</p>
-  <p class="soft">Colors: Light Green & Light Blue</p>
-  <a class="btn" href="#rsvp">RSVP →</a>
-</section>
+  <section id="countdownSection">
+    <h2>The Countdown</h2>
+    <p id="countdown">Loading...</p>
+    <a class="btn secondary" href="#date">Next →</a>
+  </section>
 
-<section id="rsvp">
-  <h2>RSVP</h2>
-  <p class="soft">Please confirm your attendance</p>
-  <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">✅ Attend</a>
-  <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20NOT%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">❌ Not Attend</a>
-</section>
+  <section id="date">
+    <h2>Save The Date</h2>
+    <p class="big">31 May 2026</p>
+    <p class="soft">Sunday · 4:30 PM – 10:00 PM</p>
+    <a class="btn" href="#venue">Venue →</a>
+  </section>
 
-<section id="gallery">
-  <h2>Gallery</h2>
-  <div class="gallery">
-    <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
-    <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
-    <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" alt="Photo 3">
-    <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" alt="Photo 4">
-  </div>
-</section>
+  <section id="venue">
+    <h2>The Venue</h2>
+    <p class="big">P100, Miri</p>
+    <p class="soft">Miri, Sarawak</p>
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.4534440510126!2d113.9782419!3d4.3857642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4df963c64c7b%3A0xf69c9b6348618e90!2sMiri%2C%20Sarawak!5e0!3m2!1sen!2smy!4v1710000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <a class="btn" href="https://maps.app.goo.gl/YourLink" target="_blank">Get Directions</a>
+  </section>
 
-<section>
-  <p class="soft">Share Our Love 💌</p>
-  <div class="share-buttons">
-    <a class="share-whatsapp" href="https://wa.me/?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!" target="_blank">WhatsApp</a>
-    <a class="share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=YOUR_LINK" target="_blank">Facebook</a>
-  </div>
-  <a class="btn" href="#cover" style="margin-top:30px;">Back to Top ↑</a>
-</section>
+  <section id="program">
+    <h2>Wedding Program</h2>
+    <div class="timeline">
+      <p><span>3:00 PM</span><span>Guest Arrival</span></p>
+      <p><span>4:30 PM</span><span>Ceremony</span></p>
+      <p><span>6:00 PM</span><span>Dinner</span></p>
+      <p><span>8:00 PM</span><span>Celebration</span></p>
+    </div>
+    <a class="btn secondary" href="#dress">Next →</a>
+  </section>
+
+  <section id="dress">
+    <h2>Dress Code</h2>
+    <p class="big">Modern Batik</p>
+    <p class="soft">Colors: Light Green & Light Blue</p>
+    <a class="btn" href="#rsvp">RSVP →</a>
+  </section>
+
+  <section id="rsvp">
+    <h2>RSVP</h2>
+    <p class="soft">Kindly respond by 1st May 2026</p>
+    <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND!%20Name:" target="_blank">✅ Confirm Attendance</a>
+    <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20cannot%20attend.%20Name:" target="_blank">❌ Decline</a>
+  </section>
+
+  <section id="gallery">
+    <h2>Our Moments</h2>
+    <div class="gallery">
+      <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
+      <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
+      <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" alt="Photo 3">
+      <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" alt="Photo 4">
+    </div>
+  </section>
+
+  <section id="share">
+    <p class="soft">Share Our Joy 💌</p>
+    <a class="btn" href="https://wa.me/?text=You're%20invited%20to%20Sylvester%20&%20Jezreel's%20Wedding!%20View%20here:" target="_blank">Share via WhatsApp</a>
+    <a class="btn secondary" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
+  </section>
+
+</div>
 
 <div id="lightbox">
-  <span class="close">×</span>
-  <span class="prev">❮</span>
-  <span class="next">❯</span>
-  <img src="" alt="Gallery Image">
+  <span style="position:absolute; top:20px; right:30px; color:white; font-size:3rem; cursor:pointer;" onclick="closeLightbox()">&times;</span>
+  <img src="" id="lightbox-img">
 </div>
 
 <script>
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-const startBtn = document.getElementById('startBtn');
 
-// Function to Fade In Audio
-function fadeAudioIn() {
+function openInvitation() {
+    // Hide Envelope
+    document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
+    
+    // Reveal Content
+    setTimeout(() => {
+        document.getElementById('main-content').style.display = 'block';
+        musicBtn.style.display = 'flex';
+        document.getElementById('landing-cover').style.display = 'none';
+    }, 1000);
+
+    // Play Music with 2s Fade-In
     music.volume = 0;
-    music.play();
-    let volume = 0;
-    let fadeInterval = setInterval(() => {
-        if (volume < 1) {
-            volume += 0.01;
-            music.volume = volume.toFixed(2);
+    music.play().catch(e => console.log("Autoplay blocked"));
+    
+    let vol = 0;
+    let fade = setInterval(() => {
+        if (vol < 1) {
+            vol += 0.1;
+            music.volume = Math.min(vol, 1).toFixed(2);
         } else {
-            clearInterval(fadeInterval);
+            clearInterval(fade);
         }
-    }, 30); // Increases volume every 30ms (approx 3 seconds total)
+    }, 200); // 10 steps of 200ms = 2 seconds
 }
 
-function toggleMusic() {
-    if (music.paused) {
-        fadeAudioIn();
-        musicBtn.classList.add('playing');
-        musicBtn.innerHTML = "⏸️";
-    } else {
-        music.pause();
-        musicBtn.classList.remove('playing');
-        musicBtn.innerHTML = "🎵";
-    }
-}
+// Music Toggle
+musicBtn.onclick = () => {
+    if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; }
+    else { music.pause(); musicBtn.innerHTML = "🎵"; }
+};
 
-// Click Music Button
-musicBtn.addEventListener('click', toggleMusic);
-
-// Also start music when they click "View Details" (Optional but good for UX)
-startBtn.addEventListener('click', () => {
-    if (music.paused) { toggleMusic(); }
-});
-
-// Countdown logic
-const countdown = document.getElementById('countdown');
+// Countdown
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
-setInterval(()=>{
-  let now = new Date().getTime();
-  let distance = weddingDate - now;
-  if(distance<0){ countdown.innerHTML="We're Married! 🎉"; return;}
-  let days=Math.floor(distance/(1000*60*60*24));
-  let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
-  let seconds=Math.floor((distance%(1000*60))/1000);
-  countdown.innerHTML=`${days}d ${hours}h ${minutes}m ${seconds}s`;
-},1000);
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
+    if(diff < 0) { document.getElementById('countdown').innerHTML = "Married! 🎉"; return; }
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+}, 1000);
 
-// Lightbox logic
+// Gallery Lightbox
 const lightbox = document.getElementById('lightbox');
-const lightboxImg = lightbox.querySelector('img');
-const galleryImgs = document.querySelectorAll('.gallery img');
-let currentIndex=0;
-galleryImgs.forEach((img,i)=>{
-  img.addEventListener('click', ()=>{
-    currentIndex=i;
-    lightboxImg.src=img.src;
-    lightbox.style.display="flex";
-  });
+const lbImg = document.getElementById('lightbox-img');
+document.querySelectorAll('.gallery img').forEach(img => {
+    img.onclick = () => { lbImg.src = img.src; lightbox.style.display = 'flex'; };
 });
-lightbox.querySelector('.close').addEventListener('click',()=>{lightbox.style.display="none";});
-lightbox.querySelector('.prev').addEventListener('click', ()=>{
-  currentIndex=(currentIndex-1+galleryImgs.length)%galleryImgs.length;
-  lightboxImg.src=galleryImgs[currentIndex].src;
-});
-lightbox.querySelector('.next').addEventListener('click', ()=>{
-  currentIndex=(currentIndex+1)%galleryImgs.length;
-  lightboxImg.src=galleryImgs[currentIndex].src;
-});
+function closeLightbox() { lightbox.style.display = 'none'; }
+lightbox.onclick = (e) => { if(e.target !== lbImg) closeLightbox(); };
 </script>
 
 </body>
 </html>
-
