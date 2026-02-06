@@ -1,274 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sylvester & Jezreel Wedding Invitation</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
-<style>
-body, html{
-  margin:0; padding:0;
-  font-family:'Poppins',sans-serif;
-  scroll-behavior:smooth;
-  background:#eef6f4;
-  background-image: url('https://github.com/YOURUSERNAME/YOURREPO/raw/main/batik.jpg'); /* Batik background from GitHub */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylvester & Jezreel Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-green: #a8e6cf;
+            --soft-blue: #b3d9ff;
+            --dark-text: #2c3e50;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+        }
 
-/* SECTIONS */
-section{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  text-align:center;
-  padding:20px;
-  box-sizing:border-box;
-  backdrop-filter: brightness(0.95);
-}
+        * { box-sizing: border-box; }
 
-/* HEADINGS */
-h1,h2{font-family:'Playfair Display',serif;margin:0 0 10px;}
-h1{font-size:2.4rem;color:#333;}
-h2{font-size:1.3rem;color:#555;}
-.soft{color:#666;font-size:0.9rem;margin-bottom:10px;}
-.big{font-size:1.2rem;font-weight:500;margin-bottom:10px;}
-.divider{width:50px;height:2px;background:linear-gradient(to right,#a8e6cf,#b3d9ff);margin:12px auto 20px;}
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            color: var(--dark-text);
+            /* Batik Background Pattern */
+            background-image: url('https://files.catbox.moe/18v52a.png'); 
+            background-size: 400px;
+            background-attachment: fixed;
+            background-repeat: repeat;
+        }
 
-/* BUTTONS */
-.btn{
-  display:inline-block;margin:8px 4px;
-  padding:10px 20px;border-radius:24px;
-  background:linear-gradient(135deg,#a8e6cf,#b3d9ff);
-  color:#333;text-decoration:none;font-weight:500;font-size:0.85rem;
-  transition:transform 0.2s;
-}
-.btn:hover{transform:scale(1.05);}
-.btn.secondary{background:#f0f0f0;}
+        /* SECTIONS */
+        section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s ease-out;
+        }
 
-/* TIMELINE */
-.timeline{max-width:280px;margin:0 auto;text-align:left;font-size:0.85rem;}
-.timeline p{display:flex; justify-content:space-between; margin:6px 0;}
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-/* MUSIC BUTTON */
-#musicBtn{
-  position:fixed; top:15px; right:15px;
-  z-index:999;
-  padding:10px 14px;
-  border-radius:50%;
-  background:#a8e6cf;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-}
-#musicBtn.playing{background:#b3d9ff;animation:pulse 1s infinite;}
-@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
+        /* TYPOGRAPHY */
+        h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; color: #1a2a2d; line-height: 1.1; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 15px; }
+        .soft { color: #7f8c8d; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; }
+        .big { font-size: 1.5rem; font-weight: 500; margin: 10px 0; }
+        
+        .divider { 
+            width: 80px; height: 3px; 
+            background: linear-gradient(to right, var(--soft-green), var(--soft-blue)); 
+            margin: 25px auto; border-radius: 2px;
+        }
 
-/* COUNTDOWN */
-#countdown{font-size:1.2rem;margin:15px 0;color:#333;}
+        /* BUTTONS */
+        .btn {
+            display: inline-block; margin: 10px 5px;
+            padding: 15px 35px; border-radius: 50px;
+            background: linear-gradient(135deg, var(--soft-green), var(--soft-blue));
+            color: #333; text-decoration: none; font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: none; cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 
-/* GALLERY */
-.gallery{
-  display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
-}
-.gallery img{
-  width:120px; height:120px; object-fit:cover; border-radius:12px; cursor:pointer;
-}
+        /* COUNTDOWN GRID */
+        #countdown { display: flex; gap: 10px; margin: 20px 0; }
+        .count-box {
+            background: white; padding: 15px; border-radius: 12px; min-width: 75px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .count-num { display: block; font-size: 1.8rem; font-weight: 600; color: #444; }
+        .count-label { font-size: 0.7rem; color: #999; text-transform: uppercase; }
 
-/* LIGHTBOX */
-#lightbox{
-  display:none; position:fixed; top:0; left:0;
-  width:100%; height:100%; background:rgba(0,0,0,0.9);
-  justify-content:center; align-items:center; z-index:2000;
-}
-#lightbox img{max-width:90%; max-height:80%; border-radius:12px;}
-#lightbox .close{position:absolute; top:20px; right:20px; font-size:2rem; color:#fff; cursor:pointer;}
-#lightbox .prev, #lightbox .next{
-  position:absolute; top:50%; font-size:3rem; color:#fff; cursor:pointer;
-  transform:translateY(-50%);
-}
-#lightbox .prev{left:20px;}
-#lightbox .next{right:20px;}
+        /* GALLERY */
+        .gallery {
+            display: grid; grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; max-width: 450px; margin-top: 20px;
+        }
+        .gallery img { 
+            width: 100%; height: 160px; object-fit: cover; 
+            border-radius: 15px; border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
 
-/* SHARE BUTTONS */
-.share-buttons{margin-top:15px; display:flex; justify-content:center; gap:10px;}
-.share-buttons a{
-  display:inline-block; padding:8px 12px; border-radius:20px;
-  text-decoration:none; color:#fff; font-size:0.85rem;
-  background:#a8e6cf; transition:transform 0.2s;
-}
-.share-buttons a:hover{transform:scale(1.1);}
-.share-whatsapp{background:#25D366;}
-.share-facebook{background:#3b5998;}
-.share-twitter{background:#1DA1F2;}
+        /* MAP */
+        .map-container { 
+            width: 100%; max-width: 500px; height: 300px; 
+            border-radius: 20px; overflow: hidden; margin: 20px 0;
+            border: 6px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
 
-/* MAP */
-.map-container{position:relative;width:100%; max-width:600px; height:350px; margin:15px auto; border-radius:12px; overflow:hidden;}
-.map-container iframe{width:100%; height:100%; border:0;}
-.bring-btn{
-  margin-top:10px;
-  display:inline-block;
-  padding:10px 20px;
-  border-radius:24px;
-  background:#a8e6cf;
-  color:#333;
-  text-decoration:none;
-  font-weight:500;
-  transition: transform 0.2s;
-}
-.bring-btn:hover{transform:scale(1.05);}
+        /* MUSIC FLOATER */
+        #musicBtn {
+            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: white; border: none; cursor: pointer; font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center;
+        }
 
-/* RESPONSIVE */
-@media(max-width:600px){
-  h1{font-size:2rem;}
-  h2{font-size:1.1rem;}
-  .big{font-size:1rem;}
-}
-</style>
+        /* MOBILE FIXES */
+        @media(max-width: 600px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 1.8rem; }
+            .count-box { min-width: 65px; padding: 10px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="https://github.com/YOURUSERNAME/YOURREPO/raw/main/Love%20on%20the%20brain%20-%20Rihanna%20(sax%20cover%20Graziatto).mp3" type="audio/mpeg">
-</audio>
-<button id="musicBtn">🎵</button>
+    <audio id="bgMusic" loop>
+        <source src="https://github.com/YOURUSERNAME/YOURREPO/raw/main/Love%20on%20the%20brain%20-%20Rihanna%20(sax%20cover%20Graziatto).mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicBtn">🎵</button>
 
-<!-- SECTIONS -->
-<section id="cover">
-  <p class="soft">THE WEDDING OF</p>
-  <h1>Sylvester<br>&<br>Jezreel</h1>
-  <div class="divider"></div>
-  <p class="soft">You're Invited</p>
-  <a class="btn" href="#countdownSection">View Details ↓</a>
-</section>
+    <section id="cover">
+        <p class="soft">The Wedding of</p>
+        <h1>Sylvester<br>&<br>Jezreel</h1>
+        <div class="divider"></div>
+        <p class="big">31 May 2026</p>
+        <p class="soft">Miri, Sarawak</p>
+        <a class="btn" href="#countdownSection">Open Invitation</a>
+    </section>
 
-<section id="countdownSection">
-  <h2>Countdown to Our Wedding</h2>
-  <p id="countdown">Loading...</p>
-  <a class="btn" href="#date">Next →</a>
-</section>
+    <section id="countdownSection">
+        <h2>Save The Date</h2>
+        <div id="countdown">
+            <div class="count-box"><span class="count-num" id="days">00</span><span class="count-label">Days</span></div>
+            <div class="count-box"><span class="count-num" id="hours">00</span><span class="count-label">Hrs</span></div>
+            <div class="count-box"><span class="count-num" id="mins">00</span><span class="count-label">Mins</span></div>
+            <div class="count-box"><span class="count-num" id="secs">00</span><span class="count-label">Secs</span></div>
+        </div>
+        <p class="big">Sunday, 31.05.2026</p>
+        <a class="btn" href="#venue">Venue Details</a>
+    </section>
 
-<section id="date">
-  <h2>Save The Date</h2>
-  <p class="big">31 May 2026</p>
-  <p class="soft">Sunday · 4:30 PM – 10:00 PM</p>
-  <a class="btn" href="#venue">Venue →</a>
-</section>
+    <section id="venue">
+        <h2>The Venue</h2>
+        <p class="big">P100, Miri</p>
+        <p class="soft">Miri, Sarawak</p>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.456!2d113.9!3d4.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjQnMDAuMCJOIDExM8KwNTQnMDAuMCJF!5e0!3m2!1sen!2smy!4v123456789" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <a class="btn" href="https://maps.google.com" target="_blank">Open in Google Maps</a>
+    </section>
 
-<section id="venue">
-  <h2>Venue</h2>
-  <p class="big">P100, Miri</p>
-  <p class="soft">Miri, Sarawak</p>
-  <div class="map-container">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.480690948126!2d113.9981814!3d4.441101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8bbabf9149%3A0x45f7a9f48a9e68e2!2sP100!5e0!3m2!1sen!2smy!4v1696532000000!5m2!1sen!2smy" 
-      allowfullscreen="" loading="lazy">
-    </iframe>
-  </div>
-  <a class="bring-btn" href="https://www.google.com/maps/search/?api=1&query=4.441101,113.9981814" target="_blank">Bring me</a>
-</section>
+    <section id="dress">
+        <h2>Dress Code</h2>
+        <p class="big">Batik Elegance</p>
+        <p>We invite you to wear our theme colors:</p>
+        <p><span style="color:#2ecc71; font-weight:bold;">Light Green</span> & <span style="color:#3498db; font-weight:bold;">Light Blue</span></p>
+        <div class="divider"></div>
+        <a class="btn" href="#gallery">See Our Gallery</a>
+    </section>
 
-<section id="program">
-  <h2>Wedding Program</h2>
-  <div class="timeline">
-    <p><span>3:00 PM</span><span>Guest Arrival</span></p>
-    <p><span>4:30 PM</span><span>Ceremony</span></p>
-    <p><span>6:00 PM</span><span>Dinner</span></p>
-    <p><span>8:00 PM</span><span>Celebration</span></p>
-  </div>
-  <a class="btn" href="#dress">Next →</a>
-</section>
+    <section id="gallery">
+        <h2>Our Love Story</h2>
+        <div class="gallery">
+            <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
+            <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
+            <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" alt="Photo 3">
+            <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" alt="Photo 4">
+        </div>
+        <a class="btn" href="#rsvp" style="margin-top:25px;">RSVP Now</a>
+    </section>
 
-<section id="dress">
-  <h2>Dress Code</h2>
-  <p class="big">Batik</p>
-  <p class="soft">Light Green & Light Blue</p>
-  <a class="btn" href="#rsvp">RSVP →</a>
-</section>
+    <section id="rsvp">
+        <h2>Will You Join Us?</h2>
+        <p>Please confirm your attendance by 1 May 2026</p>
+        <div style="margin-top:20px;">
+            <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND!%20Name:" target="_blank">Confirm Attendance</a>
+            <br>
+            <a style="color:#7f8c8d; text-decoration:none; font-size:0.8rem; display:block; margin-top:15px;" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20cannot%20attend.%20Name:">Regretfully Decline</a>
+        </div>
+    </section>
 
-<section id="rsvp">
-  <h2>RSVP</h2>
-  <p class="soft">Please confirm your attendance</p>
-  <a class="btn" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">✅ Attend</a>
-  <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20will%20NOT%20ATTEND%20the%20wedding.%0AName:%20" target="_blank">❌ Not Attend</a>
-</section>
+    <script>
+        // 1. Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
 
-<section id="gallery">
-  <h2>Gallery</h2>
-  <div class="gallery">
-    <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
-    <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
-    <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" alt="Photo 3">
-    <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" alt="Photo 4">
-  </div>
-</section>
+        // 2. Music Player
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        musicBtn.onclick = () => {
+            if(music.paused) {
+                music.play();
+                musicBtn.innerHTML = "⏸️";
+            } else {
+                music.pause();
+                musicBtn.innerHTML = "🎵";
+            }
+        };
 
-<section>
-  <p class="soft">Share Our Love 💌</p>
-  <div class="share-buttons">
-    <a class="share-whatsapp" href="https://wa.me/?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!" target="_blank">WhatsApp</a>
-    <a class="share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://your-wedding-link.com" target="_blank">Facebook</a>
-    <a class="share-twitter" href="https://twitter.com/intent/tweet?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!&url=https://your-wedding-link.com" target="_blank">Twitter</a>
-  </div>
-  <a class="btn" href="#cover">Back to Top ↑</a>
-</section>
+        // 3. Countdown Timer
+        const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
 
-<!-- LIGHTBOX -->
-<div id="lightbox">
-  <span class="close">&times;</span>
-  <span class="prev">&#10094;</span>
-  <span class="next">&#10095;</span>
-  <img src="" alt="Gallery Image">
-</div>
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML = "<h2>We're Married! 🎉</h2>";
+                return;
+            }
 
-<script>
-// Music toggle
-const music = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-musicBtn.addEventListener('click', ()=>{
-  if(music.paused){ music.play(); musicBtn.classList.add('playing'); }
-  else{ music.pause(); musicBtn.classList.remove('playing'); }
-});
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        };
 
-// Countdown
-const countdown = document.getElementById('countdown');
-const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
-setInterval(()=>{
-  let now = new Date().getTime();
-  let distance = weddingDate - now;
-  if(distance<0){ countdown.innerHTML="We're Married! 🎉"; return;}
-  let days=Math.floor(distance/(1000*60*60*24));
-  let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
-  let seconds=Math.floor((distance%(1000*60))/1000);
-  countdown.innerHTML=`${days}d ${hours}h ${minutes}m ${seconds}s`;
-},1000);
-
-// Lightbox
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = lightbox.querySelector('img');
-const galleryImgs = document.querySelectorAll('.gallery img');
-let currentIndex=0;
-galleryImgs.forEach((img,i)=>{
-  img.addEventListener('click', ()=>{
-    currentIndex=i;
-    lightboxImg.src=img.src;
-    lightbox.style.display="flex";
-  });
-});
-lightbox.querySelector('.close').addEventListener('click',()=>{lightbox.style.display="none";});
-lightbox.querySelector('.prev').addEventListener('click', ()=>{
-  currentIndex=(currentIndex-1+galleryImgs.length)%galleryImgs.length;
-  lightboxImg.src=galleryImgs[currentIndex].src;
-});
-lightbox.querySelector('.next').addEventListener('click', ()=>{
-  currentIndex=(currentIndex+1)%galleryImgs.length;
-  lightboxImg.src=galleryImgs[currentIndex].src;
-});
-</script>
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 </body>
 </html>
