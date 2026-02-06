@@ -16,7 +16,6 @@ body, html {
   font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
   background-color: #eef6f4;
-  /* Updated to the Batik pattern I generated for you */
   background-image: url('https://files.catbox.moe/18v52a.png');
   background-size: 400px;
   background-repeat: repeat;
@@ -33,7 +32,6 @@ section {
   text-align: center;
   padding: 40px 20px;
   box-sizing: border-box;
-  /* Glassmorphism effect to make text readable over batik */
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -106,16 +104,6 @@ h2 { font-size: 1.8rem; color: #555; }
 #lightbox .prev { left: 10px; }
 #lightbox .next { right: 10px; }
 
-/* SHARE BUTTONS */
-.share-buttons { margin-top: 20px; display: flex; justify-content: center; gap: 10px; }
-.share-buttons a {
-  display: inline-block; padding: 10px 18px; border-radius: 20px;
-  text-decoration: none; color: #fff; font-size: 0.85rem; transition: 0.2s;
-}
-.share-whatsapp { background: #25D366; }
-.share-facebook { background: #3b5998; }
-.share-twitter { background: #1DA1F2; }
-
 /* MAP */
 .map-container { width: 100%; max-width: 600px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white; }
 .map-container iframe { width: 100%; height: 100%; border: 0; }
@@ -140,7 +128,7 @@ h2 { font-size: 1.8rem; color: #555; }
   <h1>Sylvester<br>&<br>Jezreel</h1>
   <div class="divider"></div>
   <p class="soft">You're Invited</p>
-  <a class="btn" href="#countdownSection">View Details ↓</a>
+  <a class="btn" href="#countdownSection" id="startBtn">View Details ↓</a>
 </section>
 
 <section id="countdownSection">
@@ -161,7 +149,7 @@ h2 { font-size: 1.8rem; color: #555; }
   <p class="big">P100, Miri</p>
   <p class="soft">Miri, Sarawak</p>
   <div class="map-container">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.442!2d113.9!3d4.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjQnMDAuMCJOIDExM8KwNTQnMDAuMCJF!5e0!3m2!1sen!2smy!4v123456789" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=YOUR_EMBED_CODE" allowfullscreen="" loading="lazy"></iframe>
   </div>
   <a class="btn" href="https://maps.google.com" target="_blank">Bring me</a>
 </section>
@@ -205,8 +193,7 @@ h2 { font-size: 1.8rem; color: #555; }
   <p class="soft">Share Our Love 💌</p>
   <div class="share-buttons">
     <a class="share-whatsapp" href="https://wa.me/?text=Join%20Sylvester%20&%20Jezreel's%20Wedding%20on%2031%20May%202026!" target="_blank">WhatsApp</a>
-    <a class="share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=YOUR_LINK_HERE" target="_blank">Facebook</a>
-    <a class="share-twitter" href="https://twitter.com/intent/tweet?text=Join%20Sylvester%20&%20Jezreel's%20Wedding!" target="_blank">Twitter</a>
+    <a class="share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=YOUR_LINK" target="_blank">Facebook</a>
   </div>
   <a class="btn" href="#cover" style="margin-top:30px;">Back to Top ↑</a>
 </section>
@@ -219,23 +206,46 @@ h2 { font-size: 1.8rem; color: #555; }
 </div>
 
 <script>
-// 1. Music toggle
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-musicBtn.addEventListener('click', ()=>{
-  if(music.paused){ 
-    music.play(); 
-    musicBtn.classList.add('playing'); 
-    musicBtn.innerHTML = "⏸️";
-  }
-  else{ 
-    music.pause(); 
-    musicBtn.classList.remove('playing'); 
-    musicBtn.innerHTML = "🎵";
-  }
+const startBtn = document.getElementById('startBtn');
+
+// Function to Fade In Audio
+function fadeAudioIn() {
+    music.volume = 0;
+    music.play();
+    let volume = 0;
+    let fadeInterval = setInterval(() => {
+        if (volume < 1) {
+            volume += 0.01;
+            music.volume = volume.toFixed(2);
+        } else {
+            clearInterval(fadeInterval);
+        }
+    }, 30); // Increases volume every 30ms (approx 3 seconds total)
+}
+
+function toggleMusic() {
+    if (music.paused) {
+        fadeAudioIn();
+        musicBtn.classList.add('playing');
+        musicBtn.innerHTML = "⏸️";
+    } else {
+        music.pause();
+        musicBtn.classList.remove('playing');
+        musicBtn.innerHTML = "🎵";
+    }
+}
+
+// Click Music Button
+musicBtn.addEventListener('click', toggleMusic);
+
+// Also start music when they click "View Details" (Optional but good for UX)
+startBtn.addEventListener('click', () => {
+    if (music.paused) { toggleMusic(); }
 });
 
-// 2. Countdown
+// Countdown logic
 const countdown = document.getElementById('countdown');
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(()=>{
@@ -249,12 +259,11 @@ setInterval(()=>{
   countdown.innerHTML=`${days}d ${hours}h ${minutes}m ${seconds}s`;
 },1000);
 
-// 3. Lightbox logic
+// Lightbox logic
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = lightbox.querySelector('img');
 const galleryImgs = document.querySelectorAll('.gallery img');
 let currentIndex=0;
-
 galleryImgs.forEach((img,i)=>{
   img.addEventListener('click', ()=>{
     currentIndex=i;
@@ -262,22 +271,14 @@ galleryImgs.forEach((img,i)=>{
     lightbox.style.display="flex";
   });
 });
-
 lightbox.querySelector('.close').addEventListener('click',()=>{lightbox.style.display="none";});
-
 lightbox.querySelector('.prev').addEventListener('click', ()=>{
   currentIndex=(currentIndex-1+galleryImgs.length)%galleryImgs.length;
   lightboxImg.src=galleryImgs[currentIndex].src;
 });
-
 lightbox.querySelector('.next').addEventListener('click', ()=>{
   currentIndex=(currentIndex+1)%galleryImgs.length;
   lightboxImg.src=galleryImgs[currentIndex].src;
-});
-
-// Close lightbox on click outside image
-lightbox.addEventListener('click', (e) => {
-  if(e.target === lightbox) lightbox.style.display = "none";
 });
 </script>
 
