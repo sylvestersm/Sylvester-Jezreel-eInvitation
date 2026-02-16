@@ -96,32 +96,13 @@ h2 { font-size: 2rem; color: #555; }
   100% { transform: scale(1); }
 }
 
-.rsvp-group {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  max-width: 400px;
+/* CONTROLS */
+#langSwitch {
+  position: fixed; top: 20px; left: 20px; z-index: 1001;
+  background: white; padding: 5px 15px; border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 0.8rem;
+  font-weight: 600; cursor: pointer; display: none;
 }
-
-.qr-container {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  margin-top: 10px;
-}
-.qr-container img { 
-  width: 100%; 
-  max-width: 250px; 
-  height: auto; 
-  cursor: pointer; 
-  border-radius: 10px; 
-  transition: 0.3s; 
-}
-
-.timeline { width: 100%; max-width: 320px; margin: 0 auto; text-align: left; }
-.timeline p { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
 
 #musicBtn {
   position: fixed; top: 20px; right: 20px; z-index: 1000;
@@ -131,20 +112,17 @@ h2 { font-size: 2rem; color: #555; }
   display: none; align-items: center; justify-content: center;
 }
 
+.timeline { width: 100%; max-width: 350px; margin: 0 auto; text-align: left; }
+.timeline p { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px dashed #ccc; padding-bottom: 5px; align-items: flex-start; }
+.timeline span:first-child { min-width: 85px; font-weight: 500; }
+.details { font-size: 0.75rem; color: #777; line-height: 1.4; display: block; margin-top: 4px; }
+
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
 
-/* LIGHTBOX POPUP */
 #lightbox {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.9);
-  z-index: 10000;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; cursor: pointer;
 }
 #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 5px solid white; }
 
@@ -157,95 +135,102 @@ h2 { font-size: 2rem; color: #555; }
   <source src="https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/raw/refs/heads/main/Love%20on%20the%20brain%20-%20Rihanna%20(sax%20cover%20Graziatto).mp3" type="audio/mpeg">
 </audio>
 
+<div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
 <button id="musicBtn">⏸️</button>
 
 <div id="landing-cover">
   <div class="envelope-card">
-    <p class="soft">Wedding Invitation</p>
+    <p class="soft lang" data-en="Wedding Invitation" data-bm="Undangan Perkahwinan">Wedding Invitation</p>
     <h1>Sylvester & Jezreel</h1>
     <div class="divider"></div>
     <p class="big">31 May 2026</p>
-    <button class="btn pulse" onclick="openInvitation()">Open Invitation</button>
+    <button class="btn pulse lang" data-en="Open Invitation" data-bm="Buka Undangan" onclick="openInvitation()">Open Invitation</button>
   </div>
 </div>
 
 <div id="main-content">
   
   <section id="cover">
-    <p class="soft">THE WEDDING OF</p>
+    <p class="soft lang" data-en="THE WEDDING OF" data-bm="MAJLIS PERKAHWINAN">THE WEDDING OF</p>
     <h1>Sylvester<br>&<br>Jezreel</h1>
     <div class="divider"></div>
-    <p class="big">Sunday, 31.05.2026</p>
-    <a class="btn" href="#countdownSection">View Details ↓</a>
+    <p class="big lang" data-en="Sunday, 31.05.2026" data-bm="Ahad, 31.05.2026">Sunday, 31.05.2026</p>
+    <a class="btn lang" data-en="View Details ↓" data-bm="Lihat Butiran ↓" href="#countdownSection">View Details ↓</a>
   </section>
 
   <section id="countdownSection">
-    <h2>The Countdown</h2>
+    <h2 class="lang" data-en="The Countdown" data-bm="Hitung Detik">The Countdown</h2>
     <p id="countdown" style="font-size: 1.6rem; font-weight: 600;">Loading...</p>
-    <a class="btn" href="#date">Next ↓</a>
+    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#date">Next ↓</a>
   </section>
 
   <section id="date">
-    <h2>Save The Date</h2>
+    <h2 class="lang" data-en="Save The Date" data-bm="Simpan Tarikh">Save The Date</h2>
     <p class="big">31 May 2026</p>
-    <p class="soft">Sunday · 4:30 PM – 10:00 PM</p>
-    <a class="btn" href="#venue">Venue ↓</a>
+    <p class="soft lang" data-en="Sunday · 4:30 PM – 10:00 PM" data-bm="Ahad · 4:30 PTG – 10:00 MLM">Sunday · 4:30 PM – 10:00 PM</p>
+    <a class="btn lang" data-en="Venue ↓" data-bm="Lokasi ↓" href="#venue">Venue ↓</a>
   </section>
 
   <section id="venue">
-    <h2>The Venue</h2>
+    <h2 class="lang" data-en="The Venue" data-bm="Lokasi Majlis">The Venue</h2>
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.508537446554!2d113.9877!3d4.4719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3216ad06b9b3e9a9%3A0x6b2e3e57f12e272a!2sP100!5e0!3m2!1sen!2smy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://maps.google.com/?cid=5041685175627311330&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://maps.app.goo.gl/9ZpC6" target="_blank">Get Directions</a>
+    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.google.com" target="_blank">Get Directions</a>
   </section>
 
   <section id="program">
-    <h2>Wedding Program</h2>
+    <h2 class="lang" data-en="Wedding Program" data-bm="Tentatif Majlis">Wedding Program</h2>
     <div class="timeline">
-      <p><span>4:00 PM</span><span>Guest Arrival</span></p>
-      <p><span>5:00 PM</span><span>Ceremony</span></p>
-      <p><span>5:15 PM</span><span>Welcome Speech</span></p>
-      <p><span>5:20 PM</span><span>Groom & Bride's March In</span></p>
-      <p><span>5:30 PM</span><span>Opening Prayer</span></p>
-      <p><span>6:00 PM</span><span>Dinner</span></p>
-      <p><span>8:00 PM</span><span>Celebration</span></p>
+      <p><span>04:00 PM</span><span class="lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</span></p>
+      <p><span>05:00 PM</span><span class="lang" data-en="Bride, Groom & Family Entry" data-bm="Masuk Pengantin & Keluarga">Bride, Groom & Family Entry</span></p>
+      <p><span>05:15 PM</span><span class="lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</span></p>
+      <p><span>05:20 PM</span><span><span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span><br>
+        <small class="details lang" data-en="Parents, Siblings, Couple & Bridal Party" data-bm="Ibu bapa, Adik-beradik, Pengantin & Pengiring">Parents, Siblings, Couple & Bridal Party</small></span></p>
+      <p><span>05:30 PM</span><span><span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span><br>
+        <small class="details lang" data-en="Blessing, Vows, Rings & Cake Cutting" data-bm="Pemberkatan, Ikrar, Cincin & Potong Kek">Blessing, Vows, Rings & Cake Cutting</small></span></p>
+      <p><span>06:15 PM</span><span class="lang" data-en="Family Photo Session" data-bm="Sesi Foto Keluarga">Family Photo Session</span></p>
+      <p><span>06:45 PM</span><span><span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span><br>
+        <small class="details lang" data-en="Orang Ulu Clothing Exchange & Video" data-bm="Tukar Pakaian Orang Ulu & Video">Orang Ulu Clothing Exchange & Video</small></span></p>
+      <p><span>07:15 PM</span><span class="lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</span></p>
+      <p><span>07:30 PM</span><span class="lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</span></p>
+      <p><span>08:00 PM</span><span class="lang" data-en="Speeches" data-bm="Sesi Ucapan">Speeches</span></p>
+      <p><span>08:30 PM</span><span class="lang" data-en="Open Floor & Guest Photos" data-bm="Sesi Foto Bersama Tetamu">Open Floor & Guest Photos</span></p>
     </div>
-    <a class="btn" href="#dress">Next ↓</a>
+    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#dress">Next ↓</a>
   </section>
 
   <section id="dress">
-    <h2>Dress Code</h2>
+    <h2 class="lang" data-en="Dress Code" data-bm="Etika Berpakaian">Dress Code</h2>
     <p class="big">Batik Modern</p>
-    <p class="soft">Theme: Light Green & Light Blue</p>
+    <p class="soft lang" data-en="Theme: Light Green & Light Blue" data-bm="Tema: Hijau Muda & Biru Muda">Theme: Light Green & Light Blue</p>
     <a class="btn" href="#rsvp">RSVP ↓</a>
   </section>
 
   <section id="rsvp">
-    <h2>RSVP</h2>
-    <p class="soft">Kindly respond by 1st May 2026</p>
+    <h2 class="lang" data-en="RSVP" data-bm="Kehadiran">RSVP</h2>
+    <p class="soft lang" data-en="Kindly respond by 1st May 2026" data-bm="Sila maklum balas sebelum 1 Mei 2026">Kindly respond by 1st May 2026</p>
     <div class="rsvp-group">
-        <a class="btn" href="https://forms.gle/m16Yg9EbfEn5C1iS7" target="_blank">✅ Yes</a>
-        <a class="btn secondary" href="https://wa.me/60178083036?text=Hi%20Sylvester,%20I%20cannot%20attend.%20Name:" target="_blank">❌ No</a>
+        <a class="btn lang" data-en="✅ Yes" data-bm="✅ Ya" href="https://forms.gle/m16Yg9EbfEn5C1iS7" target="_blank">✅ Yes</a>
+        <a class="btn secondary lang" data-en="❌ No" data-bm="❌ Tidak" href="https://wa.me/60178083036" target="_blank">❌ No</a>
     </div>
-    <p style="font-size: 0.8rem; margin-top: 15px; color: #888;">*RSVP helps us with guest counting and seating.</p>
   </section>
 
   <section id="gift">
-    <h2>Wedding Gift</h2>
-    <p class="soft">For those who wish to gift digitally</p>
+    <h2 class="lang" data-en="Wedding Gift" data-bm="Hadiah Perkahwinan">Wedding Gift</h2>
+    <p class="soft lang" data-en="For those who wish to gift digitally" data-bm="Bagi mereka yang ingin memberi secara digital">For those who wish to gift digitally</p>
     <div class="qr-container">
       <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg" alt="Wedding QR">
       <p style="margin-top:20px; font-weight:500; color:#333;">DuitNow / SarawakPay</p>
-      <p class="soft" style="font-size: 0.7rem;">(Tap to enlarge)</p>
+      <p class="soft lang" data-en="(Tap to enlarge)" data-bm="(Ketik untuk besarkan)" style="font-size: 0.7rem;">(Tap to enlarge)</p>
     </div>
-    <a class="btn" href="#gallery" style="margin-top: 30px;">Next ↓</a>
+    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#gallery" style="margin-top: 30px;">Next ↓</a>
   </section>
 
   <section id="gallery">
-    <h2>Our Moments</h2>
+    <h2 class="lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</h2>
     <div class="gallery">
       <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
       <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
@@ -260,9 +245,9 @@ h2 { font-size: 2rem; color: #555; }
         <p>— 1 Corinthians 13:13</p>
     </div>
     <div class="divider"></div>
-    <p class="soft">Share Our Joy 💌</p>
-    <a class="btn" href="https://wa.me/?text=You're%20invited%20to%20Sylvester%20&%20Jezreel's%20Wedding!%20View%20here:" target="_blank">Share via WhatsApp</a>
-    <a class="btn secondary" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
+    <p class="soft lang" data-en="Share Our Joy 💌" data-bm="Kongsi Kegembiraan Kami 💌">Share Our Joy 💌</p>
+    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi melalui WhatsApp" href="https://wa.me/" target="_blank">Share via WhatsApp</a>
+    <a class="btn secondary lang" data-en="Back to Top ↑" data-bm="Kembali ke Atas ↑" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
   </section>
 
 </div>
@@ -275,12 +260,23 @@ h2 { font-size: 2rem; color: #555; }
 <script>
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
+const langSwitch = document.getElementById('langSwitch');
+let currentLang = 'en';
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'bm' : 'en';
+  document.querySelectorAll('.lang').forEach(el => {
+    el.innerHTML = el.getAttribute(`data-${currentLang}`);
+  });
+  langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
+}
 
 function openInvitation() {
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
         musicBtn.style.display = 'flex';
+        langSwitch.style.display = 'block';
         document.getElementById('landing-cover').style.display = 'none';
     }, 1000);
 
@@ -292,9 +288,7 @@ function openInvitation() {
         if (vol < 1) {
             vol += 0.1;
             music.volume = Math.min(vol, 1).toFixed(2);
-        } else {
-            clearInterval(fade);
-        }
+        } else { clearInterval(fade); }
     }, 200); 
 }
 
@@ -317,18 +311,11 @@ setInterval(() => {
 
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
-
 document.querySelectorAll('.gallery img, .qr-container img').forEach(img => {
-    img.onclick = () => { 
-        lbImg.src = img.src; 
-        lightbox.style.display = 'flex'; 
-    };
+    img.onclick = () => { lbImg.src = img.src; lightbox.style.display = 'flex'; };
 });
-
 function closeLightbox() { lightbox.style.display = 'none'; }
 </script>
 
 </body>
 </html>
-
-
