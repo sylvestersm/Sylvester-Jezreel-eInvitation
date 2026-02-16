@@ -112,10 +112,54 @@ h2 { font-size: 2rem; color: #555; }
   display: none; align-items: center; justify-content: center;
 }
 
-.timeline { width: 100%; max-width: 350px; margin: 0 auto; text-align: left; }
-.timeline p { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px dashed #ccc; padding-bottom: 5px; align-items: flex-start; }
-.timeline span:first-child { min-width: 85px; font-weight: 500; }
-.details { font-size: 0.75rem; color: #777; line-height: 1.4; display: block; margin-top: 4px; }
+/* REALIGNED TIMELINE */
+.program-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.timeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+.timeline-table td {
+    padding: 12px 5px;
+    vertical-align: top;
+    border-bottom: 1px dashed #ccc;
+}
+.time-col {
+    width: 90px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+}
+.activity-col {
+    font-size: 0.95rem;
+    color: #444;
+}
+.details {
+    font-size: 0.75rem;
+    color: #777;
+    display: block;
+    margin-top: 3px;
+    line-height: 1.3;
+}
+
+/* GIFT CARD */
+.qr-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin: 20px auto;
+    max-width: 280px;
+}
+.qr-card img {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
@@ -176,30 +220,87 @@ h2 { font-size: 2rem; color: #555; }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://maps.google.com/?cid=5041685175627311330&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.168536967067!2d113.9854421!3d4.4725068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f422849e798f5%3A0x6436f9479e000000!2sLot%201203%2C%20Block%203%2C%20MCLD%2C%20Lutong!5e0!3m2!1sen!2smy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.google.com" target="_blank">Get Directions</a>
+    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/uXv7zN89W8W8W8" target="_blank">Get Directions</a>
   </section>
 
   <section id="program">
     <h2 class="lang" data-en="Wedding Program" data-bm="Tentatif Majlis">Wedding Program</h2>
-    <div class="timeline">
-      <p><span>04:00 PM</span><span class="lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</span></p>
-      <p><span>05:00 PM</span><span class="lang" data-en="Bride, Groom & Family Entry" data-bm="Masuk Pengantin & Keluarga">Bride, Groom & Family Entry</span></p>
-      <p><span>05:15 PM</span><span class="lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</span></p>
-      <p><span>05:20 PM</span><span><span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span><br>
-        <small class="details lang" data-en="Parents, Siblings, Couple & Bridal Party" data-bm="Ibu bapa, Adik-beradik, Pengantin & Pengiring">Parents, Siblings, Couple & Bridal Party</small></span></p>
-      <p><span>05:30 PM</span><span><span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span><br>
-        <small class="details lang" data-en="Blessing, Vows, Rings & Cake Cutting" data-bm="Pemberkatan, Ikrar, Cincin & Potong Kek">Blessing, Vows, Rings & Cake Cutting</small></span></p>
-      <p><span>06:15 PM</span><span class="lang" data-en="Family Photo Session" data-bm="Sesi Foto Keluarga">Family Photo Session</span></p>
-      <p><span>06:45 PM</span><span><span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span><br>
-        <small class="details lang" data-en="Orang Ulu Clothing Exchange & Video" data-bm="Tukar Pakaian Orang Ulu & Video">Orang Ulu Clothing Exchange & Video</small></span></p>
-      <p><span>07:15 PM</span><span class="lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</span></p>
-      <p><span>07:30 PM</span><span class="lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</span></p>
-      <p><span>08:00 PM</span><span class="lang" data-en="Speeches" data-bm="Sesi Ucapan">Speeches</span></p>
-      <p><span>08:30 PM</span><span class="lang" data-en="Open Floor & Guest Photos" data-bm="Sesi Foto Bersama Tetamu">Open Floor & Guest Photos</span></p>
+    <div class="program-container">
+      <table class="timeline-table">
+        <tr>
+          <td class="time-col">04:00 PM</td>
+          <td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td>
+        </tr>
+        <tr>
+          <td class="time-col">05:00 PM</td>
+          <td class="activity-col lang" data-en="Bride, Groom & Family Entry" data-bm="Masuk Pengantin & Keluarga">Bride, Groom & Family Entry</td>
+        </tr>
+        <tr>
+          <td class="time-col">05:15 PM</td>
+          <td class="activity-col lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</td>
+        </tr>
+        <tr>
+          <td class="time-col">05:20 PM</td>
+          <td class="activity-col">
+            <span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span>
+            <small class="details lang" 
+              data-en="Groom's & Bride's Parents, Siblings, Bride & Groom, Bridal Party" 
+              data-bm="Ibu bapa, Adik-beradik, Pengantin & Pengiring">
+              Groom's & Bride's Parents, Siblings, Bride & Groom, Bridal Party
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td class="time-col">05:30 PM</td>
+          <td class="activity-col">
+            <span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span>
+            <small class="details lang" 
+              data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" 
+              data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">
+              Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td class="time-col">06:15 PM</td>
+          <td class="activity-col lang" data-en="Photography Session with Family" data-bm="Sesi Foto Bersama Keluarga">Photography Session with Family</td>
+        </tr>
+        <tr>
+          <td class="time-col">06:45 PM</td>
+          <td class="activity-col">
+            <span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span>
+            <small class="details lang" 
+              data-en="Orang Ulu Clothing Exchange & Video Montage" 
+              data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">
+              Orang Ulu Clothing Exchange & Video Montage
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td class="time-col">07:15 PM</td>
+          <td class="activity-col lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</td>
+        </tr>
+        <tr>
+          <td class="time-col">07:30 PM</td>
+          <td class="activity-col lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:00 PM</td>
+          <td class="activity-col lang" data-en="Speeches (Groom & Bride Side)" data-bm="Sesi Ucapan (Pihak Lelaki & Perempuan)">Speeches (Groom & Bride Side)</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:20 PM</td>
+          <td class="activity-col lang" data-en="Appreciation Speech from Couple" data-bm="Ucapan Penghargaan daripada Pengantin">Appreciation Speech from Couple</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:30 PM</td>
+          <td class="activity-col lang" data-en="Open Floor & Photos with Guests" data-bm="Sesi Foto Bersama Tetamu">Open Floor & Photos with Guests</td>
+        </tr>
+      </table>
     </div>
-    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#dress">Next ↓</a>
+    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#dress" style="margin-top:20px;">Next ↓</a>
   </section>
 
   <section id="dress">
@@ -221,12 +322,12 @@ h2 { font-size: 2rem; color: #555; }
   <section id="gift">
     <h2 class="lang" data-en="Wedding Gift" data-bm="Hadiah Perkahwinan">Wedding Gift</h2>
     <p class="soft lang" data-en="For those who wish to gift digitally" data-bm="Bagi mereka yang ingin memberi secara digital">For those who wish to gift digitally</p>
-    <div class="qr-container">
+    <div class="qr-card">
       <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg" alt="Wedding QR">
-      <p style="margin-top:20px; font-weight:500; color:#333;">DuitNow / SarawakPay</p>
-      <p class="soft lang" data-en="(Tap to enlarge)" data-bm="(Ketik untuk besarkan)" style="font-size: 0.7rem;">(Tap to enlarge)</p>
+      <p style="margin-top:15px; font-weight:500; color:#333; margin-bottom:5px;">DuitNow / SarawakPay</p>
+      <p class="soft lang" data-en="(TAP TO ENLARGE)" data-bm="(KETIK UNTUK BESARKAN)" style="font-size: 0.7rem;">(TAP TO ENLARGE)</p>
     </div>
-    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#gallery" style="margin-top: 30px;">Next ↓</a>
+    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#gallery" style="margin-top: 20px;">Next ↓</a>
   </section>
 
   <section id="gallery">
@@ -246,7 +347,7 @@ h2 { font-size: 2rem; color: #555; }
     </div>
     <div class="divider"></div>
     <p class="soft lang" data-en="Share Our Joy 💌" data-bm="Kongsi Kegembiraan Kami 💌">Share Our Joy 💌</p>
-    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi melalui WhatsApp" href="https://wa.me/" target="_blank">Share via WhatsApp</a>
+    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi melalui WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20Sylvester%20&%20Jezreel's%20Wedding!%20View%20here:" target="_blank">Share via WhatsApp</a>
     <a class="btn secondary lang" data-en="Back to Top ↑" data-bm="Kembali ke Atas ↑" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
   </section>
 
@@ -311,7 +412,7 @@ setInterval(() => {
 
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
-document.querySelectorAll('.gallery img, .qr-container img').forEach(img => {
+document.querySelectorAll('.gallery img, .qr-card img').forEach(img => {
     img.onclick = () => { lbImg.src = img.src; lightbox.style.display = 'flex'; };
 });
 function closeLightbox() { lightbox.style.display = 'none'; }
