@@ -20,30 +20,70 @@ body, html {
   overflow-x: hidden;
 }
 
-/* LANDING PAGE */
+/* LANDING PAGE WITH CINEMATIC ZOOM */
 #landing-cover {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), 
-              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true'); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #f7f9f7;
   display: flex; justify-content: center; align-items: center;
   z-index: 9999;
   transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+  overflow: hidden;
 }
 
+.bg-zoom {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), 
+              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true');
+  background-size: cover;
+  background-position: center;
+  animation: slowZoom 20s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* ENVELOPE CARD WITH SHIMMER */
 .envelope-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.85);
   padding: 50px 30px;
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   max-width: 85%;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255,255,255,0.5);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 1.5s ease-out;
+}
+
+/* Light Sweep Effect on the Card */
+.envelope-card::after {
+  content: "";
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 20%; height: 200%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: rotate(30deg);
+  animation: shimmer 5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -60%; }
+  20% { left: 120%; }
+  100% { left: 120%; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* MAIN CONTENT */
@@ -54,11 +94,11 @@ body, html {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  background-repeat: no-repeat;
 }
 
 @media (min-width: 1024px) {
-  #main-content, #landing-cover { background-size: contain; background-color: #f7f9f7; }
+  #main-content { background-size: contain; background-color: #f7f9f7; }
+  .bg-zoom { background-size: contain; background-repeat: no-repeat; background-color: #f7f9f7;}
 }
 
 /* SECTIONS & TRANSITIONS */
@@ -108,7 +148,7 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
 #langSwitch { position: fixed; top: 20px; left: 20px; z-index: 1001; background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: none; }
 #musicBtn { position: fixed; top: 20px; right: 20px; z-index: 1000; width: 50px; height: 50px; border-radius: 50%; background: white; border: none; cursor: pointer; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none; align-items: center; justify-content: center; }
 
-/* PROGRAM TABLE - DETAILED */
+/* PROGRAM TABLE */
 .program-container { width: 100%; max-width: 450px; margin: 0 auto; }
 .timeline-table { width: 100%; border-collapse: collapse; text-align: left; }
 .timeline-table td { padding: 15px 5px; vertical-align: top; border-bottom: 1px dashed #ced6e0; }
@@ -143,9 +183,10 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
 <button id="musicBtn">⏸️</button>
 
 <div id="landing-cover">
+  <div class="bg-zoom"></div>
   <div class="envelope-card">
     <p class="soft lang" data-en="Wedding Invitation" data-bm="Undangan Perkahwinan">Wedding Invitation</p>
-    <h1>Sylvester & Jezreel</h1>
+    <h1 style="letter-spacing: 2px;">Sylvester & Jezreel</h1>
     <div class="divider"></div>
     <p class="big">31 May 2026</p>
     <button class="btn lang" data-en="Open Invitation" data-bm="Buka Undangan" onclick="openInvitation()">Open Invitation</button>
@@ -179,9 +220,9 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.564415858004!2d113.98418387588383!3d4.460195643878704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4fe9ba3f9149%3A0x45f7a9248a9e68e2!2sP100!5e0!3m2!1sen!2smy!4v1715600000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.522616428461!2d113.9856543!3d4.4904558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8bba499149%3A0xd5f7a4248a9e62e2!2sP100!5e0!3m2!1sen!2smy!4v1710000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://maps.app.goo.gl/ChIJSZG_uotPHzIR4mieivSp90U" target="_blank">Get Directions</a>
+    <a class="btn" href="https://maps.app.goo.gl/uX7MvV3GzU8k3YwX9" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
   </section>
 
@@ -309,7 +350,7 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
         <p>— 1 Corinthians 13:13</p>
     </div>
     <div class="divider"></div>
-    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20Sylvester%20&%20Jezreel's%20Wedding!%20View%20here:" target="_blank">Share via WhatsApp</a>
+    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited!" target="_blank">Share via WhatsApp</a>
     <a class="btn secondary" href="#cover">Back to Top ↑</a>
   </section>
 </div>
