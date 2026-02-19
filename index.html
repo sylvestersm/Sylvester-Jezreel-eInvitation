@@ -9,6 +9,7 @@
 :root {
   --primary-green: #c1d7ae;
   --primary-blue: #b3d9ff;
+  --sage-border: rgba(75, 94, 64, 0.2);
 }
 
 body, html {
@@ -19,7 +20,7 @@ body, html {
   overflow-x: hidden;
 }
 
-/* LANDING PAGE - Auto-adjusting background */
+/* LANDING PAGE */
 #landing-cover {
   position: fixed;
   top: 0; left: 0;
@@ -45,7 +46,7 @@ body, html {
   border: 1px solid rgba(255,255,255,0.5);
 }
 
-/* MAIN CONTENT - Background responsiveness */
+/* MAIN CONTENT BACKGROUND */
 #main-content {
   display: none;
   background: linear-gradient(rgba(247, 250, 247, 0.8), rgba(247, 250, 247, 0.8)), 
@@ -56,14 +57,15 @@ body, html {
   background-repeat: no-repeat;
 }
 
-/* Desktop optimization for background clarity */
+/* Responsive Background for Desktop */
 @media (min-width: 1024px) {
   #main-content, #landing-cover {
-    background-size: contain; /* Prevents stretching on wide screens */
+    background-size: contain; 
     background-color: #f7f9f7;
   }
 }
 
+/* SECTION BORDERS (Consistent across all sections) */
 section {
   min-height: 100vh;
   display: flex;
@@ -71,21 +73,22 @@ section {
   align-items: center;
   flex-direction: column;
   text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
   position: relative;
-  /* Double Border Design */
+  
+  /* The "Double Border" Effect from your First Section */
   border: 15px solid transparent;
-  outline: 1px solid rgba(75, 94, 64, 0.2);
+  outline: 1px solid var(--sage-border);
   outline-offset: -25px;
 }
 
 /* TYPOGRAPHY */
 h1, h2 { font-family: 'Playfair Display', serif; margin: 0 0 10px; }
 h1 { font-size: 2.8rem; color: #2d3436; line-height: 1.2; }
-h2 { font-size: 2rem; color: #4b5e40; }
+h2 { font-size: 2.2rem; color: #4b5e40; }
 .soft { color: #636e72; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
 .big { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
 .divider { 
@@ -114,7 +117,7 @@ h2 { font-size: 2rem; color: #4b5e40; }
   100% { transform: scale(1); }
 }
 
-/* CONTROLS */
+/* NAVIGATION & MUSIC CONTROLS */
 #langSwitch {
   position: fixed; top: 20px; left: 20px; z-index: 1001;
   background: white; padding: 5px 15px; border-radius: 20px;
@@ -130,7 +133,7 @@ h2 { font-size: 2rem; color: #4b5e40; }
   display: none; align-items: center; justify-content: center;
 }
 
-/* TIMELINE */
+/* PROGRAM TABLE */
 .program-container { width: 100%; max-width: 400px; margin: 0 auto; }
 .timeline-table { width: 100%; border-collapse: collapse; text-align: left; }
 .timeline-table td { padding: 12px 5px; vertical-align: top; border-bottom: 1px dashed #ced6e0; }
@@ -138,7 +141,7 @@ h2 { font-size: 2rem; color: #4b5e40; }
 .activity-col { font-size: 0.95rem; color: #2d3436; }
 .details { font-size: 0.75rem; color: #777; display: block; margin-top: 3px; line-height: 1.3; }
 
-/* GIFT CARD */
+/* QR CARD */
 .qr-card {
     background: white;
     padding: 25px;
@@ -153,13 +156,14 @@ h2 { font-size: 2rem; color: #4b5e40; }
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
 
+/* LIGHTBOX */
 #lightbox {
   display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; cursor: pointer;
 }
 #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 5px solid white; }
 
-@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.7rem; } }
+@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.8rem; } }
 </style>
 </head>
 <body>
@@ -192,7 +196,7 @@ h2 { font-size: 2rem; color: #4b5e40; }
 
   <section id="countdownSection">
     <h2 class="lang" data-en="The Countdown" data-bm="Hitung Detik">The Countdown</h2>
-    <p id="countdown" style="font-size: 1.6rem; font-weight: 600;">Loading...</p>
+    <p id="countdown" style="font-size: 1.8rem; font-weight: 600; color: #2d3436;">Loading...</p>
     <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#date">Next ↓</a>
   </section>
 
@@ -206,11 +210,11 @@ h2 { font-size: 2rem; color: #4b5e40; }
   <section id="venue">
     <h2 class="lang" data-en="The Venue" data-bm="Lokasi Majlis">The Venue</h2>
     <p class="big">P100, Miri</p>
-    <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
-    <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/place/P100/@4.441101,113.9981814,17z/data=!3m1!4b1!4m6!3m5!1s0x321f4f8bbabf9149:0x45f7a9f48a9e68e2!8m2!3d4.441101!4d113.9981814!16s%2Fg%2F11xkhrxw4t!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDIxNi4wIKXMDSoASAFQAw%3D%3D" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <p class="soft" style="max-width: 300px;">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
+    <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.261899178384!2d113.9840245749728!3d4.455440395518178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4fadba969149%3A0x45f7a9248aa268e2!2sP100!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/ZKRtGJKBcCuoeKDQ7?g_st=iw" target="_blank">Get Directions</a>
+    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/uX3L5t2wHkC6qS7n6" target="_blank">Get Directions</a>
     <a class="btn secondary lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#program" style="margin-top:10px;">Next ↓</a>
   </section>
 
@@ -219,16 +223,9 @@ h2 { font-size: 2rem; color: #4b5e40; }
     <div class="program-container">
       <table class="timeline-table">
         <tr><td class="time-col">04:00 PM</td><td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td></tr>
-        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Bride, Groom & Family Entry" data-bm="Masuk Pengantin & Keluarga">Bride, Groom & Family Entry</td></tr>
-        <tr><td class="time-col">05:15 PM</td><td class="activity-col lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</td></tr>
-        <tr>
-          <td class="time-col">05:30 PM</td>
-          <td class="activity-col">
-            <span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span>
-            <small class="details lang" data-en="Prayer, Blessing, Vows, Rings" data-bm="Doa, Pemberkatan, Ikrar, Cincin">Prayer, Blessing, Vows, Rings</small>
-          </td>
-        </tr>
-        <tr><td class="time-col">06:45 PM</td><td class="activity-col lang" data-en="Guest Dining" data-bm="Sesi Jamuan Makan">Guest Dining</td></tr>
+        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Main Entry" data-bm="Perarakan Masuk">Main Entry</td></tr>
+        <tr><td class="time-col">05:30 PM</td><td class="activity-col lang" data-en="Wedding Ceremony" data-bm="Upacara Majlis">Wedding Ceremony</td></tr>
+        <tr><td class="time-col">06:45 PM</td><td class="activity-col lang" data-en="Dinner Session" data-bm="Sesi Makan Malam">Dinner Session</td></tr>
         <tr><td class="time-col">08:20 PM</td><td class="activity-col lang" data-en="Appreciation Speech" data-bm="Ucapan Penghargaan">Appreciation Speech</td></tr>
       </table>
     </div>
@@ -255,7 +252,7 @@ h2 { font-size: 2rem; color: #4b5e40; }
     <h2 class="lang" data-en="Wedding Gift" data-bm="Hadiah Perkahwinan">Wedding Gift</h2>
     <div class="qr-card">
       <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg" alt="Wedding QR">
-      <p style="margin-top:15px; font-weight:500; color:#333;">DuitNow / SarawakPay</p>
+      <p style="margin-top:15px; font-weight:600; color:#333;">DuitNow / SarawakPay</p>
     </div>
     <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#gallery" style="margin-top: 20px;">Next ↓</a>
   </section>
@@ -271,12 +268,12 @@ h2 { font-size: 2rem; color: #4b5e40; }
   </section>
 
   <section id="share">
-    <div style="font-style: italic; margin-bottom: 40px; color: #555;">
+    <div style="font-style: italic; margin-bottom: 40px; color: #555; padding: 0 30px;">
         <h2>"The greatest of these is love."</h2>
         <p>— 1 Corinthians 13:13</p>
     </div>
     <div class="divider"></div>
-    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=Invitation" target="_blank">Share via WhatsApp</a>
+    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20Sylvester%20&%20Jezreel's%20Wedding!%20View%20here:" target="_blank">Share via WhatsApp</a>
     <a class="btn secondary lang" data-en="Back to Top ↑" data-bm="Ke Atas ↑" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
   </section>
 </div>
@@ -309,11 +306,12 @@ function openInvitation() {
         document.getElementById('landing-cover').style.display = 'none';
     }, 1000);
 
+    // Audio Fade-in
     music.volume = 0;
     music.play().catch(e => console.log("Autoplay blocked"));
     let vol = 0;
     let fade = setInterval(() => {
-        if (vol < 1) { vol += 0.1; music.volume = Math.min(vol, 1).toFixed(2); } 
+        if (vol < 0.9) { vol += 0.1; music.volume = vol.toFixed(2); } 
         else { clearInterval(fade); }
     }, 200); 
 }
@@ -323,11 +321,12 @@ musicBtn.onclick = () => {
     else { music.pause(); musicBtn.innerHTML = "🎵"; }
 };
 
+// Countdown Timer
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime();
     const diff = weddingDate - now;
-    if(diff < 0) { document.getElementById('countdown').innerHTML = "Married! 🎉"; return; }
+    if(diff < 0) { document.getElementById('countdown').innerHTML = "Just Married! 🎉"; return; }
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -335,6 +334,7 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
+// Lightbox Gallery
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
 document.querySelectorAll('.gallery img, .qr-card img').forEach(img => {
@@ -344,6 +344,3 @@ function closeLightbox() { lightbox.style.display = 'none'; }
 </script>
 </body>
 </html>
-
-
-
