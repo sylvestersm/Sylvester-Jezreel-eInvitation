@@ -46,7 +46,7 @@ body, html {
   border: 1px solid rgba(255,255,255,0.5);
 }
 
-/* MAIN CONTENT BACKGROUND */
+/* MAIN CONTENT */
 #main-content {
   display: none;
   background: linear-gradient(rgba(247, 250, 247, 0.8), rgba(247, 250, 247, 0.8)), 
@@ -57,15 +57,11 @@ body, html {
   background-repeat: no-repeat;
 }
 
-/* Responsive Background for Desktop */
 @media (min-width: 1024px) {
-  #main-content, #landing-cover {
-    background-size: contain; 
-    background-color: #f7f9f7;
-  }
+  #main-content, #landing-cover { background-size: contain; background-color: #f7f9f7; }
 }
 
-/* SECTION BORDERS & TRANSITION STATE */
+/* SECTIONS & TRANSITIONS */
 section {
   min-height: 100vh;
   display: flex;
@@ -81,17 +77,12 @@ section {
   border: 15px solid transparent;
   outline: 1px solid var(--sage-border);
   outline-offset: -25px;
-
-  /* TRANSITION ANIMATION SETUP */
   opacity: 0;
   transform: translateY(30px);
   transition: all 1s ease-out;
 }
 
-section.reveal {
-  opacity: 1;
-  transform: translateY(0);
-}
+section.reveal { opacity: 1; transform: translateY(0); }
 
 /* TYPOGRAPHY */
 h1, h2 { font-family: 'Playfair Display', serif; margin: 0 0 10px; }
@@ -99,11 +90,7 @@ h1 { font-size: 2.8rem; color: #2d3436; line-height: 1.2; }
 h2 { font-size: 2.2rem; color: #4b5e40; }
 .soft { color: #636e72; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
 .big { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
-.divider { 
-  width: 70px; height: 3px; 
-  background: linear-gradient(to right, var(--primary-green), var(--primary-blue)); 
-  margin: 15px auto 25px; 
-}
+.divider { width: 70px; height: 3px; background: linear-gradient(to right, var(--primary-green), var(--primary-blue)); margin: 15px auto 25px; }
 
 /* BUTTONS */
 .btn {
@@ -111,100 +98,37 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
   padding: 14px 25px; border-radius: 30px;
   background: linear-gradient(135deg, #a8e6cf, #dcedc1);
   color: #333; text-decoration: none; font-weight: 500; font-size: 0.95rem;
-  transition: all 0.3s ease;
-  border: none; cursor: pointer;
+  transition: all 0.3s ease; border: none; cursor: pointer;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-.btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
-.btn.secondary { background: #f0f0f0; box-shadow: none; color: #666; }
-
-.pulse { animation: pulse-animation 2s infinite; }
-@keyframes pulse-animation {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
+.btn:hover { transform: scale(1.05); }
+.btn.secondary { background: #f0f0f0; color: #666; box-shadow: none; }
 
 /* CONTROLS */
-#langSwitch {
-  position: fixed; top: 20px; left: 20px; z-index: 1001;
-  background: white; padding: 5px 15px; border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 0.8rem;
-  font-weight: 600; cursor: pointer; display: none;
-}
+#langSwitch { position: fixed; top: 20px; left: 20px; z-index: 1001; background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: none; }
+#musicBtn { position: fixed; top: 20px; right: 20px; z-index: 1000; width: 50px; height: 50px; border-radius: 50%; background: white; border: none; cursor: pointer; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none; align-items: center; justify-content: center; }
 
-#musicBtn {
-  position: fixed; top: 20px; right: 20px; z-index: 1000;
-  width: 50px; height: 50px; border-radius: 50%;
-  background: white; border: none; cursor: pointer; font-size: 1.3rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  display: none; align-items: center; justify-content: center;
-}
-
-/* INTERACTIVE MOSAIC GALLERY */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 10px;
-}
-
-.gallery img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 15px;
-  border: 4px solid white;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
-}
-
-/* Floating Animation */
-.gallery img:nth-child(odd) { animation: float 6s ease-in-out infinite; }
-.gallery img:nth-child(even) { animation: float 6s ease-in-out infinite 1.5s; }
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-.gallery img:hover {
-  transform: scale(1.1) rotate(2deg) !important;
-  z-index: 10;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  border-color: var(--primary-green);
-}
-
-/* Mosaic sizing: Every 3rd image is wide */
-.gallery img:nth-child(3n) {
-  grid-column: span 2;
-  height: 250px;
-}
-
-/* LIGHTBOX */
-#lightbox {
-  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; cursor: pointer;
-}
-#lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 5px solid white; }
-
-/* PROGRAM TABLE */
-.program-container { width: 100%; max-width: 400px; margin: 0 auto; }
+/* PROGRAM TABLE - DETAILED */
+.program-container { width: 100%; max-width: 450px; margin: 0 auto; }
 .timeline-table { width: 100%; border-collapse: collapse; text-align: left; }
-.timeline-table td { padding: 12px 5px; vertical-align: top; border-bottom: 1px dashed #ced6e0; }
+.timeline-table td { padding: 15px 5px; vertical-align: top; border-bottom: 1px dashed #ced6e0; }
 .time-col { width: 90px; font-weight: 600; font-size: 0.9rem; color: #4b5e40; }
 .activity-col { font-size: 0.95rem; color: #2d3436; }
+.details { font-size: 0.75rem; color: #777; display: block; margin-top: 5px; line-height: 1.4; font-style: italic; }
+
+/* MOSAIC GALLERY */
+.photo-mosaic { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 500px; margin: 20px auto; }
+.photo-mosaic img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
+.photo-mosaic img:hover { transform: scale(1.08) rotate(1deg); z-index: 5; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+.photo-mosaic img:nth-child(3n) { grid-column: span 2; height: 220px; }
 
 /* QR CARD */
-.qr-card {
-    background: white; padding: 25px; border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 20px auto; max-width: 280px;
-}
+.qr-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 20px auto; max-width: 280px; }
 .qr-card img { width: 100%; border-radius: 10px; cursor: pointer; }
+
+/* LIGHTBOX */
+#lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
+#lightbox img { max-width: 90%; max-height: 80%; border: 5px solid white; border-radius: 10px; }
 
 @media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.8rem; } }
 </style>
@@ -224,7 +148,7 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
     <h1>Sylvester & Jezreel</h1>
     <div class="divider"></div>
     <p class="big">31 May 2026</p>
-    <button class="btn pulse lang" data-en="Open Invitation" data-bm="Buka Undangan" onclick="openInvitation()">Open Invitation</button>
+    <button class="btn lang" data-en="Open Invitation" data-bm="Buka Undangan" onclick="openInvitation()">Open Invitation</button>
   </div>
 </div>
 
@@ -234,45 +158,113 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
     <h1>Sylvester<br>&<br>Jezreel</h1>
     <div class="divider"></div>
     <p class="big lang" data-en="Sunday, 31.05.2026" data-bm="Ahad, 31.05.2026">Sunday, 31.05.2026</p>
-    <a class="btn lang" data-en="View Details ↓" data-bm="Lihat Butiran ↓" href="#countdownSection">View Details ↓</a>
+    <a class="btn" href="#countdownSection">View Details ↓</a>
   </section>
 
   <section id="countdownSection">
     <h2 class="lang" data-en="The Countdown" data-bm="Hitung Detik">The Countdown</h2>
     <p id="countdown" style="font-size: 1.8rem; font-weight: 600; color: #2d3436;">Loading...</p>
-    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#date">Next ↓</a>
+    <a class="btn" href="#date">Next ↓</a>
   </section>
 
   <section id="date">
     <h2 class="lang" data-en="Save The Date" data-bm="Simpan Tarikh">Save The Date</h2>
     <p class="big">31 May 2026</p>
     <p class="soft lang" data-en="Sunday · 4:30 PM – 10:00 PM" data-bm="Ahad · 4:30 PTG – 10:00 MLM">Sunday · 4:30 PM – 10:00 PM</p>
-    <a class="btn lang" data-en="Venue ↓" data-bm="Lokasi ↓" href="#venue">Venue ↓</a>
+    <a class="btn" href="#venue">Venue ↓</a>
   </section>
 
   <section id="venue">
     <h2 class="lang" data-en="The Venue" data-bm="Lokasi Majlis">The Venue</h2>
     <p class="big">P100, Miri</p>
-    <p class="soft" style="max-width: 300px;">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
-    <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.5226463996917!2d113.98226057588383!3d4.462444695511397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8babbe9149%3A0x45f7a4248abe62e2!2sP100!5e0!3m2!1sen!2smy!4v1715844432123!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
+    <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.564415858004!2d113.98418387588383!3d4.460195643878704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4fe9ba3f9149%3A0x45f7a9248a9e68e2!2sP100!5e0!3m2!1sen!2smy!4v1715600000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/3QW7ZpYvBvL9w5iJ9" target="_blank">Get Directions</a>
-    <a class="btn secondary lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#program" style="margin-top:10px;">Next ↓</a>
+    <a class="btn" href="https://maps.app.goo.gl/ChIJSZG_uotPHzIR4mieivSp90U" target="_blank">Get Directions</a>
+    <a class="btn secondary" href="#program">Next ↓</a>
   </section>
 
   <section id="program">
     <h2 class="lang" data-en="Wedding Program" data-bm="Tentatif Majlis">Wedding Program</h2>
     <div class="program-container">
       <table class="timeline-table">
-        <tr><td class="time-col">04:00 PM</td><td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td></tr>
-        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Main Entry" data-bm="Perarakan Masuk">Main Entry</td></tr>
-        <tr><td class="time-col">05:30 PM</td><td class="activity-col lang" data-en="Wedding Ceremony" data-bm="Upacara Majlis">Wedding Ceremony</td></tr>
-        <tr><td class="time-col">06:45 PM</td><td class="activity-col lang" data-en="Dinner Session" data-bm="Sesi Makan Malam">Dinner Session</td></tr>
-        <tr><td class="time-col">08:20 PM</td><td class="activity-col lang" data-en="Appreciation Speech" data-bm="Ucapan Penghargaan">Appreciation Speech</td></tr>
+        <tr>
+          <td class="time-col">04:00 PM</td>
+          <td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td>
+        </tr>
+        <tr>
+          <td class="time-col">05:00 PM</td>
+          <td class="activity-col lang" data-en="Bride, Groom & Family Entry ready" data-bm="Penyediaan Masuk Pengantin & Keluarga">Bride, Groom & Family Entry ready</td>
+        </tr>
+        <tr>
+          <td class="time-col">05:15 PM</td>
+          <td class="activity-col lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</td>
+        </tr>
+        <tr>
+          <td class="time-col">05:20 PM</td>
+          <td class="activity-col">
+            <span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span>
+            <small class="details lang" 
+              data-en="Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen" 
+              data-bm="Ibu bapa, Adik-beradik, Pengantin, Pengiring Lelaki & Perempuan">
+              Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td class="time-col">05:30 PM</td>
+          <td class="activity-col">
+            <span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span>
+            <small class="details lang" 
+              data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" 
+              data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">
+              Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td class="time-col">06:15 PM</td>
+          <td class="activity-col lang" data-en="Photography Session with Family" data-bm="Sesi Foto Bersama Keluarga">Photography Session with Family</td>
+        </tr>
+        <tr>
+          <td class="time-col">06:45 PM</td>
+          <td class="activity-col">
+            <span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span>
+            <small class="details lang" 
+              data-en="Orang Ulu Clothing Exchange & Video Montage" 
+              data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">
+              Orang Ulu Clothing Exchange & Video Montage
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td class="time-col">07:15 PM</td>
+          <td class="activity-col lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</td>
+        </tr>
+        <tr>
+          <td class="time-col">07:30 PM</td>
+          <td class="activity-col lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:00 PM</td>
+          <td class="activity-col lang" data-en="Speech from Groom's Side" data-bm="Ucapan Pihak Lelaki">Speech from Groom's Side</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:10 PM</td>
+          <td class="activity-col lang" data-en="Speech from Bride's Side" data-bm="Ucapan Pihak Perempuan">Speech from Bride's Side</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:20 PM</td>
+          <td class="activity-col lang" data-en="Appreciation Speech from the Couple" data-bm="Ucapan Penghargaan daripada Pengantin">Appreciation Speech from the Couple</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:30 PM</td>
+          <td class="activity-col lang" data-en="Open Floor Session & Guest Photos" data-bm="Sesi Foto Bersama Tetamu">Open Floor Session & Guest Photos</td>
+        </tr>
       </table>
     </div>
-    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#dress" style="margin-top:20px;">Next ↓</a>
+    <a class="btn" href="#dress" style="margin-top:20px;">Next ↓</a>
   </section>
 
   <section id="dress">
@@ -286,8 +278,8 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
     <h2 class="lang" data-en="RSVP" data-bm="Kehadiran">RSVP</h2>
     <p class="soft lang" data-en="Kindly respond by 1st May 2026" data-bm="Sila maklum balas sebelum 1 Mei 2026">Kindly respond by 1st May 2026</p>
     <div class="rsvp-group">
-        <a class="btn lang" data-en="✅ Yes" data-bm="✅ Ya" href="https://forms.gle/m16Yg9EbfEn5C1iS7" target="_blank">✅ Yes</a>
-        <a class="btn secondary lang" data-en="❌ No" data-bm="❌ Tidak" href="https://wa.me/60178083036" target="_blank">❌ No</a>
+        <a class="btn" href="https://forms.gle/m16Yg9EbfEn5C1iS7" target="_blank">✅ Yes</a>
+        <a class="btn secondary" href="https://wa.me/60178083036" target="_blank">❌ No</a>
     </div>
   </section>
 
@@ -297,37 +289,32 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
       <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg" alt="Wedding QR">
       <p style="margin-top:15px; font-weight:600; color:#333;">DuitNow / SarawakPay</p>
     </div>
-    <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#gallery" style="margin-top: 20px;">Next ↓</a>
+    <a class="btn" href="#gallery">Next ↓</a>
   </section>
 
   <section id="gallery">
-    <p class="soft lang" data-en="Our Story" data-bm="Kisah Kami">Our Story</p>
     <h2 class="lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</h2>
     <div class="divider"></div>
-    <div class="gallery">
+    <div class="photo-mosaic">
       <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
       <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
       <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" alt="Photo 3">
       <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" alt="Photo 4">
     </div>
-    <p class="soft lang" style="margin-top: 15px;" data-en="(Tap to enlarge)" data-bm="(Ketik untuk besarkan)">(Tap to enlarge)</p>
   </section>
 
   <section id="share">
-    <div style="font-style: italic; margin-bottom: 40px; color: #555; padding: 0 30px;">
+    <div style="font-style: italic; margin-bottom: 40px; color: #555;">
         <h2>"The greatest of these is love."</h2>
         <p>— 1 Corinthians 13:13</p>
     </div>
     <div class="divider"></div>
     <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20Sylvester%20&%20Jezreel's%20Wedding!%20View%20here:" target="_blank">Share via WhatsApp</a>
-    <a class="btn secondary lang" data-en="Back to Top ↑" data-bm="Ke Atas ↑" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
+    <a class="btn secondary" href="#cover">Back to Top ↑</a>
   </section>
 </div>
 
-<div id="lightbox" onclick="closeLightbox()">
-  <span style="position:absolute; top:20px; right:30px; color:white; font-size:3rem; cursor:pointer;">×</span>
-  <img src="" id="lightbox-img">
-</div>
+<div id="lightbox" onclick="this.style.display='none'"><img id="lbImg" src=""></div>
 
 <script>
 const music = document.getElementById('bgMusic');
@@ -335,20 +322,13 @@ const musicBtn = document.getElementById('musicBtn');
 const langSwitch = document.getElementById('langSwitch');
 let currentLang = 'en';
 
-const observerOptions = { threshold: 0.2 };
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('reveal');
-        }
-    });
-}, observerOptions);
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+}, { threshold: 0.1 });
 
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'bm' : 'en';
-  document.querySelectorAll('.lang').forEach(el => {
-    el.innerHTML = el.getAttribute(`data-${currentLang}`);
-  });
+  document.querySelectorAll('.lang').forEach(el => el.innerHTML = el.getAttribute(`data-${currentLang}`));
   langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
 }
 
@@ -356,46 +336,28 @@ function openInvitation() {
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
-        musicBtn.style.display = 'flex';
-        langSwitch.style.display = 'block';
+        musicBtn.style.display = 'flex'; langSwitch.style.display = 'block';
         document.getElementById('landing-cover').style.display = 'none';
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
     }, 1000);
-
-    music.volume = 0;
-    music.play().catch(e => console.log("Autoplay blocked"));
+    music.volume = 0; music.play().catch(e => console.log("Music play blocked"));
     let vol = 0;
-    let fade = setInterval(() => {
-        if (vol < 0.9) { vol += 0.1; music.volume = vol.toFixed(2); } 
-        else { clearInterval(fade); }
-    }, 200); 
+    let fade = setInterval(() => { if (vol < 0.9) { vol += 0.1; music.volume = vol.toFixed(2); } else clearInterval(fade); }, 200);
 }
 
-musicBtn.onclick = () => {
-    if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; }
-    else { music.pause(); musicBtn.innerHTML = "🎵"; }
-};
+musicBtn.onclick = () => { if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } else { music.pause(); musicBtn.innerHTML = "🎵"; } };
 
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
-    const now = new Date().getTime();
-    const diff = weddingDate - now;
+    const now = new Date().getTime(); const diff = weddingDate - now;
     if(diff < 0) { document.getElementById('countdown').innerHTML = "Just Married! 🎉"; return; }
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24)), h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)), m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)), s = Math.floor((diff % (1000 * 60)) / 1000);
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-const lightbox = document.getElementById('lightbox');
-const lbImg = document.getElementById('lightbox-img');
-document.querySelectorAll('.gallery img, .qr-card img').forEach(img => {
-    img.onclick = () => { lbImg.src = img.src; lightbox.style.display = 'flex'; };
+document.querySelectorAll('.photo-mosaic img, .qr-card img').forEach(img => {
+    img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
-function closeLightbox() { lightbox.style.display = 'none'; }
 </script>
 </body>
 </html>
