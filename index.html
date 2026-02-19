@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary-green: #c1d7ae; /* Aesthetic Sage Green */
+  --primary-green: #c1d7ae;
   --primary-blue: #b3d9ff;
 }
 
@@ -19,23 +19,23 @@ body, html {
   overflow-x: hidden;
 }
 
-/* ENVELOPE / LANDING PAGE - Garden Aesthetic */
+/* LANDING PAGE - Auto-adjusting background */
 #landing-cover {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  /* Light overlay to keep the garden aesthetic bright */
-  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), 
-              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/background.png?raw=true'); 
+  background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), 
+              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true'); 
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   display: flex; justify-content: center; align-items: center;
   z-index: 9999;
   transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .envelope-card {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   padding: 50px 30px;
   border-radius: 20px;
   text-align: center;
@@ -45,14 +45,23 @@ body, html {
   border: 1px solid rgba(255,255,255,0.5);
 }
 
-/* MAIN CONTENT - Garden Aesthetic */
+/* MAIN CONTENT - Background responsiveness */
 #main-content {
   display: none;
-  background: linear-gradient(rgba(247, 250, 247, 0.85), rgba(247, 250, 247, 0.85)), 
-              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/background.png?raw=true');
+  background: linear-gradient(rgba(247, 250, 247, 0.8), rgba(247, 250, 247, 0.8)), 
+              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Desktop optimization for background clarity */
+@media (min-width: 1024px) {
+  #main-content, #landing-cover {
+    background-size: contain; /* Prevents stretching on wide screens */
+    background-color: #f7f9f7;
+  }
 }
 
 section {
@@ -64,15 +73,19 @@ section {
   text-align: center;
   padding: 60px 20px;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  position: relative;
+  /* Double Border Design */
+  border: 15px solid transparent;
+  outline: 1px solid rgba(75, 94, 64, 0.2);
+  outline-offset: -25px;
 }
 
 /* TYPOGRAPHY */
 h1, h2 { font-family: 'Playfair Display', serif; margin: 0 0 10px; }
 h1 { font-size: 2.8rem; color: #2d3436; line-height: 1.2; }
-h2 { font-size: 2rem; color: #4b5e40; } /* Mossy Green heading */
+h2 { font-size: 2rem; color: #4b5e40; }
 .soft { color: #636e72; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
 .big { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
 .divider { 
@@ -169,7 +182,6 @@ h2 { font-size: 2rem; color: #4b5e40; } /* Mossy Green heading */
 </div>
 
 <div id="main-content">
-  
   <section id="cover">
     <p class="soft lang" data-en="THE WEDDING OF" data-bm="MAJLIS PERKAHWINAN">THE WEDDING OF</p>
     <h1>Sylvester<br>&<br>Jezreel</h1>
@@ -195,15 +207,10 @@ h2 { font-size: 2rem; color: #4b5e40; } /* Mossy Green heading */
     <h2 class="lang" data-en="The Venue" data-bm="Lokasi Majlis">The Venue</h2>
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
-    
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.1895697263593!2d113.9856985!3d4.4691763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f469956417d%3A0x67396a8be4401861!2sP100!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" 
-        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
-      </iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.33282245785!2d113.9841!3d4.4633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnNDguMSJOIDExM8KwNTknMDIuOCJF!5e0!3m2!1sen!2smy!4v1620000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-
-    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/uXv4N19N7oJv62m67" target="_blank">Get Directions</a>
+    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#program" style="margin-top:10px;">Next ↓</a>
   </section>
 
@@ -212,36 +219,17 @@ h2 { font-size: 2rem; color: #4b5e40; } /* Mossy Green heading */
     <div class="program-container">
       <table class="timeline-table">
         <tr><td class="time-col">04:00 PM</td><td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td></tr>
-        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Bride, Groom & Family Entry ready" data-bm="Penyediaan Masuk Pengantin & Keluarga">Bride, Groom & Family Entry ready</td></tr>
+        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Bride, Groom & Family Entry" data-bm="Masuk Pengantin & Keluarga">Bride, Groom & Family Entry</td></tr>
         <tr><td class="time-col">05:15 PM</td><td class="activity-col lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</td></tr>
-        <tr>
-          <td class="time-col">05:20 PM</td>
-          <td class="activity-col">
-            <span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span>
-            <small class="details lang" data-en="Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen" data-bm="Ibu bapa, Adik-beradik, Pengantin, Pengiring Lelaki & Perempuan">Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen</small>
-          </td>
-        </tr>
         <tr>
           <td class="time-col">05:30 PM</td>
           <td class="activity-col">
             <span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span>
-            <small class="details lang" data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting</small>
+            <small class="details lang" data-en="Prayer, Blessing, Vows, Rings" data-bm="Doa, Pemberkatan, Ikrar, Cincin">Prayer, Blessing, Vows, Rings</small>
           </td>
         </tr>
-        <tr><td class="time-col">06:15 PM</td><td class="activity-col lang" data-en="Photography Session with Family" data-bm="Sesi Foto Bersama Keluarga">Photography Session with Family</td></tr>
-        <tr>
-          <td class="time-col">06:45 PM</td>
-          <td class="activity-col">
-            <span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span>
-            <small class="details lang" data-en="Orang Ulu Clothing Exchange & Video Montage" data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">Orang Ulu Clothing Exchange & Video Montage</small>
-          </td>
-        </tr>
-        <tr><td class="time-col">07:15 PM</td><td class="activity-col lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</td></tr>
-        <tr><td class="time-col">07:30 PM</td><td class="activity-col lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</td></tr>
-        <tr><td class="time-col">08:00 PM</td><td class="activity-col lang" data-en="Speech from Groom's Side" data-bm="Ucapan Pihak Lelaki">Speech from Groom's Side</td></tr>
-        <tr><td class="time-col">08:10 PM</td><td class="activity-col lang" data-en="Speech from Bride's Side" data-bm="Ucapan Pihak Perempuan">Speech from Bride's Side</td></tr>
-        <tr><td class="time-col">08:20 PM</td><td class="activity-col lang" data-en="Appreciation Speech from the Couple" data-bm="Ucapan Penghargaan daripada Pengantin">Appreciation Speech from the Couple</td></tr>
-        <tr><td class="time-col">08:30 PM</td><td class="activity-col lang" data-en="Open Floor Session & Guest Photos" data-bm="Sesi Foto Bersama Tetamu">Open Floor Session & Guest Photos</td></tr>
+        <tr><td class="time-col">06:45 PM</td><td class="activity-col lang" data-en="Guest Dining" data-bm="Sesi Jamuan Makan">Guest Dining</td></tr>
+        <tr><td class="time-col">08:20 PM</td><td class="activity-col lang" data-en="Appreciation Speech" data-bm="Ucapan Penghargaan">Appreciation Speech</td></tr>
       </table>
     </div>
     <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#dress" style="margin-top:20px;">Next ↓</a>
@@ -265,11 +253,9 @@ h2 { font-size: 2rem; color: #4b5e40; } /* Mossy Green heading */
 
   <section id="gift">
     <h2 class="lang" data-en="Wedding Gift" data-bm="Hadiah Perkahwinan">Wedding Gift</h2>
-    <p class="soft lang" data-en="For those who wish to gift digitally" data-bm="Bagi mereka yang ingin memberi secara digital">For those who wish to gift digitally</p>
     <div class="qr-card">
       <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg" alt="Wedding QR">
-      <p style="margin-top:15px; font-weight:500; color:#333; margin-bottom:5px;">DuitNow / SarawakPay</p>
-      <p class="soft lang" data-en="(TAP TO ENLARGE)" data-bm="(KETIK UNTUK BESARKAN)" style="font-size: 0.7rem;">(TAP TO ENLARGE)</p>
+      <p style="margin-top:15px; font-weight:500; color:#333;">DuitNow / SarawakPay</p>
     </div>
     <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#gallery" style="margin-top: 20px;">Next ↓</a>
   </section>
@@ -285,16 +271,14 @@ h2 { font-size: 2rem; color: #4b5e40; } /* Mossy Green heading */
   </section>
 
   <section id="share">
-    <div style="font-style: italic; margin-bottom: 40px; color: #555; padding: 0 20px;">
-        <h2 style="font-size: 1.4rem;">"And now these three remain: faith, hope and love. <br>But the greatest of these is love."</h2>
+    <div style="font-style: italic; margin-bottom: 40px; color: #555;">
+        <h2>"The greatest of these is love."</h2>
         <p>— 1 Corinthians 13:13</p>
     </div>
     <div class="divider"></div>
-    <p class="soft lang" data-en="Share Our Joy 💌" data-bm="Kongsi Kegembiraan Kami 💌">Share Our Joy 💌</p>
-    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi melalui WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20Sylvester%20&%20Jezreel's%20Wedding!%20View%20here:" target="_blank">Share via WhatsApp</a>
-    <a class="btn secondary lang" data-en="Back to Top ↑" data-bm="Kembali ke Atas ↑" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
+    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=Invitation" target="_blank">Share via WhatsApp</a>
+    <a class="btn secondary lang" data-en="Back to Top ↑" data-bm="Ke Atas ↑" href="#cover" style="margin-top:20px;">Back to Top ↑</a>
   </section>
-
 </div>
 
 <div id="lightbox" onclick="closeLightbox()">
@@ -327,13 +311,10 @@ function openInvitation() {
 
     music.volume = 0;
     music.play().catch(e => console.log("Autoplay blocked"));
-    
     let vol = 0;
     let fade = setInterval(() => {
-        if (vol < 1) {
-            vol += 0.1;
-            music.volume = Math.min(vol, 1).toFixed(2);
-        } else { clearInterval(fade); }
+        if (vol < 1) { vol += 0.1; music.volume = Math.min(vol, 1).toFixed(2); } 
+        else { clearInterval(fade); }
     }, 200); 
 }
 
@@ -361,6 +342,5 @@ document.querySelectorAll('.gallery img, .qr-card img').forEach(img => {
 });
 function closeLightbox() { lightbox.style.display = 'none'; }
 </script>
-
 </body>
 </html>
