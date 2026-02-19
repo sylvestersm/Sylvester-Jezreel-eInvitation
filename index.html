@@ -65,7 +65,7 @@ body, html {
   }
 }
 
-/* SECTION BORDERS (Consistent across all sections) */
+/* SECTION BORDERS & TRANSITION STATE */
 section {
   min-height: 100vh;
   display: flex;
@@ -78,11 +78,20 @@ section {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
   position: relative;
-  
-  /* The "Double Border" Effect from your First Section */
   border: 15px solid transparent;
   outline: 1px solid var(--sage-border);
   outline-offset: -25px;
+
+  /* TRANSITION ANIMATION SETUP */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
+}
+
+/* When the section becomes visible */
+section.reveal {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* TYPOGRAPHY */
@@ -117,7 +126,7 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
   100% { transform: scale(1); }
 }
 
-/* NAVIGATION & MUSIC CONTROLS */
+/* CONTROLS */
 #langSwitch {
   position: fixed; top: 20px; left: 20px; z-index: 1001;
   background: white; padding: 5px 15px; border-radius: 20px;
@@ -156,7 +165,6 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
 
-/* LIGHTBOX */
 #lightbox {
   display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; cursor: pointer;
@@ -208,25 +216,15 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
   </section>
 
   <section id="venue">
-  <h2 class="lang" data-en="The Venue" data-bm="Lokasi Majlis">The Venue</h2>
-  <p class="big">P100, Miri</p>
-  <p class="soft" style="max-width: 300px;">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
-  
-  <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.522204561085!2d113.99560647585094!3d4.44110099553283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8ba2bf9149%3A0x45f7a9f48aa268e2!2sP100!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" 
-      width="100%" 
-      height="100%" 
-      style="border:0;" 
-      allowfullscreen="" 
-      loading="lazy" 
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-
-  <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/J8nimSTdzEPfZaN28" target="_blank">Get Directions</a>
-  <a class="btn secondary lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#program" style="margin-top:10px;">Next ↓</a>
-</section>
+    <h2 class="lang" data-en="The Venue" data-bm="Lokasi Majlis">The Venue</h2>
+    <p class="big">P100, Miri</p>
+    <p class="soft" style="max-width: 300px;">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
+    <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.6568249871573!2d113.9892186!3d4.4754728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4be9bac19149%3A0x45f7a9f48a9ee6e2!2sP100!5e0!3m2!1sen!2smy!4v1715800000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/ChIJSZG_uotPHzIR4mieivSp90U" target="_blank">Get Directions</a>
+    <a class="btn secondary lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#program" style="margin-top:10px;">Next ↓</a>
+  </section>
 
   <section id="program">
     <h2 class="lang" data-en="Wedding Program" data-bm="Tentatif Majlis">Wedding Program</h2>
@@ -299,6 +297,16 @@ const musicBtn = document.getElementById('musicBtn');
 const langSwitch = document.getElementById('langSwitch');
 let currentLang = 'en';
 
+// TRANSITION OBSERVER - Detects when a section enters the screen
+const observerOptions = { threshold: 0.2 };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+        }
+    });
+}, observerOptions);
+
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'bm' : 'en';
   document.querySelectorAll('.lang').forEach(el => {
@@ -314,9 +322,13 @@ function openInvitation() {
         musicBtn.style.display = 'flex';
         langSwitch.style.display = 'block';
         document.getElementById('landing-cover').style.display = 'none';
+        
+        // Start observing sections after invitation is opened
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
     }, 1000);
 
-    // Audio Fade-in
     music.volume = 0;
     music.play().catch(e => console.log("Autoplay blocked"));
     let vol = 0;
@@ -331,7 +343,6 @@ musicBtn.onclick = () => {
     else { music.pause(); musicBtn.innerHTML = "🎵"; }
 };
 
-// Countdown Timer
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime();
@@ -344,7 +355,6 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-// Lightbox Gallery
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
 document.querySelectorAll('.gallery img, .qr-card img').forEach(img => {
@@ -354,5 +364,3 @@ function closeLightbox() { lightbox.style.display = 'none'; }
 </script>
 </body>
 </html>
-
-
