@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary-green: #a8e6cf;
+  --primary-green: #c1d7ae; /* Aesthetic Sage Green */
   --primary-blue: #b3d9ff;
 }
 
@@ -15,41 +15,43 @@ body, html {
   margin: 0; padding: 0;
   font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
-  background-color: #eef6f4;
+  background-color: #f7f9f7;
   overflow-x: hidden;
 }
 
-/* ENVELOPE / LANDING PAGE - Faded Batik Style */
+/* ENVELOPE / LANDING PAGE - Garden Aesthetic */
 #landing-cover {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  /* linear-gradient creates the "faded" white overlay effect */
-  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), 
-              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/batik.jpg?raw=true'); 
-  background-size: 500px;
+  /* Light overlay to keep the garden aesthetic bright */
+  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), 
+              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/background.png?raw=true'); 
+  background-size: cover;
+  background-position: center;
   display: flex; justify-content: center; align-items: center;
   z-index: 9999;
   transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .envelope-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.92);
   padding: 50px 30px;
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   max-width: 85%;
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.5);
 }
 
-/* MAIN CONTENT - Faded Batik Style */
+/* MAIN CONTENT - Garden Aesthetic */
 #main-content {
   display: none;
-  background: linear-gradient(rgba(238, 246, 244, 0.85), rgba(238, 246, 244, 0.85)), 
-              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/batik.jpg?raw=true');
-  background-size: 500px;
-  background-repeat: repeat;
+  background: linear-gradient(rgba(247, 250, 247, 0.85), rgba(247, 250, 247, 0.85)), 
+              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/background.png?raw=true');
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed;
 }
 
@@ -62,16 +64,16 @@ section {
   text-align: center;
   padding: 60px 20px;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(5px);
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 /* TYPOGRAPHY */
 h1, h2 { font-family: 'Playfair Display', serif; margin: 0 0 10px; }
-h1 { font-size: 2.8rem; color: #333; line-height: 1.2; }
-h2 { font-size: 2rem; color: #555; }
-.soft { color: #666; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
+h1 { font-size: 2.8rem; color: #2d3436; line-height: 1.2; }
+h2 { font-size: 2rem; color: #4b5e40; } /* Mossy Green heading */
+.soft { color: #636e72; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
 .big { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
 .divider { 
   width: 70px; height: 3px; 
@@ -83,7 +85,7 @@ h2 { font-size: 2rem; color: #555; }
 .btn {
   display: inline-block; margin: 10px 5px;
   padding: 14px 25px; border-radius: 30px;
-  background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+  background: linear-gradient(135deg, #a8e6cf, #dcedc1);
   color: #333; text-decoration: none; font-weight: 500; font-size: 0.95rem;
   transition: all 0.3s ease;
   border: none; cursor: pointer;
@@ -115,12 +117,12 @@ h2 { font-size: 2rem; color: #555; }
   display: none; align-items: center; justify-content: center;
 }
 
-/* REALIGNED TIMELINE */
+/* TIMELINE */
 .program-container { width: 100%; max-width: 400px; margin: 0 auto; }
 .timeline-table { width: 100%; border-collapse: collapse; text-align: left; }
-.timeline-table td { padding: 12px 5px; vertical-align: top; border-bottom: 1px dashed #ccc; }
-.time-col { width: 90px; font-weight: 600; font-size: 0.9rem; color: #333; }
-.activity-col { font-size: 0.95rem; color: #444; }
+.timeline-table td { padding: 12px 5px; vertical-align: top; border-bottom: 1px dashed #ced6e0; }
+.time-col { width: 90px; font-weight: 600; font-size: 0.9rem; color: #4b5e40; }
+.activity-col { font-size: 0.95rem; color: #2d3436; }
 .details { font-size: 0.75rem; color: #777; display: block; margin-top: 3px; line-height: 1.3; }
 
 /* GIFT CARD */
@@ -134,6 +136,7 @@ h2 { font-size: 2rem; color: #555; }
 }
 .qr-card img { width: 100%; border-radius: 10px; cursor: pointer; }
 
+/* GALLERY */
 .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
 .gallery img { width: 140px; height: 140px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 3px solid white; transition: 0.3s; }
 
@@ -195,12 +198,12 @@ h2 { font-size: 2rem; color: #555; }
     
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
       <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3982.527376092019!2d113.9859556!3d4.4533056!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8b9abd9149%3A0x45f7a9248a9e62e2!2sP100!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" 
-        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.1895697263593!2d113.9856985!3d4.4691763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f469956417d%3A0x67396a8be4401861!2sP100!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" 
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
       </iframe>
     </div>
 
-    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/4ND7QvvpEWeFnXn18" target="_blank">Get Directions</a>
+    <a class="btn lang" data-en="Get Directions" data-bm="Panduan Arah" href="https://maps.app.goo.gl/uXv4N19N7oJv62m67" target="_blank">Get Directions</a>
     <a class="btn secondary lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#program" style="margin-top:10px;">Next ↓</a>
   </section>
 
@@ -208,79 +211,37 @@ h2 { font-size: 2rem; color: #555; }
     <h2 class="lang" data-en="Wedding Program" data-bm="Tentatif Majlis">Wedding Program</h2>
     <div class="program-container">
       <table class="timeline-table">
-        <tr>
-          <td class="time-col">04:00 PM</td>
-          <td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td>
-        </tr>
-        <tr>
-          <td class="time-col">05:00 PM</td>
-          <td class="activity-col lang" data-en="Bride, Groom & Family Entry ready" data-bm="Penyediaan Masuk Pengantin & Keluarga">Bride, Groom & Family Entry ready</td>
-        </tr>
-        <tr>
-          <td class="time-col">05:15 PM</td>
-          <td class="activity-col lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</td>
-        </tr>
+        <tr><td class="time-col">04:00 PM</td><td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td></tr>
+        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Bride, Groom & Family Entry ready" data-bm="Penyediaan Masuk Pengantin & Keluarga">Bride, Groom & Family Entry ready</td></tr>
+        <tr><td class="time-col">05:15 PM</td><td class="activity-col lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</td></tr>
         <tr>
           <td class="time-col">05:20 PM</td>
           <td class="activity-col">
             <span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span>
-            <small class="details lang" 
-              data-en="Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen" 
-              data-bm="Ibu bapa, Adik-beradik, Pengantin, Pengiring Lelaki & Perempuan">
-              Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen
-            </small>
+            <small class="details lang" data-en="Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen" data-bm="Ibu bapa, Adik-beradik, Pengantin, Pengiring Lelaki & Perempuan">Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen</small>
           </td>
         </tr>
         <tr>
           <td class="time-col">05:30 PM</td>
           <td class="activity-col">
             <span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span>
-            <small class="details lang" 
-              data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" 
-              data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">
-              Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting
-            </small>
+            <small class="details lang" data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting</small>
           </td>
         </tr>
-        <tr>
-          <td class="time-col">06:15 PM</td>
-          <td class="activity-col lang" data-en="Photography Session with Family" data-bm="Sesi Foto Bersama Keluarga">Photography Session with Family</td>
-        </tr>
+        <tr><td class="time-col">06:15 PM</td><td class="activity-col lang" data-en="Photography Session with Family" data-bm="Sesi Foto Bersama Keluarga">Photography Session with Family</td></tr>
         <tr>
           <td class="time-col">06:45 PM</td>
           <td class="activity-col">
             <span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span>
-            <small class="details lang" 
-              data-en="Orang Ulu Clothing Exchange & Video Montage" 
-              data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">
-              Orang Ulu Clothing Exchange & Video Montage
-            </small>
+            <small class="details lang" data-en="Orang Ulu Clothing Exchange & Video Montage" data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">Orang Ulu Clothing Exchange & Video Montage</small>
           </td>
         </tr>
-        <tr>
-          <td class="time-col">07:15 PM</td>
-          <td class="activity-col lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</td>
-        </tr>
-        <tr>
-          <td class="time-col">07:30 PM</td>
-          <td class="activity-col lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</td>
-        </tr>
-        <tr>
-          <td class="time-col">08:00 PM</td>
-          <td class="activity-col lang" data-en="Speech from Groom's Side" data-bm="Ucapan Pihak Lelaki">Speech from Groom's Side</td>
-        </tr>
-        <tr>
-          <td class="time-col">08:10 PM</td>
-          <td class="activity-col lang" data-en="Speech from Bride's Side" data-bm="Ucapan Pihak Perempuan">Speech from Bride's Side</td>
-        </tr>
-        <tr>
-          <td class="time-col">08:20 PM</td>
-          <td class="activity-col lang" data-en="Appreciation Speech from the Couple" data-bm="Ucapan Penghargaan daripada Pengantin">Appreciation Speech from the Couple</td>
-        </tr>
-        <tr>
-          <td class="time-col">08:30 PM</td>
-          <td class="activity-col lang" data-en="Open Floor Session & Guest Photos" data-bm="Sesi Foto Bersama Tetamu">Open Floor Session & Guest Photos</td>
-        </tr>
+        <tr><td class="time-col">07:15 PM</td><td class="activity-col lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</td></tr>
+        <tr><td class="time-col">07:30 PM</td><td class="activity-col lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</td></tr>
+        <tr><td class="time-col">08:00 PM</td><td class="activity-col lang" data-en="Speech from Groom's Side" data-bm="Ucapan Pihak Lelaki">Speech from Groom's Side</td></tr>
+        <tr><td class="time-col">08:10 PM</td><td class="activity-col lang" data-en="Speech from Bride's Side" data-bm="Ucapan Pihak Perempuan">Speech from Bride's Side</td></tr>
+        <tr><td class="time-col">08:20 PM</td><td class="activity-col lang" data-en="Appreciation Speech from the Couple" data-bm="Ucapan Penghargaan daripada Pengantin">Appreciation Speech from the Couple</td></tr>
+        <tr><td class="time-col">08:30 PM</td><td class="activity-col lang" data-en="Open Floor Session & Guest Photos" data-bm="Sesi Foto Bersama Tetamu">Open Floor Session & Guest Photos</td></tr>
       </table>
     </div>
     <a class="btn lang" data-en="Next ↓" data-bm="Seterusnya ↓" href="#dress" style="margin-top:20px;">Next ↓</a>
@@ -403,4 +364,3 @@ function closeLightbox() { lightbox.style.display = 'none'; }
 
 </body>
 </html>
-
