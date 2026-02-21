@@ -17,91 +17,85 @@ body, html {
   margin: 0; padding: 0;
   font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
-  background-color: #f7f9f7;
+  background-color: #000;
   overflow-x: hidden;
 }
 
-/* LANDING PAGE WITH CINEMATIC ZOOM */
+/* PERMANENT SHUTTER BACKGROUND */
+.shutter-background-fixed {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1; /* Always stays behind everything */
+  overflow: hidden;
+}
+
+.shutter-slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 0.1s ease-in;
+}
+
+.shutter-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s ease-in;
+}
+
+#shutter-flash {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: white;
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.flash-anim {
+  animation: shutterFlash 0.25s ease-out;
+}
+
+@keyframes shutterFlash {
+  0% { opacity: 0; }
+  25% { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+
+/* LANDING COVER LAYER */
 #landing-cover {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-color: #f7f9f7;
+  background: rgba(0, 0, 0, 0.4); /* Darken bg slightly for landing */
   display: flex; justify-content: center; align-items: center;
   z-index: 9999;
-  transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
-  overflow: hidden;
+  transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.bg-zoom {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), 
-              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true');
-  background-size: cover;
-  background-position: center;
-  animation: slowZoom 20s infinite alternate;
-  z-index: -1;
-}
-
-@keyframes slowZoom {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.1); }
-}
-
-/* ENVELOPE CARD WITH SHIMMER */
 .envelope-card {
   background: rgba(255, 255, 255, 0.85);
   padding: 50px 30px;
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
   max-width: 85%;
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.5);
-  position: relative;
-  overflow: hidden;
-  animation: fadeInUp 1.5s ease-out;
+  backdrop-filter: blur(10px);
+  animation: fadeInUp 1.2s ease-out;
 }
 
-.envelope-card::after {
-  content: "";
-  position: absolute;
-  top: -50%; left: -60%;
-  width: 20%; height: 200%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: rotate(30deg);
-  animation: shimmer 5s infinite;
-}
-
-@keyframes shimmer {
-  0% { left: -60%; }
-  20% { left: 120%; }
-  100% { left: 120%; }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* MAIN CONTENT */
+/* MAIN CONTENT SECTIONS */
 #main-content {
   display: none;
-  background: linear-gradient(rgba(247, 250, 247, 0.8), rgba(247, 250, 247, 0.8)), 
-              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  position: relative;
+  z-index: 10;
 }
 
-@media (min-width: 1024px) {
-  #main-content { background-size: contain; background-color: #f7f9f7; }
-  .bg-zoom { background-size: contain; background-repeat: no-repeat; background-color: #f7f9f7;}
-}
-
-/* SECTIONS & TRANSITIONS */
 section {
   min-height: 100vh;
   display: flex;
@@ -111,218 +105,62 @@ section {
   text-align: center;
   padding: 60px 20px;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(5px);
-  position: relative;
+  /* Frosted Glass effect to see the background loop */
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  margin: 20px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   opacity: 0;
   transform: translateY(30px);
   transition: all 1s ease-out;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+section#cover {
+  background: rgba(255, 255, 255, 0.4); /* Thinner for the start */
+  margin: 0;
+  border-radius: 0;
+  height: 100vh;
 }
 
 section.reveal { opacity: 1; transform: translateY(0); }
 
-/* TYPOGRAPHY */
-h1, h2 { font-family: 'Playfair Display', serif; margin: 0 0 10px; }
-h1 { font-size: 2.8rem; color: #2d3436; line-height: 1.2; }
-h2 { font-size: 2.2rem; color: var(--dark-sage); }
-.soft { color: #636e72; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
-.big { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
-.divider { width: 70px; height: 3px; background: linear-gradient(to right, var(--primary-green), var(--primary-blue)); margin: 15px auto 25px; }
+/* UI ELEMENTS */
+h1, h2 { font-family: 'Playfair Display', serif; margin: 0; }
+h1 { font-size: 2.8rem; color: #2d3436; }
+h2 { font-size: 2.2rem; color: var(--dark-sage); margin-bottom: 15px;}
+.soft { color: #636e72; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+.big { font-size: 1.4rem; font-weight: 500; margin: 10px 0; color: #2c3e50; }
+.divider { width: 70px; height: 3px; background: linear-gradient(to right, var(--primary-green), var(--primary-blue)); margin: 20px auto; }
 
-/* BUTTONS */
 .btn {
   display: inline-block; margin: 10px 5px;
   padding: 14px 25px; border-radius: 30px;
   background: linear-gradient(135deg, #a8e6cf, #dcedc1);
-  color: #333; text-decoration: none; font-weight: 500; font-size: 0.95rem;
-  transition: all 0.3s ease; border: none; cursor: pointer;
+  color: #333; text-decoration: none; font-weight: 600;
+  transition: 0.3s; border: none; cursor: pointer;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-.btn:hover { transform: scale(1.05); }
-.btn.secondary { background: #f0f0f0; color: #666; box-shadow: none; }
 
-/* PROGRAM TABLE */
-.program-container { width: 100%; max-width: 450px; margin: 0 auto; }
+/* PROGRAM & WISHES */
+.program-container { width: 100%; max-width: 450px; background: white; padding: 20px; border-radius: 20px; }
 .timeline-table { width: 100%; border-collapse: collapse; text-align: left; }
-.timeline-table td { padding: 15px 5px; vertical-align: top; border-bottom: 1px dashed #ced6e0; }
-.time-col { width: 90px; font-weight: 600; font-size: 0.9rem; color: #4b5e40; }
-.activity-col { font-size: 0.95rem; color: #2d3436; }
-.details { font-size: 0.75rem; color: #777; display: block; margin-top: 5px; line-height: 1.4; font-style: italic; }
+.timeline-table td { padding: 12px 5px; border-bottom: 1px dashed #eee; font-size: 0.9rem; }
 
-/* OUR MOMENTS SECTION */
-.moments-frame {
-  border: 1px solid var(--dark-sage);
-  padding: 10px;
-  width: 100%;
-  max-width: 450px;
-  margin: 20px auto;
-  box-sizing: border-box;
-  background-color: rgba(255, 255, 255, 0.6);
-}
-.moments-inner {
-  border: 1px solid var(--dark-sage);
-  padding: 40px 15px;
-  box-sizing: border-box;
-}
-.moments-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  letter-spacing: 4px;
-  color: var(--dark-sage);
-  text-transform: uppercase;
-  margin-bottom: 5px;
-}
-.moments-subtitle {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #636e72;
-  margin-bottom: 20px;
-}
-.moments-names {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  letter-spacing: 1px;
-  color: #2d3436;
-  margin-bottom: 5px;
-}
-
-/* GALLERY STACK */
-.gallery-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-  align-items: center;
-  margin: 30px auto 0;
-}
-.gallery-row {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  justify-content: center;
-}
-.gallery-stack img {
-  box-sizing: border-box;
-  object-fit: cover;
-  border-radius: 5px;
-  border: 4px solid white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
-.gallery-stack img:hover {
-  transform: scale(1.02);
-}
-.img-half { width: calc(50% - 6px); height: 200px; }
-.img-full { width: 100%; height: auto; max-height: 350px; }
-
-/* QR CARD */
-.qr-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 20px auto; max-width: 280px; }
-.qr-card img { width: 100%; border-radius: 10px; cursor: pointer; }
-
-/* LIGHTBOX */
-#lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
-#lightbox img { max-width: 90%; max-height: 80%; border: 5px solid white; border-radius: 10px; }
-
-/* COMMENT SECTION STYLES */
-.comment-card {
-  background: white;
-  padding: 30px 20px;
-  border-radius: 20px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.05);
-  width: 100%;
-  max-width: 450px;
-  margin: 20px auto;
-  text-align: left;
-}
-.comment-form label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 8px;
-  color: #2d3436;
-}
-.comment-input, .comment-textarea {
-  width: 100%;
-  padding: 12px 15px;
-  margin-bottom: 10px;
-  border: 1px solid #dfe6e9;
-  border-radius: 10px;
-  font-family: inherit;
-  font-size: 0.9rem;
-  box-sizing: border-box;
-}
-.comment-textarea { height: 100px; resize: none; margin-bottom: 5px; }
-#char-counter { font-size: 0.75rem; color: #777; margin-bottom: 20px; display: block; text-align: right; }
-#char-counter.limit-reached { color: #e74c3c; font-weight: bold; }
-.form-actions { display: flex; justify-content: space-between; align-items: center; }
-
-/* STICKER PICKER */
-.sticker-tray {
-  display: none;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 15px;
-  padding: 10px;
-  margin-top: 10px;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-.sticker-item {
-  font-size: 1.5rem;
-  cursor: pointer;
-  text-align: center;
-  transition: transform 0.2s;
-}
-.sticker-item:hover { transform: scale(1.2); }
-
-#wishes-display {
-  width: 100%;
-  max-width: 450px;
-  margin-top: 30px;
-  max-height: 350px;
-  overflow-y: auto;
-  padding: 10px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 20px;
-  scroll-behavior: smooth;
-}
-
-#wishes-display::-webkit-scrollbar { width: 5px; }
-#wishes-display::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 10px; }
-
-.wish-item {
-  background: white;
-  padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-  text-align: left;
-  border-left: 4px solid var(--primary-green);
-  animation: slideIn 0.5s ease-out;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.wish-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
-.wish-name { font-weight: 600; color: var(--dark-sage); font-size: 0.95rem; }
-.wish-text { font-size: 0.9rem; color: #2d3436; line-height: 1.5; }
+.comment-card { background: white; padding: 25px; border-radius: 20px; width: 100%; max-width: 400px; text-align: left; }
+.comment-input, .comment-textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 10px; box-sizing: border-box; }
+#wishes-display { width: 100%; max-width: 400px; max-height: 300px; overflow-y: auto; margin-top: 20px; }
+.wish-item { background: white; padding: 12px; border-radius: 12px; margin-bottom: 10px; font-size: 0.85rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: left;}
 
 /* CONTROLS */
-#langSwitch { position: fixed; top: 20px; left: 20px; z-index: 1001; background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: none; }
-#musicBtn { position: fixed; top: 20px; right: 20px; z-index: 1000; width: 50px; height: 50px; border-radius: 50%; background: white; border: none; cursor: pointer; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none; align-items: center; justify-content: center; }
+#langSwitch { position: fixed; top: 20px; left: 20px; z-index: 10001; background: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; display: none; font-size: 0.8rem; font-weight: 700;}
+#musicBtn { position: fixed; top: 20px; right: 20px; z-index: 10001; width: 45px; height: 45px; border-radius: 50%; background: white; border: none; cursor: pointer; display: none; }
 
-@media(max-width:600px){ 
-  h1 { font-size: 2.3rem; } 
-  h2 { font-size: 1.8rem; } 
-  .moments-names { font-size: 1.6rem; }
-  section { padding: 40px 15px; }
-}
+#lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10005; justify-content: center; align-items: center; }
+#lightbox img { max-width: 90%; max-height: 80%; border: 4px solid white; }
+
+@media(max-width:600px){ h1 { font-size: 2.2rem; } section { margin: 15px; padding: 40px 15px; } }
 </style>
 </head>
 <body>
@@ -334,11 +172,19 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
 <button id="musicBtn">⏸️</button>
 
+<div class="shutter-background-fixed">
+  <div id="shutter-flash"></div>
+  <div class="shutter-slide active" style="background-image: url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true');"></div>
+  <div class="shutter-slide" style="background-image: url('https://i.ibb.co/4f7nB9t/photo1.jpg');"></div>
+  <div class="shutter-slide" style="background-image: url('https://i.ibb.co/qnR1ZCw/photo2.jpg');"></div>
+  <div class="shutter-slide" style="background-image: url('https://i.ibb.co/5FjLm7Z/photo3.jpg');"></div>
+  <div class="shutter-slide" style="background-image: url('https://i.ibb.co/Tc3q6yZ/photo4.jpg');"></div>
+</div>
+
 <div id="landing-cover">
-  <div class="bg-zoom"></div>
   <div class="envelope-card">
     <p class="soft lang" data-en="Wedding Invitation" data-bm="Undangan Perkahwinan">Wedding Invitation</p>
-    <h1 style="letter-spacing: 2px;">Sylvester & Jezreel</h1>
+    <h1>Sylvester & Jezreel</h1>
     <div class="divider"></div>
     <p class="big">31 May 2026</p>
     <button class="btn lang" data-en="Open Invitation" data-bm="Buka Undangan" onclick="openInvitation()">Open Invitation</button>
@@ -350,271 +196,144 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="soft lang" data-en="THE WEDDING OF" data-bm="MAJLIS PERKAHWINAN">THE WEDDING OF</p>
     <h1>Sylvester<br>&<br>Jezreel</h1>
     <div class="divider"></div>
-    <p class="big lang" data-en="Sunday, 31.05.2026" data-bm="Ahad, 31.05.2026">Sunday, 31.05.2026</p>
-    <a class="btn" href="#countdownSection">View Details ↓</a>
+    <p class="big">31.05.2026</p>
+    <a class="btn" href="#countdownSection">Scroll to View ↓</a>
   </section>
 
   <section id="countdownSection">
     <h2 class="lang" data-en="The Countdown" data-bm="Hitung Detik">The Countdown</h2>
-    <p id="countdown" style="font-size: 1.8rem; font-weight: 600; color: #2d3436;">Loading...</p>
-    <a class="btn" href="#date">Next ↓</a>
-  </section>
-
-  <section id="date">
-    <h2 class="lang" data-en="Save The Date" data-bm="Simpan Tarikh">Save The Date</h2>
-    <p class="big">31 May 2026</p>
-    <p class="soft lang" data-en="Sunday · 4:30 PM – 10:00 PM" data-bm="Ahad · 4:30 PTG – 10:00 MLM">Sunday · 4:30 PM – 10:00 PM</p>
-    <a class="btn" href="#venue">Venue ↓</a>
+    <p id="countdown" style="font-size: 1.8rem; font-weight: 600; color: #2d3436;">00:00:00</p>
   </section>
 
   <section id="venue">
     <h2 class="lang" data-en="The Venue" data-bm="Lokasi Majlis">The Venue</h2>
     <p class="big">P100, Miri</p>
-    <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
-    <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.332822474934!2d113.9806451!3d4.4444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f57476722d7d7%3A0x6b4c3e88a09e075!2sLot%201203%2C%20Block%203%2C%20MCLD%2C%20Lutong!5e0!3m2!1sen!2smy!4v1715000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <div style="width: 100%; max-width: 400px; height: 250px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 3px solid white;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.522253303681!2d113.978!3d4.417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjUnMDEuMiJOIDExM8KwNTgnNDAuOCJF!5e0!3m2!1sen!2smy!4v1620000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
-    <a class="btn secondary" href="#program">Next ↓</a>
+    <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Google Maps</a>
   </section>
 
   <section id="program">
     <h2 class="lang" data-en="Wedding Program" data-bm="Tentatif Majlis">Wedding Program</h2>
     <div class="program-container">
       <table class="timeline-table">
-        <tr><td class="time-col">04:00 PM</td><td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td></tr>
-        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Bride, Groom & Family Entry ready" data-bm="Penyediaan Masuk Pengantin & Keluarga">Bride, Groom & Family Entry ready</td></tr>
-        <tr><td class="time-col">05:15 PM</td><td class="activity-col lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</td></tr>
-        <tr><td class="time-col">05:20 PM</td><td class="activity-col"><span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span><small class="details lang" data-en="Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen" data-bm="Ibu bapa, Adik-beradik, Pengantin, Pengiring Lelaki & Perempuan">Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen</small></td></tr>
-        <tr><td class="time-col">05:30 PM</td><td class="activity-col"><span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span><small class="details lang" data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting</small></td></tr>
-        <tr><td class="time-col">06:15 PM</td><td class="activity-col lang" data-en="Photography Session with Family" data-bm="Sesi Foto Bersama Keluarga">Photography Session with Family</td></tr>
-        <tr><td class="time-col">06:45 PM</td><td class="activity-col"><span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span><small class="details lang" data-en="Orang Ulu Clothing Exchange & Video Montage" data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">Orang Ulu Clothing Exchange & Video Montage</small></td></tr>
-        <tr><td class="time-col">07:15 PM</td><td class="activity-col lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</td></tr>
-        <tr><td class="time-col">07:30 PM</td><td class="activity-col lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</td></tr>
-        <tr><td class="time-col">08:00 PM</td><td class="activity-col lang" data-en="Speech from Groom's Side" data-bm="Ucapan">Speeches</td></tr>
-        <tr><td class="time-col">08:30 PM</td><td class="activity-col lang" data-en="Open Floor Session & Guest Photos" data-bm="Sesi Foto Bersama Tetamu">Open Floor Session & Guest Photos</td></tr>
+        <tr><td>04:00 PM</td><td class="lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td></tr>
+        <tr><td>05:30 PM</td><td class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</td></tr>
+        <tr><td>06:45 PM</td><td class="lang" data-en="Guest Dining" data-bm="Jamuan Makan">Guest Dining</td></tr>
+        <tr><td>08:30 PM</td><td class="lang" data-en="Photography" data-bm="Sesi Foto">Photography</td></tr>
       </table>
     </div>
-    <a class="btn" href="#dress" style="margin-top:20px;">Next ↓</a>
-  </section>
-
-  <section id="dress">
-    <h2 class="lang" data-en="Dress Code" data-bm="Etika Berpakaian">Dress Code</h2>
-    <p class="big">Light Blue & Light Green</p>
-    <p class="soft lang" data-en="Theme: Whimsical Garden Wedding" data-bm="Tema: Perkahwinan Taman Whimsical">Theme: Whimsical Garden Wedding</p>
-    <a class="btn" href="#gallery">Next ↓</a>
-  </section>
-
-  <section id="gallery">
-    <div class="moments-frame">
-      <div class="moments-inner">
-        <h2 class="moments-title lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</h2>
-        <p class="moments-subtitle">"The greatest of these is love"</p>
-        <p class="moments-names">Sylvester & Jezreel</p>
-        <div class="divider" style="margin: 10px auto;"></div>
-        <div class="gallery-stack">
-          <div class="gallery-row">
-            <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" class="img-half" alt="Photo 1">
-            <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" class="img-half" alt="Photo 2">
-          </div>
-          <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" class="img-full" alt="Photo 3">
-          <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" class="img-full" alt="Photo 4">
-        </div>
-      </div>
-    </div>
-    <a class="btn" href="#rsvp" style="margin-top:20px;">RSVP Now ↓</a>
-  </section>
-
-  <section id="rsvp">
-    <h2 class="lang" data-en="RSVP" data-bm="Kehadiran">RSVP</h2>
-    <p class="soft lang" data-en="Kindly respond by 1st May 2026" data-bm="Sila maklum balas sebelum 1 Mei 2026">Kindly respond by 1st May 2026</p>
-    <div class="rsvp-group">
-        <a class="btn" href="https://forms.gle/m16Yg9EbfEn5C1iS7" target="_blank">✅ Yes</a>
-        <a class="btn secondary" href="https://wa.me/60178083036" target="_blank">❌ No</a>
-    </div>
-    <a class="btn" href="#gift" style="margin-top: 20px;">Gift Info ↓</a>
-  </section>
-
-  <section id="gift">
-    <h2 class="lang" data-en="Wedding Gift" data-bm="Hadiah Perkahwinan">Wedding Gift</h2>
-    <div class="qr-card">
-      <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg" alt="Wedding QR">
-      <p style="margin-top:15px; font-weight:600; color:#333;">QR Scan / Duitnow</p>
-    </div>
-    <a class="btn" href="#blessings">Next ↓</a>
   </section>
 
   <section id="blessings">
-    <h2 class="lang" data-en="Share your Blessing" data-bm="Titipkan Ucapan">Share your Blessing</h2>
-    <p class="soft lang" data-en="Kindly write your wishes for us" data-bm="Sila tulis ucapan untuk kami">Kindly write your wishes for us</p>
-    
+    <h2 class="lang" data-en="Wishes" data-bm="Ucapan">Wishes</h2>
     <div class="comment-card">
-      <form id="wishForm" class="comment-form">
-        <label class="lang" data-en="Name" data-bm="Nama">Name</label>
-        <input type="text" id="guestName" class="comment-input" placeholder="..." required>
-        
-        <label class="lang" data-en="Message" data-bm="Mesej">Message</label>
-        <textarea id="guestMessage" class="comment-textarea" placeholder="..." maxlength="200" required></textarea>
-        <span id="char-counter"><span id="current-count">0</span> / 200 <span class="lang" data-en="chars" data-bm="aksara">chars</span></span>
-        
-        <div class="form-actions">
-          <button type="button" class="btn secondary" id="stickerBtn" style="padding: 10px 20px;">Sticker</button>
-          <button type="submit" class="btn" id="submitBtn" style="padding: 10px 30px;">Send ></button>
-        </div>
-
-        <div id="stickerTray" class="sticker-tray">
-          <div class="sticker-item">❤️</div><div class="sticker-item">✨</div><div class="sticker-item">💍</div>
-          <div class="sticker-item">🥂</div><div class="sticker-item">🕊️</div><div class="sticker-item">🌸</div>
-          <div class="sticker-item">🎉</div><div class="sticker-item">🙌</div><div class="sticker-item">👩‍❤️‍👨</div>
-          <div class="sticker-item">💐</div>
-        </div>
+      <form id="wishForm">
+        <input type="text" id="guestName" class="comment-input" placeholder="Name" required>
+        <textarea id="guestMessage" class="comment-textarea" placeholder="Message" maxlength="200" required></textarea>
+        <button type="submit" class="btn" style="width:100%">Send Blessing ❤️</button>
       </form>
+      <div id="wishes-display"></div>
     </div>
-
-    <div id="wishes-display">
-      </div>
-
-    <a class="btn" href="#share" style="margin-top: 20px;">Finish ↓</a>
-  </section>
-
-  <section id="share">
-    <div style="font-style: italic; margin-bottom: 40px; color: #555;">
-        <h2>"The greatest of these is love."</h2>
-        <p>— 1 Corinthians 13:13</p>
-    </div>
-    <div class="divider"></div>
-    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20our%20wedding!" target="_blank">Share via WhatsApp</a>
-    <a class="btn secondary" href="#cover">Back to Top ↑</a>
   </section>
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'"><img id="lbImg" src=""></div>
 
 <script>
-const music = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-const langSwitch = document.getElementById('langSwitch');
-let currentLang = 'en';
+// SHUTTER DUMP LOOP (Infinite)
+const shutterSlides = document.querySelectorAll('.shutter-slide');
+const flash = document.getElementById('shutter-flash');
+let currentShutter = 0;
 
+function runShutter() {
+    shutterSlides[currentShutter].classList.remove('active');
+    
+    flash.classList.remove('flash-anim');
+    void flash.offsetWidth; 
+    flash.classList.add('flash-anim');
+    
+    currentShutter = (currentShutter + 1) % shutterSlides.length;
+    shutterSlides[currentShutter].classList.add('active');
+}
+
+// Every 0.8 seconds, change the background picture forever
+setInterval(runShutter, 800);
+
+// REVEAL ANIMATION
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
 }, { threshold: 0.1 });
-
-function toggleLanguage() {
-  currentLang = currentLang === 'en' ? 'bm' : 'en';
-  document.querySelectorAll('.lang').forEach(el => {
-    const text = el.getAttribute(`data-${currentLang}`);
-    if (text) el.innerHTML = text;
-  });
-  langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
-}
 
 function openInvitation() {
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
-        musicBtn.style.display = 'flex'; langSwitch.style.display = 'block';
-        document.getElementById('landing-cover').style.display = 'none';
+        document.getElementById('musicBtn').style.display = 'flex'; 
+        document.getElementById('langSwitch').style.display = 'block';
         document.querySelectorAll('section').forEach(s => observer.observe(s));
-    }, 1000);
-    music.volume = 0; music.play().catch(e => console.log("Music play blocked"));
-    let vol = 0;
-    let fade = setInterval(() => { if (vol < 0.9) { vol += 0.1; music.volume = vol.toFixed(2); } else clearInterval(fade); }, 200);
+    }, 800);
+    
+    const music = document.getElementById('bgMusic');
+    music.volume = 0.5;
+    music.play().catch(e => console.log("Play blocked by browser"));
 }
 
-musicBtn.onclick = () => { if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } else { music.pause(); musicBtn.innerHTML = "🎵"; } };
+// MUSIC & LANG CONTROLS
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+musicBtn.onclick = () => {
+    if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; }
+    else { music.pause(); musicBtn.innerHTML = "🎵"; }
+};
 
+let currentLang = 'en';
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'bm' : 'en';
+  document.querySelectorAll('.lang').forEach(el => {
+    el.innerHTML = el.getAttribute(`data-${currentLang}`);
+  });
+  document.getElementById('langSwitch').innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
+}
+
+// COUNTDOWN
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
-    const now = new Date().getTime(); const diff = weddingDate - now;
-    if(diff < 0) { document.getElementById('countdown').innerHTML = "Just Married! 🎉"; return; }
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24)), h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)), m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)), s = Math.floor((diff % (1000 * 60)) / 1000);
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-document.querySelectorAll('img').forEach(img => {
-    img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
-});
-
-// COMMENT WALL LOGIC
-const stickerBtn = document.getElementById('stickerBtn');
-const stickerTray = document.getElementById('stickerTray');
-const msgInput = document.getElementById('guestMessage');
-const charCounter = document.getElementById('char-counter');
-const currentCount = document.getElementById('current-count');
+// SOCIAL WALL (LocalStorage)
 const wishesDisplay = document.getElementById('wishes-display');
-
-// Initialize Wall on Load
 window.onload = function() {
-  const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
-  if (savedWishes.length === 0) {
-    addWishToDOM("Admin", "Wishing you both a lifetime of happiness! ✨", false);
-  } else {
-    // Show wishes (newest first)
-    savedWishes.reverse().forEach(w => addWishToDOM(w.name, w.message, false));
-  }
+  const saved = JSON.parse(localStorage.getItem('weddingWishes')) || [];
+  saved.reverse().forEach(w => addWishToDOM(w.name, w.message));
 };
 
-stickerBtn.onclick = (e) => {
-  e.preventDefault();
-  stickerTray.style.display = stickerTray.style.display === 'grid' ? 'none' : 'grid';
-};
-
-document.querySelectorAll('.sticker-item').forEach(item => {
-  item.onclick = () => {
-    if (msgInput.value.length + 2 <= 200) {
-      msgInput.value += item.innerText;
-      updateCharCount();
-      stickerTray.style.display = 'none';
-    }
-  };
-});
-
-function updateCharCount() {
-  const len = msgInput.value.length;
-  currentCount.innerText = len;
-  if(len >= 200) charCounter.classList.add('limit-reached');
-  else charCounter.classList.remove('limit-reached');
-}
-
-msgInput.oninput = updateCharCount;
-
-function addWishToDOM(name, message, animate = true) {
-  const newWish = document.createElement('div');
-  newWish.className = 'wish-item';
-  if(!animate) newWish.style.animation = 'none';
-  newWish.innerHTML = `
-    <div class="wish-header"><span class="wish-name">${name}</span></div>
-    <p class="wish-text">${message}</p>
-  `;
-  wishesDisplay.prepend(newWish);
+function addWishToDOM(name, message) {
+  const div = document.createElement('div');
+  div.className = 'wish-item';
+  div.innerHTML = `<strong>${name}</strong><br>${message}`;
+  wishesDisplay.prepend(div);
 }
 
 document.getElementById('wishForm').onsubmit = function(e) {
   e.preventDefault();
   const name = document.getElementById('guestName').value;
   const msg = document.getElementById('guestMessage').value;
-  const submitBtn = document.getElementById('submitBtn');
-
-  // Save Locally
-  const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
-  savedWishes.push({ name, message: msg });
-  localStorage.setItem('weddingWishes', JSON.stringify(savedWishes));
-
-  // Add to Feed
+  const saved = JSON.parse(localStorage.getItem('weddingWishes')) || [];
+  saved.push({ name, message: msg });
+  localStorage.setItem('weddingWishes', JSON.stringify(saved));
   addWishToDOM(name, msg);
-
-  // Success UI
-  submitBtn.innerText = "Sent! ❤️";
   this.reset();
-  currentCount.innerText = 0;
-  charCounter.classList.remove('limit-reached');
-  stickerTray.style.display = 'none';
   wishesDisplay.scrollTop = 0;
-
-  setTimeout(() => { submitBtn.innerText = "Send >"; }, 3000);
 };
 </script>
 </body>
 </html>
-
