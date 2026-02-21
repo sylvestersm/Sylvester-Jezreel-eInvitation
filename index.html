@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sylvester & Jezreel Wedding Invitation</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --primary-green: #c1d7ae;
   --primary-blue: #b3d9ff;
   --sage-border: rgba(75, 94, 64, 0.2);
+  --dark-sage: #4b5e40;
 }
 
 body, html {
@@ -64,7 +65,6 @@ body, html {
   animation: fadeInUp 1.5s ease-out;
 }
 
-/* Light Sweep Effect on the Card */
 .envelope-card::after {
   content: "";
   position: absolute;
@@ -127,7 +127,7 @@ section.reveal { opacity: 1; transform: translateY(0); }
 /* TYPOGRAPHY */
 h1, h2 { font-family: 'Playfair Display', serif; margin: 0 0 10px; }
 h1 { font-size: 2.8rem; color: #2d3436; line-height: 1.2; }
-h2 { font-size: 2.2rem; color: #4b5e40; }
+h2 { font-size: 2.2rem; color: var(--dark-sage); }
 .soft { color: #636e72; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
 .big { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
 .divider { width: 70px; height: 3px; background: linear-gradient(to right, var(--primary-green), var(--primary-blue)); margin: 15px auto 25px; }
@@ -156,11 +156,68 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
 .activity-col { font-size: 0.95rem; color: #2d3436; }
 .details { font-size: 0.75rem; color: #777; display: block; margin-top: 5px; line-height: 1.4; font-style: italic; }
 
-/* MOSAIC GALLERY */
-.photo-mosaic { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 500px; margin: 20px auto; }
-.photo-mosaic img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
-.photo-mosaic img:hover { transform: scale(1.08) rotate(1deg); z-index: 5; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
-.photo-mosaic img:nth-child(3n) { grid-column: span 2; height: 220px; }
+/* OUR MOMENTS SECTION - WHIMSICAL FRAME */
+.moments-frame {
+  border: 1px solid var(--dark-sage);
+  padding: 10px;
+  max-width: 90%;
+  margin: 20px auto;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.moments-inner {
+  border: 1px solid var(--dark-sage);
+  padding: 40px 15px;
+}
+.moments-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  letter-spacing: 4px;
+  color: var(--dark-sage);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.moments-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #636e72;
+  margin-bottom: 20px;
+}
+.moments-names {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #2d3436;
+  margin-bottom: 5px;
+}
+
+/* PHOTO STACK LAYOUT BASED ON UPLOADED SAMPLE */
+.gallery-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 450px;
+  margin: 30px auto;
+}
+.gallery-row {
+  display: flex;
+  gap: 12px;
+}
+.gallery-stack img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 4px solid white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.gallery-stack img:hover {
+  transform: scale(1.02);
+}
+.img-half { width: 50%; height: 220px; }
+.img-full { width: 100%; height: 280px; }
 
 /* QR CARD */
 .qr-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 20px auto; max-width: 280px; }
@@ -170,7 +227,7 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
 #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
 #lightbox img { max-width: 90%; max-height: 80%; border: 5px solid white; border-radius: 10px; }
 
-@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.8rem; } }
+@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.8rem; } .moments-names { font-size: 1.6rem; } }
 </style>
 </head>
 <body>
@@ -220,9 +277,9 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.522616428461!2d113.9856543!3d4.4904558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f4f8bba499149%3A0xd5f7a4248a9e62e2!2sP100!5e0!3m2!1sen!2smy!4v1710000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15945.7482811356!2d113.978!3d4.469!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjgnMDguNCJOIDExM8KwNTgnNDAuOCJF!5e0!3m2!1sen!2smy!4v1645000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://maps.app.goo.gl/uX7MvV3GzU8k3YwX9" target="_blank">Get Directions</a>
+    <a class="btn" href="https://maps.app.goo.gl/35p3L6FzW8wFmH4F7" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
   </section>
 
@@ -246,22 +303,14 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
           <td class="time-col">05:20 PM</td>
           <td class="activity-col">
             <span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span>
-            <small class="details lang" 
-              data-en="Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen" 
-              data-bm="Ibu bapa, Adik-beradik, Pengantin, Pengiring Lelaki & Perempuan">
-              Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen
-            </small>
+            <small class="details lang" data-en="Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen" data-bm="Ibu bapa, Adik-beradik, Pengantin, Pengiring Lelaki & Perempuan">Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen</small>
           </td>
         </tr>
         <tr>
           <td class="time-col">05:30 PM</td>
           <td class="activity-col">
             <span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span>
-            <small class="details lang" 
-              data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" 
-              data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">
-              Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting
-            </small>
+            <small class="details lang" data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting</small>
           </td>
         </tr>
         <tr>
@@ -272,11 +321,7 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
           <td class="time-col">06:45 PM</td>
           <td class="activity-col">
             <span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span>
-            <small class="details lang" 
-              data-en="Orang Ulu Clothing Exchange & Video Montage" 
-              data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">
-              Orang Ulu Clothing Exchange & Video Montage
-            </small>
+            <small class="details lang" data-en="Orang Ulu Clothing Exchange & Video Montage" data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">Orang Ulu Clothing Exchange & Video Montage</small>
           </td>
         </tr>
         <tr>
@@ -311,7 +356,7 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
   <section id="dress">
     <h2 class="lang" data-en="Dress Code" data-bm="Etika Berpakaian">Dress Code</h2>
     <p class="big">Light Blue & Light Green</p>
-    <p class="soft lang" data-en="Theme: Light Green & Light Blue" data-bm="Tema: Hijau Muda & Biru Muda">Theme : Whimsical Garden Wedding</p>
+    <p class="soft lang" data-en="Theme: Whimsical Garden Wedding" data-bm="Tema: Perkahwinan Taman Whimsical">Theme: Whimsical Garden Wedding</p>
     <a class="btn" href="#rsvp">RSVP ↓</a>
   </section>
 
@@ -334,14 +379,24 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
   </section>
 
   <section id="gallery">
-    <h2 class="lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</h2>
-    <div class="divider"></div>
-    <div class="photo-mosaic">
-      <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" alt="Photo 1">
-      <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" alt="Photo 2">
-      <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" alt="Photo 3">
-      <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" alt="Photo 4">
+    <div class="moments-frame">
+      <div class="moments-inner">
+        <p class="moments-title lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</p>
+        <p class="moments-subtitle">"The greatest of these is love"</p>
+        <p class="moments-names">Sylvester & Jezreel</p>
+        <div class="divider" style="margin: 10px auto;"></div>
+        
+        <div class="gallery-stack">
+          <div class="gallery-row">
+            <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" class="img-half" alt="Photo 1">
+            <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" class="img-half" alt="Photo 2">
+          </div>
+          <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" class="img-full" alt="Photo 3">
+          <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" class="img-full" alt="Photo 4">
+        </div>
+      </div>
     </div>
+    <a class="btn" href="#share" style="margin-top:20px;">Next ↓</a>
   </section>
 
   <section id="share">
@@ -350,7 +405,7 @@ h2 { font-size: 2.2rem; color: #4b5e40; }
         <p>— 1 Corinthians 13:13</p>
     </div>
     <div class="divider"></div>
-    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited!" target="_blank">Share via WhatsApp</a>
+    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20our%20wedding!" target="_blank">Share via WhatsApp</a>
     <a class="btn secondary" href="#cover">Back to Top ↑</a>
   </section>
 </div>
@@ -396,11 +451,9 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-document.querySelectorAll('.photo-mosaic img, .qr-card img').forEach(img => {
+document.querySelectorAll('img').forEach(img => {
     img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
 </script>
 </body>
 </html>
-
-
