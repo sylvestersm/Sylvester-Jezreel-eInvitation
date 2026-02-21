@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sylvester & Jezreel Wedding Invitation</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -17,18 +17,18 @@ body, html {
   margin: 0; padding: 0;
   font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
-  background-color: #000;
+  background-color: #f7f9f7;
   overflow-x: hidden;
-  width: 100%;
 }
 
-/* HIGH-SPEED SHUTTER BACKGROUND ENGINE (VISIBLE ON LANDING & CONTENT) */
+/* HIGH-SPEED SHUTTER BACKGROUND ENGINE */
 .shutter-background-fixed {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  z-index: 1; /* Below content but visible */
+  z-index: 1;
   background-color: #000;
+  display: none; /* Hidden until invitation opens */
 }
 
 .shutter-slide {
@@ -39,14 +39,14 @@ body, html {
   background-position: center; 
   background-repeat: no-repeat;
   opacity: 0;
-  transform: scale(1.08);
-  transition: opacity 0.05s ease-in;
+  transform: scale(1.1);
+  transition: opacity 0.05s ease-out;
 }
 
 .shutter-slide.active {
   opacity: 1;
   transform: scale(1);
-  transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.05s ease-in;
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.05s ease-in;
 }
 
 #shutter-flash {
@@ -55,42 +55,77 @@ body, html {
   width: 100%; height: 100%;
   background: #fff;
   opacity: 0;
-  z-index: 5;
+  z-index: 10;
   pointer-events: none;
 }
 
 .flash-anim {
-  animation: rapidFlash 0.15s ease-out;
+  animation: rapidFlash 0.1s ease-out;
 }
 
 @keyframes rapidFlash {
   0% { opacity: 0; }
-  50% { opacity: 0.9; }
+  50% { opacity: 1; }
   100% { opacity: 0; }
 }
 
-/* LANDING COVER - Now transparent to show the shutter loop */
+/* LANDING PAGE WITH CINEMATIC ZOOM */
 #landing-cover {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.3); /* Dark tint to make text readable */
+  background-color: #f7f9f7;
   display: flex; justify-content: center; align-items: center;
   z-index: 9999;
   transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+  overflow: hidden;
+}
+
+.bg-zoom {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), 
+              url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true');
+  background-size: cover;
+  background-position: center;
+  animation: slowZoom 20s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
 }
 
 .envelope-card {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.85);
   padding: 50px 30px;
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   max-width: 85%;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255,255,255,0.5);
+  position: relative;
+  overflow: hidden;
   animation: fadeInUp 1.5s ease-out;
+}
+
+.envelope-card::after {
+  content: "";
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 20%; height: 200%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: rotate(30deg);
+  animation: shimmer 5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -60%; }
+  20% { left: 120%; }
+  100% { left: 120%; }
 }
 
 @keyframes fadeInUp {
@@ -98,14 +133,14 @@ body, html {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* MAIN CONTENT LAYOUT */
+/* MAIN CONTENT */
 #main-content {
   display: none;
   position: relative;
-  z-index: 100; /* Higher than background */
-  width: 100%;
+  z-index: 100;
 }
 
+/* SECTIONS & TRANSITIONS */
 section {
   min-height: 100vh;
   display: flex;
@@ -115,31 +150,27 @@ section {
   text-align: center;
   padding: 60px 20px;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.82); 
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.75); /* Increased slightly to see text better against photo background */
+  backdrop-filter: blur(8px);
   position: relative;
   opacity: 0;
   transform: translateY(30px);
   transition: all 1s ease-out;
-  margin: 20px auto;
-  max-width: 650px;
+  margin: 40px auto;
+  max-width: 600px;
   border-radius: 30px;
 }
 
 section#cover {
-  background: rgba(255, 255, 255, 0.4);
-  margin: 0;
-  border-radius: 0;
-  max-width: 100%;
-  height: 100vh;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0; border-radius: 0; max-width: 100%; min-height: 100vh;
 }
 
 section.reveal { opacity: 1; transform: translateY(0); }
 
 /* TYPOGRAPHY */
 h1, h2 { font-family: 'Playfair Display', serif; margin: 0 0 10px; }
-h1 { font-size: clamp(2.3rem, 8vw, 3.5rem); color: #2d3436; line-height: 1.2; }
+h1 { font-size: 2.8rem; color: #2d3436; line-height: 1.2; }
 h2 { font-size: 2.2rem; color: var(--dark-sage); }
 .soft { color: #636e72; font-size: 0.9rem; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
 .big { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; color: #2c3e50; }
@@ -150,7 +181,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
   display: inline-block; margin: 10px 5px;
   padding: 14px 25px; border-radius: 30px;
   background: linear-gradient(135deg, #a8e6cf, #dcedc1);
-  color: #333; text-decoration: none; font-weight: 600; font-size: 0.95rem;
+  color: #333; text-decoration: none; font-weight: 500; font-size: 0.95rem;
   transition: all 0.3s ease; border: none; cursor: pointer;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
@@ -158,35 +189,48 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 .btn.secondary { background: #f0f0f0; color: #666; box-shadow: none; }
 
 /* PROGRAM TABLE */
-.program-container { width: 100%; max-width: 450px; margin: 0 auto; background: white; padding: 20px; border-radius: 20px; box-sizing: border-box; }
+.program-container { width: 100%; max-width: 450px; margin: 0 auto; background: white; padding: 15px; border-radius: 20px; }
 .timeline-table { width: 100%; border-collapse: collapse; text-align: left; }
 .timeline-table td { padding: 15px 5px; vertical-align: top; border-bottom: 1px dashed #ced6e0; }
 .time-col { width: 90px; font-weight: 600; font-size: 0.9rem; color: #4b5e40; }
 .activity-col { font-size: 0.95rem; color: #2d3436; }
 .details { font-size: 0.75rem; color: #777; display: block; margin-top: 5px; line-height: 1.4; font-style: italic; }
 
-/* GALLERY */
-.gallery-stack { display: flex; flex-direction: column; gap: 15px; width: 100%; align-items: center; margin: 20px auto; }
+/* MOMENTS / GALLERY */
+.moments-frame { border: 1px solid var(--dark-sage); padding: 10px; width: 100%; max-width: 450px; margin: 20px auto; background-color: rgba(255, 255, 255, 0.6); }
+.moments-inner { border: 1px solid var(--dark-sage); padding: 40px 15px; }
+.moments-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; letter-spacing: 4px; color: var(--dark-sage); text-transform: uppercase; }
+.moments-names { font-family: 'Playfair Display', serif; font-size: 2rem; color: #2d3436; margin-bottom: 5px; }
+
+.gallery-stack { display: flex; flex-direction: column; gap: 15px; width: 100%; align-items: center; margin-top: 30px; }
 .gallery-row { display: flex; gap: 12px; width: 100%; justify-content: center; }
-.gallery-stack img { box-sizing: border-box; object-fit: cover; border-radius: 5px; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer; }
+.gallery-stack img { box-sizing: border-box; object-fit: cover; border-radius: 5px; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: transform 0.3s ease; cursor: pointer; }
 .img-half { width: calc(50% - 6px); height: 200px; }
 .img-full { width: 100%; height: auto; max-height: 350px; }
 
-/* COMMENTS */
-.comment-card { background: white; padding: 25px; border-radius: 20px; width: 100%; max-width: 450px; text-align: left; box-sizing: border-box; }
-.comment-input, .comment-textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #dfe6e9; border-radius: 10px; font-size: 0.9rem; box-sizing: border-box; font-family: inherit; }
-.sticker-tray { display: none; background: #fff; border: 1px solid #ddd; border-radius: 15px; padding: 10px; margin-top: 10px; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-.sticker-item { font-size: 1.5rem; cursor: pointer; text-align: center; }
-#wishes-display { width: 100%; max-height: 300px; overflow-y: auto; margin-top: 20px; }
-.wish-item { background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 4px solid var(--primary-green); text-align: left; }
+/* QR CARD */
+.qr-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 20px auto; max-width: 280px; }
+.qr-card img { width: 100%; border-radius: 10px; cursor: pointer; }
 
-/* CONTROLS */
-#langSwitch { position: fixed; top: 20px; left: 20px; z-index: 10001; background: white; padding: 8px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: none; }
-#musicBtn { position: fixed; top: 20px; right: 20px; z-index: 10001; width: 50px; height: 50px; border-radius: 50%; background: white; border: none; cursor: pointer; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none; align-items: center; justify-content: center; }
-#lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10005; justify-content: center; align-items: center; }
+/* LIGHTBOX */
+#lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
 #lightbox img { max-width: 90%; max-height: 80%; border: 5px solid white; border-radius: 10px; }
 
-@media(max-width:600px){ h1 { font-size: 2.3rem; } section { padding: 40px 15px; margin: 15px; } }
+/* COMMENTS */
+.comment-card { background: white; padding: 30px 20px; border-radius: 20px; box-shadow: 0 5px 25px rgba(0,0,0,0.05); width: 100%; max-width: 450px; margin: 20px auto; text-align: left; }
+.comment-input, .comment-textarea { width: 100%; padding: 12px 15px; margin-bottom: 10px; border: 1px solid #dfe6e9; border-radius: 10px; font-family: inherit; box-sizing: border-box; }
+.comment-textarea { height: 100px; resize: none; }
+#wishes-display { width: 100%; max-width: 450px; margin-top: 30px; max-height: 350px; overflow-y: auto; padding: 10px; border-radius: 20px; }
+.wish-item { background: white; padding: 15px; border-radius: 15px; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--primary-green); animation: slideIn 0.5s ease-out; }
+
+/* CONTROLS */
+#langSwitch { position: fixed; top: 20px; left: 20px; z-index: 10001; background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: none; }
+#musicBtn { position: fixed; top: 20px; right: 20px; z-index: 10001; width: 50px; height: 50px; border-radius: 50%; background: white; border: none; cursor: pointer; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none; align-items: center; justify-content: center; }
+
+@media(max-width:600px){ 
+  h1 { font-size: 2.3rem; } 
+  section { padding: 40px 15px; margin: 20px 10px; }
+}
 </style>
 </head>
 <body>
@@ -198,16 +242,12 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
 <button id="musicBtn">⏸️</button>
 
-<div class="shutter-background-fixed">
+<div class="shutter-background-fixed" id="shutter-container">
   <div id="shutter-flash"></div>
-  <div class="shutter-slide active" style="background-image: url('https://github.com/sylvestersm/Sylvester-Jezreel-eInvitation/blob/main/BG.png?raw=true');"></div>
-  <div class="shutter-slide" style="background-image: url('https://i.ibb.co/4f7nB9t/photo1.jpg');"></div>
-  <div class="shutter-slide" style="background-image: url('https://i.ibb.co/qnR1ZCw/photo2.jpg');"></div>
-  <div class="shutter-slide" style="background-image: url('https://i.ibb.co/5FjLm7Z/photo3.jpg');"></div>
-  <div class="shutter-slide" style="background-image: url('https://i.ibb.co/Tc3q6yZ/photo4.jpg');"></div>
 </div>
 
 <div id="landing-cover">
+  <div class="bg-zoom"></div>
   <div class="envelope-card">
     <p class="soft lang" data-en="Wedding Invitation" data-bm="Undangan Perkahwinan">Wedding Invitation</p>
     <h1 style="letter-spacing: 2px;">Sylvester & Jezreel</h1>
@@ -244,7 +284,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.4444!2d113.9!3d4.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjQnMDAuMCJOIDExM8KwNTQnMDAuMCJF!5e0!3m2!1sen!2smy!4v1620000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://maps.google.com/?cid=5041685175627311330&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -255,16 +295,11 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <div class="program-container">
       <table class="timeline-table">
         <tr><td class="time-col">04:00 PM</td><td class="activity-col lang" data-en="Guests Arrival" data-bm="Ketibaan Tetamu">Guests Arrival</td></tr>
-        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Bride, Groom & Family Entry ready" data-bm="Penyediaan Masuk Pengantin & Keluarga">Bride, Groom & Family Entry ready</td></tr>
-        <tr><td class="time-col">05:15 PM</td><td class="activity-col lang" data-en="Welcome Speech" data-bm="Ucapan Aluan">Welcome Speech</td></tr>
-        <tr><td class="time-col">05:20 PM</td><td class="activity-col"><span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span><small class="details lang" data-en="Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen" data-bm="Ibu bapa, Adik-beradik, Pengantin, Pengiring Lelaki & Perempuan">Parents, Siblings, Bride & Groom, Bridesmaids & Groomsmen</small></td></tr>
-        <tr><td class="time-col">05:30 PM</td><td class="activity-col"><span class="lang" data-en="Ceremony" data-bm="Upacara Majlis">Ceremony</span><small class="details lang" data-en="Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting" data-bm="Doa, Pemberkatan, Ikrar, Cincin, Menyingkap Tabir & Potong Kek">Prayer, Blessing, Vows, Rings, Unveiling & Cake Cutting</small></td></tr>
-        <tr><td class="time-col">06:15 PM</td><td class="activity-col lang" data-en="Photography Session with Family" data-bm="Sesi Foto Bersama Keluarga">Photography Session with Family</td></tr>
-        <tr><td class="time-col">06:45 PM</td><td class="activity-col"><span class="lang" data-en="Guest Dining Session" data-bm="Sesi Jamuan Makan">Guest Dining Session</span><small class="details lang" data-en="Orang Ulu Clothing Exchange & Video Montage" data-bm="Tukar Pakaian Orang Ulu & Tayangan Video">Orang Ulu Clothing Exchange & Video Montage</small></td></tr>
-        <tr><td class="time-col">07:15 PM</td><td class="activity-col lang" data-en="Second March In" data-bm="Perarakan Masuk Kedua">Second March In</td></tr>
-        <tr><td class="time-col">07:30 PM</td><td class="activity-col lang" data-en="Gift Exchange" data-bm="Pertukaran Hadiah">Gift Exchange</td></tr>
-        <tr><td class="time-col">08:00 PM</td><td class="activity-col lang" data-en="Speech from Groom's Side" data-bm="Ucapan">Speeches</td></tr>
-        <tr><td class="time-col">08:30 PM</td><td class="activity-col lang" data-en="Open Floor Session & Guest Photos" data-bm="Sesi Foto Bersama Tetamu">Open Floor Session & Guest Photos</td></tr>
+        <tr><td class="time-col">05:00 PM</td><td class="activity-col lang" data-en="Ready Entry" data-bm="Penyediaan Masuk">Bride, Groom & Family Entry ready</td></tr>
+        <tr><td class="time-col">05:20 PM</td><td class="activity-col"><span class="lang" data-en="First March In" data-bm="Perarakan Masuk Pertama">First March In</span><small class="details lang" data-en="Family, Groom & Bride" data-bm="Keluarga, Lelaki & Perempuan">Family, Groom & Bride</small></td></tr>
+        <tr><td class="time-col">05:30 PM</td><td class="activity-col lang" data-en="Ceremony" data-bm="Upacara Majlis">Vows, Rings & Cake Cutting</td></tr>
+        <tr><td class="time-col">06:45 PM</td><td class="activity-col lang" data-en="Dining Session" data-bm="Sesi Jamuan Makan">Dining Session & Video Montage</td></tr>
+        <tr><td class="time-col">08:30 PM</td><td class="activity-col lang" data-en="Photography" data-bm="Sesi Foto">Photography Session</td></tr>
       </table>
     </div>
     <a class="btn" href="#dress" style="margin-top:20px;">Next ↓</a>
@@ -273,26 +308,31 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
   <section id="dress">
     <h2 class="lang" data-en="Dress Code" data-bm="Etika Berpakaian">Dress Code</h2>
     <p class="big">Light Blue & Light Green</p>
-    <p class="soft lang" data-en="Theme: Whimsical Garden Wedding" data-bm="Tema: Perkahwinan Taman Whimsical">Theme: Whimsical Garden Wedding</p>
+    <p class="soft lang" data-en="Theme: Whimsical Garden" data-bm="Tema: Taman Whimsical">Theme: Whimsical Garden</p>
     <a class="btn" href="#gallery">Next ↓</a>
   </section>
 
   <section id="gallery">
-    <h2 class="lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</h2>
-    <div class="gallery-stack">
-      <div class="gallery-row">
-        <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" class="img-half" alt="Photo 1">
-        <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" class="img-half" alt="Photo 2">
+    <div class="moments-frame">
+      <div class="moments-inner">
+        <h2 class="moments-title lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</h2>
+        <p class="moments-names">Sylvester & Jezreel</p>
+        <div class="divider" style="margin: 10px auto;"></div>
+        <div class="gallery-stack">
+          <div class="gallery-row">
+            <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/1.jpeg" class="img-half">
+            <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/2.jpeg" class="img-half">
+          </div>
+          <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/3.jpeg" class="img-full">
+          <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/4.jpeg" class="img-full">
+        </div>
       </div>
-      <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" class="img-full" alt="Photo 3">
-      <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" class="img-full" alt="Photo 4">
     </div>
     <a class="btn" href="#rsvp" style="margin-top:20px;">RSVP Now ↓</a>
   </section>
 
   <section id="rsvp">
     <h2 class="lang" data-en="RSVP" data-bm="Kehadiran">RSVP</h2>
-    <p class="soft lang" data-en="Kindly respond by 1st May 2026" data-bm="Sila maklum balas sebelum 1 Mei 2026">Kindly respond by 1st May 2026</p>
     <div class="rsvp-group">
         <a class="btn" href="https://forms.gle/m16Yg9EbfEn5C1iS7" target="_blank">✅ Yes</a>
         <a class="btn secondary" href="https://wa.me/60178083036" target="_blank">❌ No</a>
@@ -302,40 +342,23 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 
   <section id="gift">
     <h2 class="lang" data-en="Wedding Gift" data-bm="Hadiah Perkahwinan">Wedding Gift</h2>
-    <div class="qr-card" style="background:white; padding:20px; border-radius:15px; border: 4px solid white;">
-      <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg" alt="Wedding QR" style="width:100%; max-width:250px; border-radius:10px;">
+    <div class="qr-card">
+      <img src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/QR.jpeg">
       <p style="margin-top:15px; font-weight:600; color:#333;">QR Scan / Duitnow</p>
     </div>
     <a class="btn" href="#blessings">Next ↓</a>
   </section>
 
   <section id="blessings">
-    <h2 class="lang" data-en="Share your Blessing" data-bm="Titipkan Ucapan">Share your Blessing</h2>
+    <h2 class="lang" data-en="Guest Book" data-bm="Buku Tetamu">Guest Book</h2>
     <div class="comment-card">
-      <form id="wishForm">
-        <input type="text" id="guestName" class="comment-input" placeholder="Name" required>
-        <textarea id="guestMessage" class="comment-textarea" placeholder="Message" maxlength="200" required></textarea>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <button type="button" class="btn secondary" id="stickerBtn" style="padding: 10px 15px;">Sticker</button>
-          <button type="submit" class="btn" id="submitBtn">Send ❤️</button>
-        </div>
-        <div id="stickerTray" class="sticker-tray">
-          <div class="sticker-item">❤️</div><div class="sticker-item">✨</div><div class="sticker-item">💍</div>
-          <div class="sticker-item">🥂</div><div class="sticker-item">🕊️</div><div class="sticker-item">🌸</div>
-          <div class="sticker-item">🎉</div><div class="sticker-item">🙌</div><div class="sticker-item">👩‍❤️‍👨</div>
-          <div class="sticker-item">💐</div>
-        </div>
+      <form id="wishForm" class="comment-form">
+        <input type="text" id="guestName" class="comment-input" placeholder="Your Name" required>
+        <textarea id="guestMessage" class="comment-textarea" placeholder="Wishes..." maxlength="200" required></textarea>
+        <button type="submit" class="btn" id="submitBtn" style="width:100%;">Send ❤️</button>
       </form>
       <div id="wishes-display"></div>
     </div>
-    <a class="btn" href="#share" style="margin-top: 20px;">Finish ↓</a>
-  </section>
-
-  <section id="share">
-    <h2 style="font-style: italic;">"The greatest of these is love."</h2>
-    <p>— 1 Corinthians 13:13</p>
-    <div class="divider"></div>
-    <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20our%20wedding!" target="_blank">Share via WhatsApp</a>
     <a class="btn secondary" href="#cover">Back to Top ↑</a>
   </section>
 </div>
@@ -343,7 +366,18 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <div id="lightbox" onclick="this.style.display='none'"><img id="lbImg" src=""></div>
 
 <script>
-// SHUTTER DUMP LOGIC
+// --- SHUTTER ENGINE CONFIG ---
+const TOTAL_PHOTOS = 10; 
+const IMAGE_BASE_URL = "https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/";
+
+const shutterContainer = document.getElementById('shutter-container');
+for (let i = 1; i <= TOTAL_PHOTOS; i++) {
+    const div = document.createElement('div');
+    div.className = 'shutter-slide' + (i === 1 ? ' active' : '');
+    div.style.backgroundImage = `url('${IMAGE_BASE_URL}${i}.jpeg')`;
+    shutterContainer.appendChild(div);
+}
+
 const slides = document.querySelectorAll('.shutter-slide');
 const flash = document.getElementById('shutter-flash');
 let currentIndex = 0;
@@ -356,9 +390,9 @@ function triggerShutter() {
   currentIndex = (currentIndex + 1) % slides.length;
   slides[currentIndex].classList.add('active');
 }
-setInterval(triggerShutter, 500);
+let shutterInterval;
 
-// INTERFACE LOGIC
+// --- INTERFACE LOGIC ---
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const langSwitch = document.getElementById('langSwitch');
@@ -378,67 +412,61 @@ function toggleLanguage() {
 }
 
 function openInvitation() {
-  document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
-  setTimeout(() => {
-    document.getElementById('main-content').style.display = 'block';
-    musicBtn.style.display = 'flex'; langSwitch.style.display = 'block';
-    document.querySelectorAll('section').forEach(s => observer.observe(s));
-  }, 1000);
-  music.volume = 0.5; music.play().catch(e => console.log("Play blocked"));
+    document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
+    setTimeout(() => {
+        document.getElementById('shutter-container').style.display = 'block';
+        document.getElementById('main-content').style.display = 'block';
+        musicBtn.style.display = 'flex'; 
+        langSwitch.style.display = 'block';
+        document.getElementById('landing-cover').style.display = 'none';
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+        shutterInterval = setInterval(triggerShutter, 350);
+    }, 1000);
+    
+    music.volume = 0; music.play().catch(e => console.log("Blocked"));
+    let vol = 0;
+    let fade = setInterval(() => { if (vol < 0.9) { vol += 0.1; music.volume = vol.toFixed(2); } else clearInterval(fade); }, 200);
 }
 
-musicBtn.onclick = () => {
-  if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; }
-  else { music.pause(); musicBtn.innerHTML = "🎵"; }
-};
+musicBtn.onclick = () => { if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } else { music.pause(); musicBtn.innerHTML = "🎵"; } };
 
 // COUNTDOWN
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
-  const now = new Date().getTime(); const diff = weddingDate - now;
-  if(diff < 0) { document.getElementById('countdown').innerHTML = "Just Married! 🎉"; return; }
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24)), h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)), m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)), s = Math.floor((diff % (1000 * 60)) / 1000);
-  document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+    const diff = weddingDate - new Date().getTime();
+    if(diff < 0) { document.getElementById('countdown').innerHTML = "Just Married! 🎉"; return; }
+    const d = Math.floor(diff / 86400000), h = Math.floor((diff % 86400000) / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-// GALLERY LIGHTBOX
-document.querySelectorAll('.gallery-stack img').forEach(img => {
-  img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
+// LIGHTBOX
+document.querySelectorAll('img').forEach(img => {
+    img.onclick = () => { if(img.src) { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; } };
 });
 
-// SOCIAL WALL
-const stickerBtn = document.getElementById('stickerBtn');
-const stickerTray = document.getElementById('stickerTray');
-const msgInput = document.getElementById('guestMessage');
+// WISHES
 const wishesDisplay = document.getElementById('wishes-display');
-
-window.onload = function() {
+function loadWishes() {
+  wishesDisplay.innerHTML = '';
   const saved = JSON.parse(localStorage.getItem('weddingWishes')) || [];
-  saved.reverse().forEach(w => addWishToDOM(w.name, w.message));
-};
-
-stickerBtn.onclick = () => { stickerTray.style.display = stickerTray.style.display === 'grid' ? 'none' : 'grid'; };
-document.querySelectorAll('.sticker-item').forEach(item => {
-  item.onclick = () => { msgInput.value += item.innerText; stickerTray.style.display = 'none'; };
-});
-
-function addWishToDOM(name, message) {
-  const div = document.createElement('div');
-  div.className = 'wish-item';
-  div.innerHTML = `<strong>${name}</strong>: ${message}`;
-  wishesDisplay.prepend(div);
+  saved.reverse().forEach(w => {
+    const d = document.createElement('div'); d.className = 'wish-item';
+    d.innerHTML = `<strong>${w.name}</strong><p>${w.message}</p>`;
+    wishesDisplay.appendChild(d);
+  });
 }
 
 document.getElementById('wishForm').onsubmit = function(e) {
   e.preventDefault();
-  const name = document.getElementById('guestName').value;
-  const msg = document.getElementById('guestMessage').value;
+  const n = document.getElementById('guestName').value;
+  const m = document.getElementById('guestMessage').value;
   const saved = JSON.parse(localStorage.getItem('weddingWishes')) || [];
-  saved.push({ name, message: msg });
+  saved.push({ name: n, message: m });
   localStorage.setItem('weddingWishes', JSON.stringify(saved));
-  addWishToDOM(name, msg);
+  loadWishes();
   this.reset();
 };
+window.onload = loadWishes;
 </script>
 </body>
 </html>
