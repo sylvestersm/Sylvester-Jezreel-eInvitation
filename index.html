@@ -109,14 +109,11 @@ section {
   align-items: center;
   flex-direction: column;
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px 20px;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
   position: relative;
-  border: 15px solid transparent;
-  outline: 1px solid var(--sage-border);
-  outline-offset: -25px;
   opacity: 0;
   transform: translateY(30px);
   transition: all 1s ease-out;
@@ -156,18 +153,20 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 .activity-col { font-size: 0.95rem; color: #2d3436; }
 .details { font-size: 0.75rem; color: #777; display: block; margin-top: 5px; line-height: 1.4; font-style: italic; }
 
-/* OUR MOMENTS SECTION - WHIMSICAL FRAME */
+/* OUR MOMENTS SECTION - FIXED ALIGNMENT */
 .moments-frame {
   border: 1px solid var(--dark-sage);
   padding: 10px;
-  max-width: 90%;
+  width: 100%;
+  max-width: 450px;
   margin: 20px auto;
-  position: relative;
+  box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.6);
 }
 .moments-inner {
   border: 1px solid var(--dark-sage);
   padding: 40px 15px;
+  box-sizing: border-box;
 }
 .moments-title {
   font-family: 'Playfair Display', serif;
@@ -192,20 +191,23 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
   margin-bottom: 5px;
 }
 
-/* PHOTO STACK LAYOUT BASED ON UPLOADED SAMPLE */
+/* GALLERY STACK - FIXED FOR CENTER ALIGNMENT */
 .gallery-stack {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 450px;
-  margin: 30px auto;
+  width: 100%;
+  align-items: center;
+  margin: 30px auto 0;
 }
 .gallery-row {
   display: flex;
   gap: 12px;
+  width: 100%;
+  justify-content: center;
 }
 .gallery-stack img {
-  width: 100%;
+  box-sizing: border-box;
   object-fit: cover;
   border-radius: 5px;
   border: 4px solid white;
@@ -216,8 +218,8 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 .gallery-stack img:hover {
   transform: scale(1.02);
 }
-.img-half { width: 50%; height: 220px; }
-.img-full { width: 100%; height: 280px; }
+.img-half { width: calc(50% - 6px); height: 200px; }
+.img-full { width: 100%; height: auto; max-height: 350px; }
 
 /* QR CARD */
 .qr-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 20px auto; max-width: 280px; }
@@ -227,7 +229,12 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
 #lightbox img { max-width: 90%; max-height: 80%; border: 5px solid white; border-radius: 10px; }
 
-@media(max-width:600px){ h1 { font-size: 2.3rem; } h2 { font-size: 1.8rem; } .moments-names { font-size: 1.6rem; } }
+@media(max-width:600px){ 
+  h1 { font-size: 2.3rem; } 
+  h2 { font-size: 1.8rem; } 
+  .moments-names { font-size: 1.6rem; }
+  section { padding: 40px 15px; }
+}
 </style>
 </head>
 <body>
@@ -277,9 +284,9 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15945.7482811356!2d113.978!3d4.469!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjgnMDguNCJOIDExM8KwNTgnNDAuOCJF!5e0!3m2!1sen!2smy!4v1645000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15944.331405101648!2d113.98!3d4.46!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnMzYuMCJOIDExM8KwNTgnNDguMCJF!5e0!3m2!1sen!2smy!4v1645000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <a class="btn" href="https://maps.app.goo.gl/35p3L6FzW8wFmH4F7" target="_blank">Get Directions</a>
+    <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
   </section>
 
@@ -457,4 +464,3 @@ document.querySelectorAll('img').forEach(img => {
 </script>
 </body>
 </html>
-
