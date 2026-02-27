@@ -327,8 +327,8 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto" playsinline>
-  <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/Crazier%20-%20Taylor%20Swift%20(COVER).mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline>
+  <source src="Crazier%20-%20Taylor%20Swift%20(COVER).mp3" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -510,42 +510,32 @@ function toggleLanguage() {
 }
 
 function openInvitation() {
-    // 1. Play music immediately on user click (Crucial for mobile)
+    // UPDATED: Music play command moved to the very first line of user interaction
     music.volume = 0;
     music.play().then(() => {
+        // Smooth fade-in
         let vol = 0;
         let fade = setInterval(() => { 
             if (vol < 0.9) { 
                 vol += 0.1; 
                 music.volume = vol.toFixed(2); 
-            } else {
-                clearInterval(fade);
-            }
+            } else clearInterval(fade); 
         }, 200);
     }).catch(e => {
-        console.log("Music play blocked by browser. User interaction required.");
+        console.log("Music play blocked by device. User must tap 'Open' specifically.");
     });
 
-    // 2. Animate and show content
+    // Animate and show content
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
-        musicBtn.style.display = 'flex'; 
-        langSwitch.style.display = 'block';
+        musicBtn.style.display = 'flex'; langSwitch.style.display = 'block';
         document.getElementById('landing-cover').style.display = 'none';
         document.querySelectorAll('section').forEach(s => observer.observe(s));
     }, 1000);
 }
 
-musicBtn.onclick = () => { 
-    if(music.paused) { 
-        music.play(); 
-        musicBtn.innerHTML = "⏸️"; 
-    } else { 
-        music.pause(); 
-        musicBtn.innerHTML = "🎵"; 
-    } 
-};
+musicBtn.onclick = () => { if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } else { music.pause(); musicBtn.innerHTML = "🎵"; } };
 
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
