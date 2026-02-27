@@ -327,7 +327,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline crossorigin="anonymous">
+<audio id="bgMusic" loop preload="auto" playsinline>
   <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/Crazier%20-%20Taylor%20Swift%20(COVER).mp3" type="audio/mpeg">
 </audio>
 
@@ -372,7 +372,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.457850881143!2d114.0117!3d4.4647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnNTIuOSJOIDExNMKwMDAnNDIuMSJF!5e0!3m2!1sen!2smy!4v1620000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.355209736853!2d113.9855513758253!3d4.453982995521746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f5bb92167d4b1%3A0xc3f987d60e7f8e81!2sP100%20Miri!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -510,26 +510,11 @@ function toggleLanguage() {
 }
 
 function openInvitation() {
-    // 1. IMMEDIATE AUDIO TRIGGER (Critical for mobile browsers)
-    music.volume = 0;
-    music.currentTime = 0.1; // "Wake up" the stream
-    
-    music.play().then(() => {
-        // FADE IN LOGIC
-        let vol = 0;
-        const fadeIn = setInterval(() => {
-            if (vol < 1) {
-                vol += 0.05;
-                music.volume = Math.min(vol, 1);
-            } else {
-                clearInterval(fadeIn);
-            }
-        }, 100);
-    }).catch(error => {
-        console.log("Mobile Autoplay restricted:", error);
-    });
+    // START MUSIC IMMEDIATELY AT 100% VOLUME (No Fade-in to avoid mobile block)
+    music.volume = 1.0;
+    music.play().catch(e => console.log("System blocked autoplay:", e));
 
-    // 2. Animate and show content
+    // ANIMATION
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
