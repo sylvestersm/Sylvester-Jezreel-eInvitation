@@ -327,7 +327,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto">
+<audio id="bgMusic" loop preload="auto" playsinline>
   <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/Crazier%20-%20Taylor%20Swift%20(COVER).mp3" type="audio/mpeg">
 </audio>
 
@@ -523,7 +523,7 @@ function openInvitation() {
             }
         }, 200);
     }).catch(e => {
-        console.log("Music play blocked by mobile restriction");
+        console.log("Music play blocked by browser. User interaction required.");
     });
 
     // 2. Animate and show content
