@@ -328,7 +328,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <body>
 
 <audio id="bgMusic" loop preload="auto">
-  <source src="Crazier - Taylor Swift (COVER).mp3" type="audio/mpeg">
+  <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/Crazier%20-%20Taylor%20Swift%20(COVER).mp3" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -510,19 +510,42 @@ function toggleLanguage() {
 }
 
 function openInvitation() {
+    // 1. Play music immediately on user click (Crucial for mobile)
+    music.volume = 0;
+    music.play().then(() => {
+        let vol = 0;
+        let fade = setInterval(() => { 
+            if (vol < 0.9) { 
+                vol += 0.1; 
+                music.volume = vol.toFixed(2); 
+            } else {
+                clearInterval(fade);
+            }
+        }, 200);
+    }).catch(e => {
+        console.log("Music play blocked by mobile restriction");
+    });
+
+    // 2. Animate and show content
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
-        musicBtn.style.display = 'flex'; langSwitch.style.display = 'block';
+        musicBtn.style.display = 'flex'; 
+        langSwitch.style.display = 'block';
         document.getElementById('landing-cover').style.display = 'none';
         document.querySelectorAll('section').forEach(s => observer.observe(s));
     }, 1000);
-    music.volume = 0; music.play().catch(e => console.log("Music play blocked"));
-    let vol = 0;
-    let fade = setInterval(() => { if (vol < 0.9) { vol += 0.1; music.volume = vol.toFixed(2); } else clearInterval(fade); }, 200);
 }
 
-musicBtn.onclick = () => { if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } else { music.pause(); musicBtn.innerHTML = "🎵"; } };
+musicBtn.onclick = () => { 
+    if(music.paused) { 
+        music.play(); 
+        musicBtn.innerHTML = "⏸️"; 
+    } else { 
+        music.pause(); 
+        musicBtn.innerHTML = "🎵"; 
+    } 
+};
 
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
@@ -617,4 +640,3 @@ document.getElementById('wishForm').onsubmit = function(e) {
 </script>
 </body>
 </html>
-
