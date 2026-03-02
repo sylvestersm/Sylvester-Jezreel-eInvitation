@@ -327,6 +327,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <body>
 
 <audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/music.mp3" type="audio/mpeg">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -483,9 +484,7 @@ const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const openBtn = document.getElementById('openBtn');
 
-// Force initial volume and unmuted status in JS
 music.volume = 1.0;
-music.muted = false;
 
 function toggleMusic() { 
   if(music.paused) { 
@@ -497,24 +496,18 @@ function toggleMusic() {
   } 
 }
 
-// Interaction listener: Some phones ONLY play if they see a screen touch
-// We try to trigger play on the very first touch anywhere
-function forcePlay() {
-  music.play().then(() => {
-    window.removeEventListener('touchstart', forcePlay);
-  }).catch(e => console.log("Touch to play pending..."));
-}
-window.addEventListener('touchstart', forcePlay);
-
 openBtn.addEventListener('click', function() {
-  // Try to play immediately on the Open Button click
-  music.play().then(() => {
-    musicBtn.innerHTML = "⏸️";
-  }).catch(e => {
-    // If it still fails, we try a second "hard" play
-    music.muted = false;
-    music.play();
-  });
+  // Try to play immediately on click
+  music.muted = false;
+  const playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise.then(_ => {
+      musicBtn.innerHTML = "⏸️";
+    }).catch(error => {
+      console.log("Playback failed. User interaction needed.");
+    });
+  }
 
   // UI Transitions
   document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
