@@ -254,6 +254,9 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
   box-sizing: border-box;
 }
 .comment-textarea { height: 100px; resize: none; margin-bottom: 5px; }
+#char-counter { font-size: 0.75rem; color: #777; margin-bottom: 20px; display: block; text-align: right; }
+#char-counter.limit-reached { color: #e74c3c; font-weight: bold; }
+.form-actions { display: flex; justify-content: space-between; align-items: center; }
 
 /* STICKER PICKER */
 .sticker-tray {
@@ -298,6 +301,12 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
   box-shadow: 0 2px 10px rgba(0,0,0,0.03);
   text-align: left;
   border-left: 4px solid var(--primary-green);
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .wish-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
@@ -320,6 +329,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 
 <audio id="bgMusic" loop preload="auto" playsinline>
   <source src="https://docs.google.com/uc?export=download&id=1AaAfTQaiWGJLk_4yJybZTNrmZ4lm3_oq" type="audio/mpeg">
+  <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/wedding%20song.mp3" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -332,7 +342,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <h1 style="letter-spacing: 2px;">Sylvester & Jezreel</h1>
     <div class="divider"></div>
     <p class="big">31 May 2026</p>
-    <button class="btn lang" data-en="Open Invitation" data-bm="Buka Undangan" id="openBtn">Open Invitation</button>
+    <button class="btn lang" data-en="Open Invitation" data-bm="Buka Undangan" onclick="openInvitation()">Open Invitation</button>
   </div>
 </div>
 
@@ -363,7 +373,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.52264654929!2d113.9877717757997!3d4.460838943714652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f5038ec673cc9%3A0xe6754b2d5f8c679b!2sP100!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.516104278479!2d113.9789!3d4.4754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjgnMzEuNCJOIDExM8KwNTgnNDQuMCJF!5e0!3m2!1sen!2smy!4v1620000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -440,16 +450,19 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <div class="comment-card">
       <form id="wishForm" class="comment-form">
         <label class="lang" data-en="Name" data-bm="Nama">Name</label>
-        <input type="text" id="guestName" class="comment-input" required>
+        <input type="text" id="guestName" class="comment-input" placeholder="..." required>
         <label class="lang" data-en="Message" data-bm="Mesej">Message</label>
-        <textarea id="guestMessage" class="comment-textarea" maxlength="200" required></textarea>
+        <textarea id="guestMessage" class="comment-textarea" placeholder="..." maxlength="200" required></textarea>
+        <span id="char-counter"><span id="current-count">0</span> / 200 <span class="lang" data-en="chars" data-bm="aksara">chars</span></span>
         <div class="form-actions">
-          <button type="button" class="btn secondary" id="stickerBtn">Sticker</button>
-          <button type="submit" class="btn" id="submitBtn">Send ></button>
+          <button type="button" class="btn secondary" id="stickerBtn" style="padding: 10px 20px;">Sticker</button>
+          <button type="submit" class="btn" id="submitBtn" style="padding: 10px 30px;">Send ></button>
         </div>
         <div id="stickerTray" class="sticker-tray">
           <div class="sticker-item">❤️</div><div class="sticker-item">✨</div><div class="sticker-item">💍</div>
           <div class="sticker-item">🥂</div><div class="sticker-item">🕊️</div><div class="sticker-item">🌸</div>
+          <div class="sticker-item">🎉</div><div class="sticker-item">🙌</div><div class="sticker-item">👩‍❤️‍👨</div>
+          <div class="sticker-item">💐</div>
         </div>
       </form>
     </div>
@@ -462,6 +475,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
         <h2>"The greatest of these is love."</h2>
         <p>— 1 Corinthians 13:13</p>
     </div>
+    <div class="divider"></div>
     <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20our%20wedding!" target="_blank">Share via WhatsApp</a>
     <a class="btn secondary" href="#cover">Back to Top ↑</a>
   </section>
@@ -470,56 +484,59 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <div id="lightbox" onclick="this.style.display='none'"><img id="lbImg" src=""></div>
 
 <script>
-// --- AUDIO SYSTEM ---
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-const openBtn = document.getElementById('openBtn');
-
-function toggleMusic() { 
-  if(music.paused) { 
-    music.play(); 
-    musicBtn.innerHTML = "⏸️"; 
-  } else { 
-    music.pause(); 
-    musicBtn.innerHTML = "🎵"; 
-  } 
-}
-
-openBtn.addEventListener('click', function() {
-  // THE KEY: Play happens in the direct click event
-  music.play().then(() => {
-    musicBtn.innerHTML = "⏸️";
-    musicBtn.style.display = 'flex';
-  }).catch(e => console.log("Unlock failed: User must click button."));
-
-  // UI Transitions
-  document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
-  document.getElementById('main-content').style.display = 'block';
-  document.getElementById('langSwitch').style.display = 'block';
-  
-  // Animation Observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('section').forEach(s => observer.observe(s));
-  
-  setTimeout(() => { document.getElementById('landing-cover').style.display = 'none'; }, 1200);
-});
-
-musicBtn.onclick = toggleMusic;
-
-// --- LANGUAGE SYSTEM ---
+const langSwitch = document.getElementById('langSwitch');
 let currentLang = 'en';
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+}, { threshold: 0.1 });
+
 function toggleLanguage() {
-  currentLang = (currentLang === 'en') ? 'bm' : 'en';
+  currentLang = currentLang === 'en' ? 'bm' : 'en';
   document.querySelectorAll('.lang').forEach(el => {
     const text = el.getAttribute(`data-${currentLang}`);
     if (text) el.innerHTML = text;
   });
-  document.getElementById('langSwitch').innerHTML = (currentLang === 'en') ? 'EN | BM' : 'BM | EN';
+  langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
 }
 
-// --- COUNTDOWN ---
+function openInvitation() {
+    // FORCE PLAY IMMEDIATELY
+    music.load(); // Reset buffer
+    music.volume = 1.0;
+    
+    // Attempt play immediately on the same thread as the click
+    const playAttempt = music.play();
+
+    if (playAttempt !== undefined) {
+        playAttempt.then(_ => {
+            musicBtn.innerHTML = "⏸️";
+        }).catch(e => {
+            console.log("Audio blocked, retrying on interaction...");
+            // If blocked, we try again when they scroll or touch anything
+            window.addEventListener('touchstart', () => music.play(), {once: true});
+        });
+    }
+
+    // UI Animations
+    document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
+    setTimeout(() => {
+        document.getElementById('main-content').style.display = 'block';
+        musicBtn.style.display = 'flex'; 
+        langSwitch.style.display = 'block';
+        document.getElementById('landing-cover').style.display = 'none';
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+    }, 1000);
+}
+
+musicBtn.onclick = () => { 
+    if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } 
+    else { music.pause(); musicBtn.innerHTML = "🎵"; } 
+};
+
+// COUNTDOWN
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime(); const diff = weddingDate - now;
@@ -528,32 +545,66 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-// --- GALLERY ---
-document.querySelectorAll('.gallery-stack img').forEach(img => {
+// LIGHTBOX
+document.querySelectorAll('img').forEach(img => {
     img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
 
-// --- WISHES ---
+// WISHES
 const stickerBtn = document.getElementById('stickerBtn');
 const stickerTray = document.getElementById('stickerTray');
 const msgInput = document.getElementById('guestMessage');
+const charCounter = document.getElementById('char-counter');
+const currentCount = document.getElementById('current-count');
 const wishesDisplay = document.getElementById('wishes-display');
 
-stickerBtn.onclick = (e) => { e.preventDefault(); stickerTray.style.display = (stickerTray.style.display === 'grid') ? 'none' : 'grid'; };
+window.onload = function() {
+  const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
+  if (savedWishes.length === 0) {
+    addWishToDOM("Admin", "Wishing you both a lifetime of happiness! ✨", false);
+  } else {
+    savedWishes.reverse().forEach(w => addWishToDOM(w.name, w.message, false));
+  }
+};
+
+stickerBtn.onclick = (e) => { e.preventDefault(); stickerTray.style.display = stickerTray.style.display === 'grid' ? 'none' : 'grid'; };
 document.querySelectorAll('.sticker-item').forEach(item => {
-  item.onclick = () => { msgInput.value += item.innerText; stickerTray.style.display = 'none'; };
+  item.onclick = () => {
+    if (msgInput.value.length + 2 <= 200) {
+      msgInput.value += item.innerText;
+      updateCharCount();
+      stickerTray.style.display = 'none';
+    }
+  };
 });
+
+function updateCharCount() {
+  const len = msgInput.value.length;
+  currentCount.innerText = len;
+  if(len >= 200) charCounter.classList.add('limit-reached');
+  else charCounter.classList.remove('limit-reached');
+}
+msgInput.oninput = updateCharCount;
+
+function addWishToDOM(name, message, animate = true) {
+  const newWish = document.createElement('div');
+  newWish.className = 'wish-item';
+  if(!animate) newWish.style.animation = 'none';
+  newWish.innerHTML = `<div class="wish-header"><span class="wish-name">${name}</span></div><p class="wish-text">${message}</p>`;
+  wishesDisplay.prepend(newWish);
+}
 
 document.getElementById('wishForm').onsubmit = function(e) {
   e.preventDefault();
   const name = document.getElementById('guestName').value;
   const msg = document.getElementById('guestMessage').value;
-  if(!name || !msg) return;
-  const newWish = document.createElement('div');
-  newWish.className = 'wish-item';
-  newWish.innerHTML = `<div class="wish-header"><span class="wish-name">${name}</span></div><p class="wish-text">${msg}</p>`;
-  wishesDisplay.prepend(newWish);
+  const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
+  savedWishes.push({ name, message: msg });
+  localStorage.setItem('weddingWishes', JSON.stringify(savedWishes));
+  addWishToDOM(name, msg);
   this.reset();
+  currentCount.innerText = 0;
+  stickerTray.style.display = 'none';
 };
 </script>
 </body>
