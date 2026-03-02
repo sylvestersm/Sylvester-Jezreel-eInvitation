@@ -327,8 +327,8 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto">
-  <source src="https://pixeldrain.com/api/file/Ur9gUZob" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
+  <source src="https://pixeldrain.com/api/file/Ur9gUZob?download" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -372,7 +372,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.346853755455!2d113.9789332!3d4.4608667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f57456d258169%3A0x7d06a01f568600d1!2sLutong%2C%2098000%20Miri%2C%20Sarawak!5e0!3m2!1sen!2smy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.529841808608!2d113.9877685!3d4.4608332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f50438a9a4b8b%3A0x7d6b384666f2a6f!2sLutong%2C%20Miri%2C%20Sarawak!5e0!3m2!1sen!2smy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -511,7 +511,6 @@ function toggleLanguage() {
   langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
 }
 
-// THE AGGRESSIVE PLAY FUNCTION
 function startMusic() {
     if (hasStarted) return;
     
@@ -524,7 +523,7 @@ function startMusic() {
             hasStarted = true;
             musicBtn.innerHTML = "⏸️";
         }).catch(error => {
-            console.log("Playback failed, waiting for user input.");
+            console.log("Auto-play prevented. User interaction required.");
         });
     }
 }
@@ -542,9 +541,9 @@ openBtn.addEventListener('click', function() {
     }, 1200);
 });
 
-// Extra triggers for mobile "Touch to Play"
-document.addEventListener('touchstart', startMusic, { once: true });
-document.addEventListener('click', startMusic, { once: true });
+// Fallback listeners for different browser behaviors
+document.addEventListener('click', () => { if(!hasStarted) startMusic(); }, { once: true });
+document.addEventListener('touchstart', () => { if(!hasStarted) startMusic(); }, { once: true });
 
 musicBtn.onclick = () => { 
     if(music.paused) { 
@@ -556,6 +555,7 @@ musicBtn.onclick = () => {
     } 
 };
 
+// Wedding Countdown
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime(); const diff = weddingDate - now;
@@ -564,7 +564,8 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-document.querySelectorAll('img').forEach(img => {
+// Lightbox
+document.querySelectorAll('.gallery-stack img').forEach(img => {
     img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
 
