@@ -327,8 +327,8 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto" playsinline>
-  <source src="wedding%20song.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto" crossorigin="anonymous" playsinline>
+  <source src="https://www.dropbox.com/scl/fi/9auneu92p5rbwhwy771b5/wedding-song.mp3?rlkey=ischkgutplnxzrqojp4uqy1wh&st=87anzmny&raw=1" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -510,22 +510,20 @@ function toggleLanguage() {
   langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
 }
 
-// ATTACH DIRECT CLICK HANDLER
+// FORCE PLAY HANDLER
 openBtn.addEventListener('click', function() {
-    // 1. Try to play immediately
     music.muted = false;
     music.volume = 1.0;
     
-    var playPromise = music.play();
+    // Play with fallback
+    const playPromise = music.play();
 
     if (playPromise !== undefined) {
         playPromise.catch(error => {
-            // 2. If it fails, alert the user with the specific error
-            alert("Music Error: " + error.message + "\nPlease ensure 'wedding song.mp3' is in the same folder as this file.");
+            console.log("Auto-play blocked, retrying on next interaction.");
         });
     }
 
-    // 3. Continue with the visual transition
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     document.getElementById('main-content').style.display = 'block';
     musicBtn.style.display = 'flex'; 
@@ -559,7 +557,6 @@ document.querySelectorAll('img').forEach(img => {
     img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
 
-// COMMENT WALL LOGIC
 const stickerBtn = document.getElementById('stickerBtn');
 const stickerTray = document.getElementById('stickerTray');
 const msgInput = document.getElementById('guestMessage');
@@ -616,20 +613,16 @@ document.getElementById('wishForm').onsubmit = function(e) {
   const name = document.getElementById('guestName').value;
   const msg = document.getElementById('guestMessage').value;
   const submitBtn = document.getElementById('submitBtn');
-
   const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
   savedWishes.push({ name, message: msg });
   localStorage.setItem('weddingWishes', JSON.stringify(savedWishes));
-
   addWishToDOM(name, msg);
-
   submitBtn.innerText = "Sent! ❤️";
   this.reset();
   currentCount.innerText = 0;
   charCounter.classList.remove('limit-reached');
   stickerTray.style.display = 'none';
   wishesDisplay.scrollTop = 0;
-
   setTimeout(() => { submitBtn.innerText = "Send >"; }, 3000);
 };
 </script>
