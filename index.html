@@ -328,7 +328,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <body>
 
 <audio id="bgMusic" loop preload="auto" playsinline>
-  <source src="wedding song.mp3" type="audio/mpeg">
+  <source src="wedding%20song.mp3" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -510,30 +510,36 @@ function toggleLanguage() {
 }
 
 function openInvitation() {
-    // START MUSIC IMMEDIATELY
-    // Browser MUST see this command right after the click/tap
-    music.volume = 1.0;
-    music.play().catch(e => {
-        console.log("Music play blocked by browser settings");
+    // FORCE PLAY IMMEDIATELY ON INTERACTION
+    // This is the most critical line for mobile sound
+    music.play().then(() => {
+        music.muted = false;
+        music.volume = 1.0;
+    }).catch(e => {
+        console.error("Audio playback failed:", e);
     });
 
-    // OPEN COVER
+    // START ANIMATIONS
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
-    
-    // UI REVEAL
-    // No setTimeout delays for critical features
     document.getElementById('main-content').style.display = 'block';
     musicBtn.style.display = 'flex'; 
     langSwitch.style.display = 'block';
     document.querySelectorAll('section').forEach(s => observer.observe(s));
     
-    // Clean up landing page after animation
     setTimeout(() => {
         document.getElementById('landing-cover').style.display = 'none';
     }, 1200);
 }
 
-musicBtn.onclick = () => { if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } else { music.pause(); musicBtn.innerHTML = "🎵"; } };
+musicBtn.onclick = () => { 
+    if(music.paused) { 
+        music.play(); 
+        musicBtn.innerHTML = "⏸️"; 
+    } else { 
+        music.pause(); 
+        musicBtn.innerHTML = "🎵"; 
+    } 
+};
 
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
