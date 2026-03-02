@@ -255,7 +255,6 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 }
 .comment-textarea { height: 100px; resize: none; margin-bottom: 5px; }
 #char-counter { font-size: 0.75rem; color: #777; margin-bottom: 20px; display: block; text-align: right; }
-#char-counter.limit-reached { color: #e74c3c; font-weight: bold; }
 .form-actions { display: flex; justify-content: space-between; align-items: center; }
 
 /* STICKER PICKER */
@@ -327,7 +326,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto" playsinline>
+<audio id="bgMusic" loop preload="auto" playsinline muted>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -372,7 +371,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.423456!2d113.987654!3d4.456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnMjQuNCJOIDExM8KwNTknMTUuNiJF!5e0!3m2!1sen!2smy!4v1234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15945.719702220455!2d114.0044569!3d4.4608316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f50a418579d1b%3A0x8686d4e8992c10b1!2sLutong%2C%2098000%20Miri%2C%20Sarawak!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -484,15 +483,10 @@ const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const openBtn = document.getElementById('openBtn');
 
-// Mobile browsers require audio to be "unlocked" on a user interaction
-function initAudio() {
-  music.play().then(() => {
-    music.pause(); // Silent play/pause to unlock the engine
-    console.log("Audio Unlocked");
-  }).catch(e => console.log("Init Audio blocked"));
-  window.removeEventListener('touchstart', initAudio);
-}
-window.addEventListener('touchstart', initAudio);
+// Force start muted play on load to "prime" the audio engine
+window.addEventListener('load', () => {
+  music.play().catch(e => console.log("Auto-play blocked, waiting for click."));
+});
 
 function toggleMusic() { 
   if(music.paused) { 
@@ -505,11 +499,11 @@ function toggleMusic() {
 }
 
 openBtn.addEventListener('click', function() {
-  // Start Music
+  // THE KEY: Unmute and play happens in the direct click event
   music.muted = false;
   music.play().then(() => {
     musicBtn.innerHTML = "⏸️";
-  }).catch(e => console.log("Click-to-play failed"));
+  }).catch(e => console.log("Play failed"));
 
   // UI Transitions
   document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
