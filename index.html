@@ -328,7 +328,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <body>
 
 <audio id="bgMusic" loop preload="auto" playsinline>
-  <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/Crazier%20-%20Taylor%20Swift%20(COVER).mp3" type="audio/mpeg">
+  <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/wedding%20song.mp3" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -510,11 +510,15 @@ function toggleLanguage() {
 }
 
 function openInvitation() {
-    // START MUSIC IMMEDIATELY AT 100% VOLUME (No Fade-in to avoid mobile block)
+    // 1. MUST PLAY IMMEDIATELY ON TAP (MOBILE REQUIREMENT)
     music.volume = 1.0;
-    music.play().catch(e => console.log("System blocked autoplay:", e));
+    music.play().then(() => {
+        console.log("Music started");
+    }).catch(e => {
+        console.log("Music blocked by browser:", e);
+    });
 
-    // ANIMATION
+    // 2. TRIGGER ANIMATIONS
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
