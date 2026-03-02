@@ -326,7 +326,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto" playsinline muted>
+<audio id="bgMusic" loop preload="auto" playsinline>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -483,10 +483,9 @@ const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const openBtn = document.getElementById('openBtn');
 
-// Force start muted play on load to "prime" the audio engine
-window.addEventListener('load', () => {
-  music.play().catch(e => console.log("Auto-play blocked, waiting for click."));
-});
+// Force initial volume and unmuted status in JS
+music.volume = 1.0;
+music.muted = false;
 
 function toggleMusic() { 
   if(music.paused) { 
@@ -498,12 +497,24 @@ function toggleMusic() {
   } 
 }
 
+// Interaction listener: Some phones ONLY play if they see a screen touch
+// We try to trigger play on the very first touch anywhere
+function forcePlay() {
+  music.play().then(() => {
+    window.removeEventListener('touchstart', forcePlay);
+  }).catch(e => console.log("Touch to play pending..."));
+}
+window.addEventListener('touchstart', forcePlay);
+
 openBtn.addEventListener('click', function() {
-  // THE KEY: Unmute and play happens in the direct click event
-  music.muted = false;
+  // Try to play immediately on the Open Button click
   music.play().then(() => {
     musicBtn.innerHTML = "⏸️";
-  }).catch(e => console.log("Play failed"));
+  }).catch(e => {
+    // If it still fails, we try a second "hard" play
+    music.muted = false;
+    music.play();
+  });
 
   // UI Transitions
   document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
