@@ -327,7 +327,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto" crossorigin="anonymous" playsinline>
+<audio id="bgMusic" loop crossorigin="anonymous" playsinline style="display:none;">
   <source src="https://www.dropbox.com/scl/fi/9auneu92p5rbwhwy771b5/wedding-song.mp3?rlkey=ischkgutplnxzrqojp4uqy1wh&st=87anzmny&raw=1" type="audio/mpeg">
 </audio>
 
@@ -510,20 +510,29 @@ function toggleLanguage() {
   langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
 }
 
-// FORCE PLAY HANDLER
+// THE "SECRET FIX" FORCE START HANDLER
 openBtn.addEventListener('click', function() {
+    // 1. Force reload the music source to break through potential cache blocks
+    music.load(); 
     music.muted = false;
     music.volume = 1.0;
     
-    // Play with fallback
+    // 2. Immediate play attempt
     const playPromise = music.play();
 
     if (playPromise !== undefined) {
-        playPromise.catch(error => {
-            console.log("Auto-play blocked, retrying on next interaction.");
+        playPromise.then(_ => {
+            console.log("Audio started!");
+        }).catch(error => {
+            console.log("Auto-play was blocked. User must click the music icon manually.");
+            // Backup: Play muted then un-mute (some Androids allow this)
+            music.muted = true;
+            music.play();
+            setTimeout(() => { music.muted = false; }, 500);
         });
     }
 
+    // UI Transition
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     document.getElementById('main-content').style.display = 'block';
     musicBtn.style.display = 'flex'; 
@@ -545,6 +554,7 @@ musicBtn.onclick = () => {
     } 
 };
 
+// ... Rest of the scripts (Countdown, Comments, etc.) ...
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime(); const diff = weddingDate - now;
