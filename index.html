@@ -327,8 +327,8 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop crossorigin="anonymous" playsinline style="display:none;">
-  <source src="https://www.dropbox.com/scl/fi/9auneu92p5rbwhwy771b5/wedding-song.mp3?rlkey=ischkgutplnxzrqojp4uqy1wh&st=87anzmny&raw=1" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://pixeldrain.com/api/file/Ur9gUZob" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -372,7 +372,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.332822474934!2d113.9806451!3d4.4444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f57476722d7d7%3A0x6b4c3e88a09e075!2sLot%201203%2C%20Block%203%2C%20MCLD%2C%20Lutong!5e0!3m2!1sen!2smy!4v1715000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.346853755455!2d113.9789332!3d4.4608667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f57456d258169%3A0x7d06a01f568600d1!2sLutong%2C%2098000%20Miri%2C%20Sarawak!5e0!3m2!1sen!2smy!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -496,6 +496,7 @@ const musicBtn = document.getElementById('musicBtn');
 const openBtn = document.getElementById('openBtn');
 const langSwitch = document.getElementById('langSwitch');
 let currentLang = 'en';
+let hasStarted = false;
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
@@ -510,29 +511,26 @@ function toggleLanguage() {
   langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
 }
 
-// THE "SECRET FIX" FORCE START HANDLER
-openBtn.addEventListener('click', function() {
-    // 1. Force reload the music source to break through potential cache blocks
-    music.load(); 
+// THE AGGRESSIVE PLAY FUNCTION
+function startMusic() {
+    if (hasStarted) return;
+    
     music.muted = false;
     music.volume = 1.0;
     
-    // 2. Immediate play attempt
     const playPromise = music.play();
-
     if (playPromise !== undefined) {
-        playPromise.then(_ => {
-            console.log("Audio started!");
+        playPromise.then(() => {
+            hasStarted = true;
+            musicBtn.innerHTML = "⏸️";
         }).catch(error => {
-            console.log("Auto-play was blocked. User must click the music icon manually.");
-            // Backup: Play muted then un-mute (some Androids allow this)
-            music.muted = true;
-            music.play();
-            setTimeout(() => { music.muted = false; }, 500);
+            console.log("Playback failed, waiting for user input.");
         });
     }
+}
 
-    // UI Transition
+openBtn.addEventListener('click', function() {
+    startMusic();
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     document.getElementById('main-content').style.display = 'block';
     musicBtn.style.display = 'flex'; 
@@ -544,6 +542,10 @@ openBtn.addEventListener('click', function() {
     }, 1200);
 });
 
+// Extra triggers for mobile "Touch to Play"
+document.addEventListener('touchstart', startMusic, { once: true });
+document.addEventListener('click', startMusic, { once: true });
+
 musicBtn.onclick = () => { 
     if(music.paused) { 
         music.play(); 
@@ -554,7 +556,6 @@ musicBtn.onclick = () => {
     } 
 };
 
-// ... Rest of the scripts (Countdown, Comments, etc.) ...
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime(); const diff = weddingDate - now;
