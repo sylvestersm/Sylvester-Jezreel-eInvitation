@@ -372,7 +372,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.656545123!2d113.97!3d4.46!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnMzYuMCJOIDExM8KwNTgnMTIuMCJF!5e0!3m2!1sen!2smy!4v1620000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://maps.google.com/?cid=5041685175627311330&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -498,9 +498,8 @@ const langSwitch = document.getElementById('langSwitch');
 let currentLang = 'en';
 let hasStarted = false;
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
-}, { threshold: 0.1 });
+// Audio context fix for modern browsers
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'bm' : 'en';
@@ -511,19 +510,23 @@ function toggleLanguage() {
   langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
 }
 
-function startMusic() {
+async function startMusic() {
     if (hasStarted) return;
+    
+    // Resume audio context if suspended
+    if (audioCtx.state === 'suspended') {
+        await audioCtx.resume();
+    }
+
     music.muted = false;
     music.volume = 1.0;
     
-    const playPromise = music.play();
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            hasStarted = true;
-            musicBtn.innerHTML = "⏸️";
-        }).catch(error => {
-            console.log("Waiting for user to click Open.");
-        });
+    try {
+        await music.play();
+        hasStarted = true;
+        musicBtn.innerHTML = "⏸️";
+    } catch (err) {
+        console.log("Autoplay blocked. Retrying on next click...");
     }
 }
 
@@ -533,6 +536,10 @@ openBtn.addEventListener('click', function() {
     document.getElementById('main-content').style.display = 'block';
     musicBtn.style.display = 'flex'; 
     langSwitch.style.display = 'block';
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+    }, { threshold: 0.1 });
     document.querySelectorAll('section').forEach(s => observer.observe(s));
     
     setTimeout(() => {
@@ -540,11 +547,16 @@ openBtn.addEventListener('click', function() {
     }, 1200);
 });
 
+// Force audio play on any interaction if not started
+window.addEventListener('touchstart', startMusic, { once: true });
+window.addEventListener('mousedown', startMusic, { once: true });
+
 musicBtn.onclick = () => { 
     if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } 
     else { music.pause(); musicBtn.innerHTML = "🎵"; } 
 };
 
+// Countdown Logic
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime(); const diff = weddingDate - now;
@@ -553,10 +565,12 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
+// Gallery / Lightbox
 document.querySelectorAll('.gallery-stack img').forEach(img => {
     img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
 
+// Wishes Section Logic
 const stickerBtn = document.getElementById('stickerBtn');
 const stickerTray = document.getElementById('stickerTray');
 const msgInput = document.getElementById('guestMessage');
@@ -573,10 +587,7 @@ window.onload = function() {
   }
 };
 
-stickerBtn.onclick = (e) => {
-  e.preventDefault();
-  stickerTray.style.display = stickerTray.style.display === 'grid' ? 'none' : 'grid';
-};
+stickerBtn.onclick = (e) => { e.preventDefault(); stickerTray.style.display = stickerTray.style.display === 'grid' ? 'none' : 'grid'; };
 
 document.querySelectorAll('.sticker-item').forEach(item => {
   item.onclick = () => {
@@ -594,7 +605,6 @@ function updateCharCount() {
   if(len >= 200) charCounter.classList.add('limit-reached');
   else charCounter.classList.remove('limit-reached');
 }
-
 msgInput.oninput = updateCharCount;
 
 function addWishToDOM(name, message, animate = true) {
