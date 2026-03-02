@@ -372,7 +372,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.527376045474!2d113.9850669!3d4.4533088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnMTEuOSJOIDExM8KwNTknMDYuMiJF!5e0!3m2!1sen!2smy!4v1645678901234!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.423456!2d113.987654!3d4.456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnMjQuNCJOIDExM8KwNTknMTUuNiJF!5e0!3m2!1sen!2smy!4v1234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -479,65 +479,67 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <div id="lightbox" onclick="this.style.display='none'"><img id="lbImg" src=""></div>
 
 <script>
-// --- AUDIO FIX FOR MOBILE ---
+// --- AUDIO SYSTEM ---
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const openBtn = document.getElementById('openBtn');
 
-// This forces the audio to "wake up" on any touch
-function unlockAudio() {
-    music.play().then(() => {
-        music.pause(); // Just a quick tap to wake it up
-    }).catch(e => console.log("Unlock failed"));
-    window.removeEventListener('touchstart', unlockAudio);
+// Mobile browsers require audio to be "unlocked" on a user interaction
+function initAudio() {
+  music.play().then(() => {
+    music.pause(); // Silent play/pause to unlock the engine
+    console.log("Audio Unlocked");
+  }).catch(e => console.log("Init Audio blocked"));
+  window.removeEventListener('touchstart', initAudio);
 }
-window.addEventListener('touchstart', unlockAudio);
+window.addEventListener('touchstart', initAudio);
 
-function startMusic() {
-    music.muted = false;
-    music.volume = 1.0;
-    let playPromise = music.play();
-    
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            musicBtn.innerHTML = "⏸️";
-        }).catch(error => {
-            console.log("Autoplay prevented. User must click Open.");
-        });
-    }
+function toggleMusic() { 
+  if(music.paused) { 
+    music.play(); 
+    musicBtn.innerHTML = "⏸️"; 
+  } else { 
+    music.pause(); 
+    musicBtn.innerHTML = "🎵"; 
+  } 
 }
 
 openBtn.addEventListener('click', function() {
-    startMusic();
-    document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
-    document.getElementById('main-content').style.display = 'block';
-    musicBtn.style.display = 'flex'; 
-    
-    // Intersection Observer for Reveal Animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('section').forEach(s => observer.observe(s));
-    
-    setTimeout(() => { document.getElementById('landing-cover').style.display = 'none'; }, 1200);
+  // Start Music
+  music.muted = false;
+  music.play().then(() => {
+    musicBtn.innerHTML = "⏸️";
+  }).catch(e => console.log("Click-to-play failed"));
+
+  // UI Transitions
+  document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
+  document.getElementById('main-content').style.display = 'block';
+  musicBtn.style.display = 'flex'; 
+  document.getElementById('langSwitch').style.display = 'block';
+  
+  // Animation Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('section').forEach(s => observer.observe(s));
+  
+  setTimeout(() => { document.getElementById('landing-cover').style.display = 'none'; }, 1200);
 });
 
-musicBtn.onclick = () => { 
-    if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } 
-    else { music.pause(); musicBtn.innerHTML = "🎵"; } 
-};
+musicBtn.onclick = toggleMusic;
 
-// --- REST OF THE SCRIPT ---
+// --- LANGUAGE SYSTEM ---
 let currentLang = 'en';
 function toggleLanguage() {
-  currentLang = currentLang === 'en' ? 'bm' : 'en';
+  currentLang = (currentLang === 'en') ? 'bm' : 'en';
   document.querySelectorAll('.lang').forEach(el => {
     const text = el.getAttribute(`data-${currentLang}`);
     if (text) el.innerHTML = text;
   });
-  document.getElementById('langSwitch').innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
+  document.getElementById('langSwitch').innerHTML = (currentLang === 'en') ? 'EN | BM' : 'BM | EN';
 }
 
+// --- COUNTDOWN ---
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime(); const diff = weddingDate - now;
@@ -546,32 +548,30 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
+// --- GALLERY ---
 document.querySelectorAll('.gallery-stack img').forEach(img => {
     img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
 
+// --- WISHES ---
 const stickerBtn = document.getElementById('stickerBtn');
 const stickerTray = document.getElementById('stickerTray');
 const msgInput = document.getElementById('guestMessage');
 const wishesDisplay = document.getElementById('wishes-display');
 
-stickerBtn.onclick = (e) => { e.preventDefault(); stickerTray.style.display = stickerTray.style.display === 'grid' ? 'none' : 'grid'; };
+stickerBtn.onclick = (e) => { e.preventDefault(); stickerTray.style.display = (stickerTray.style.display === 'grid') ? 'none' : 'grid'; };
 document.querySelectorAll('.sticker-item').forEach(item => {
   item.onclick = () => { msgInput.value += item.innerText; stickerTray.style.display = 'none'; };
 });
-
-function addWishToDOM(name, message) {
-  const newWish = document.createElement('div');
-  newWish.className = 'wish-item';
-  newWish.innerHTML = `<div class="wish-header"><span class="wish-name">${name}</span></div><p class="wish-text">${message}</p>`;
-  wishesDisplay.prepend(newWish);
-}
 
 document.getElementById('wishForm').onsubmit = function(e) {
   e.preventDefault();
   const name = document.getElementById('guestName').value;
   const msg = document.getElementById('guestMessage').value;
-  addWishToDOM(name, msg);
+  const newWish = document.createElement('div');
+  newWish.className = 'wish-item';
+  newWish.innerHTML = `<div class="wish-header"><span class="wish-name">${name}</span></div><p class="wish-text">${msg}</p>`;
+  wishesDisplay.prepend(newWish);
   this.reset();
 };
 </script>
