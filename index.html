@@ -149,6 +149,44 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 .activity-col { font-size: 0.95rem; color: #2d3436; }
 .details { font-size: 0.75rem; color: #777; display: block; margin-top: 5px; line-height: 1.4; font-style: italic; }
 
+/* OUR MOMENTS SECTION */
+.moments-frame {
+  border: 1px solid var(--dark-sage);
+  padding: 10px;
+  width: 100%;
+  max-width: 450px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.moments-inner {
+  border: 1px solid var(--dark-sage);
+  padding: 40px 15px;
+  box-sizing: border-box;
+}
+.moments-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  letter-spacing: 4px;
+  color: var(--dark-sage);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.moments-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #636e72;
+  margin-bottom: 20px;
+}
+.moments-names {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #2d3436;
+  margin-bottom: 5px;
+}
+
 /* GALLERY STACK */
 .gallery-stack {
   display: flex;
@@ -173,7 +211,9 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
   transition: transform 0.3s ease;
   cursor: pointer;
 }
-.gallery-stack img:hover { transform: scale(1.02); }
+.gallery-stack img:hover {
+  transform: scale(1.02);
+}
 .img-half { width: calc(50% - 6px); height: 200px; }
 .img-full { width: 100%; height: auto; max-height: 350px; }
 
@@ -280,14 +320,15 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 @media(max-width:600px){ 
   h1 { font-size: 2.3rem; } 
   h2 { font-size: 1.8rem; } 
+  .moments-names { font-size: 1.6rem; }
   section { padding: 40px 15px; }
 }
 </style>
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
-  <source src="https://raw.githubusercontent.com/sylvestersm/Sylvester-Jezreel-eInvitation/main/wedding%20song.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="wedding song.mp3" type="audio/mpeg">
 </audio>
 
 <div id="langSwitch" onclick="toggleLanguage()">EN | BM</div>
@@ -331,7 +372,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.527376044719!2d113.978939!3d4.498428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjknNTQuMyJOIDExM8KwNTgnNDQuMiJF!5e0!3m2!1sen!2smy!4v1620000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.332822474934!2d113.9806451!3d4.4444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f57476722d7d7%3A0x6b4c3e88a09e075!2sLot%201203%2C%20Block%203%2C%20MCLD%2C%20Lutong!5e0!3m2!1sen!2smy!4v1715000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -365,14 +406,21 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
   </section>
 
   <section id="gallery">
-    <h2 class="lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</h2>
-    <div class="gallery-stack">
-      <div class="gallery-row">
-        <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" class="img-half" alt="Photo 1">
-        <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" class="img-half" alt="Photo 2">
+    <div class="moments-frame">
+      <div class="moments-inner">
+        <h2 class="moments-title lang" data-en="Our Moments" data-bm="Kenangan Kami">Our Moments</h2>
+        <p class="moments-subtitle">"The greatest of these is love"</p>
+        <p class="moments-names">Sylvester & Jezreel</p>
+        <div class="divider" style="margin: 10px auto;"></div>
+        <div class="gallery-stack">
+          <div class="gallery-row">
+            <img src="https://i.ibb.co/4f7nB9t/photo1.jpg" class="img-half" alt="Photo 1">
+            <img src="https://i.ibb.co/qnR1ZCw/photo2.jpg" class="img-half" alt="Photo 2">
+          </div>
+          <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" class="img-full" alt="Photo 3">
+          <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" class="img-full" alt="Photo 4">
+        </div>
       </div>
-      <img src="https://i.ibb.co/5FjLm7Z/photo3.jpg" class="img-full" alt="Photo 3">
-      <img src="https://i.ibb.co/Tc3q6yZ/photo4.jpg" class="img-full" alt="Photo 4">
     </div>
     <a class="btn" href="#rsvp" style="margin-top:20px;">RSVP Now ↓</a>
   </section>
@@ -404,6 +452,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
       <form id="wishForm" class="comment-form">
         <label class="lang" data-en="Name" data-bm="Nama">Name</label>
         <input type="text" id="guestName" class="comment-input" placeholder="..." required>
+        
         <label class="lang" data-en="Message" data-bm="Mesej">Message</label>
         <textarea id="guestMessage" class="comment-textarea" placeholder="..." maxlength="200" required></textarea>
         <span id="char-counter"><span id="current-count">0</span> / 200 <span class="lang" data-en="chars" data-bm="aksara">chars</span></span>
@@ -422,7 +471,9 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
       </form>
     </div>
 
-    <div id="wishes-display"></div>
+    <div id="wishes-display">
+      </div>
+
     <a class="btn" href="#share" style="margin-top: 20px;">Finish ↓</a>
   </section>
 
@@ -459,33 +510,19 @@ function toggleLanguage() {
 }
 
 function openInvitation() {
-    // START MUSIC IMMEDIATELY (Crucial for mobile)
-    music.play().then(() => {
-        musicBtn.innerHTML = "⏸️";
-    }).catch(e => {
-        console.error("Music play failed:", e);
-    });
-
-    // TRIGGER ANIMATIONS
+    // Immediate play on user interaction to satisfy mobile browsers
+    music.play().catch(e => console.log("Music play blocked by browser"));
+    
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     setTimeout(() => {
         document.getElementById('main-content').style.display = 'block';
-        musicBtn.style.display = 'flex'; 
-        langSwitch.style.display = 'block';
+        musicBtn.style.display = 'flex'; langSwitch.style.display = 'block';
         document.getElementById('landing-cover').style.display = 'none';
         document.querySelectorAll('section').forEach(s => observer.observe(s));
     }, 1000);
 }
 
-musicBtn.onclick = () => { 
-    if(music.paused) { 
-        music.play(); 
-        musicBtn.innerHTML = "⏸️"; 
-    } else { 
-        music.pause(); 
-        musicBtn.innerHTML = "🎵"; 
-    } 
-};
+musicBtn.onclick = () => { if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } else { music.pause(); musicBtn.innerHTML = "🎵"; } };
 
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
@@ -496,12 +533,7 @@ setInterval(() => {
 }, 1000);
 
 document.querySelectorAll('img').forEach(img => {
-    img.onclick = () => { 
-        if(img.id !== "lbImg") {
-            document.getElementById('lbImg').src = img.src; 
-            document.getElementById('lightbox').style.display = 'flex'; 
-        }
-    };
+    img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
 
 // COMMENT WALL LOGIC
@@ -512,11 +544,13 @@ const charCounter = document.getElementById('char-counter');
 const currentCount = document.getElementById('current-count');
 const wishesDisplay = document.getElementById('wishes-display');
 
+// Initialize Wall on Load
 window.onload = function() {
   const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
   if (savedWishes.length === 0) {
     addWishToDOM("Admin", "Wishing you both a lifetime of happiness! ✨", false);
   } else {
+    // Show wishes (newest first)
     savedWishes.reverse().forEach(w => addWishToDOM(w.name, w.message, false));
   }
 };
@@ -562,11 +596,15 @@ document.getElementById('wishForm').onsubmit = function(e) {
   const msg = document.getElementById('guestMessage').value;
   const submitBtn = document.getElementById('submitBtn');
 
+  // Save Locally
   const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
   savedWishes.push({ name, message: msg });
   localStorage.setItem('weddingWishes', JSON.stringify(savedWishes));
 
+  // Add to Feed
   addWishToDOM(name, msg);
+
+  // Success UI
   submitBtn.innerText = "Sent! ❤️";
   this.reset();
   currentCount.innerText = 0;
