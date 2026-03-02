@@ -327,7 +327,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto">
+<audio id="bgMusic" loop preload="auto" playsinline>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -372,7 +372,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://maps.google.com/?cid=5041685175627311330&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.527376045474!2d113.9850669!3d4.4533088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnMTEuOSJOIDExM8KwNTknMDYuMiJF!5e0!3m2!1sen!2smy!4v1645678901234!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -446,34 +446,23 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 
   <section id="blessings">
     <h2 class="lang" data-en="Share your Blessing" data-bm="Titipkan Ucapan">Share your Blessing</h2>
-    <p class="soft lang" data-en="Kindly write your wishes for us" data-bm="Sila tulis ucapan untuk kami">Kindly write your wishes for us</p>
-    
     <div class="comment-card">
       <form id="wishForm" class="comment-form">
         <label class="lang" data-en="Name" data-bm="Nama">Name</label>
-        <input type="text" id="guestName" class="comment-input" placeholder="..." required>
-        
+        <input type="text" id="guestName" class="comment-input" required>
         <label class="lang" data-en="Message" data-bm="Mesej">Message</label>
-        <textarea id="guestMessage" class="comment-textarea" placeholder="..." maxlength="200" required></textarea>
-        <span id="char-counter"><span id="current-count">0</span> / 200 <span class="lang" data-en="chars" data-bm="aksara">chars</span></span>
-        
+        <textarea id="guestMessage" class="comment-textarea" maxlength="200" required></textarea>
         <div class="form-actions">
-          <button type="button" class="btn secondary" id="stickerBtn" style="padding: 10px 20px;">Sticker</button>
-          <button type="submit" class="btn" id="submitBtn" style="padding: 10px 30px;">Send ></button>
+          <button type="button" class="btn secondary" id="stickerBtn">Sticker</button>
+          <button type="submit" class="btn" id="submitBtn">Send ></button>
         </div>
-
         <div id="stickerTray" class="sticker-tray">
           <div class="sticker-item">❤️</div><div class="sticker-item">✨</div><div class="sticker-item">💍</div>
           <div class="sticker-item">🥂</div><div class="sticker-item">🕊️</div><div class="sticker-item">🌸</div>
-          <div class="sticker-item">🎉</div><div class="sticker-item">🙌</div><div class="sticker-item">👩‍❤️‍👨</div>
-          <div class="sticker-item">💐</div>
         </div>
       </form>
     </div>
-
-    <div id="wishes-display">
-      </div>
-
+    <div id="wishes-display"></div>
     <a class="btn" href="#share" style="margin-top: 20px;">Finish ↓</a>
   </section>
 
@@ -482,7 +471,6 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
         <h2>"The greatest of these is love."</h2>
         <p>— 1 Corinthians 13:13</p>
     </div>
-    <div class="divider"></div>
     <a class="btn lang" data-en="Share via WhatsApp" data-bm="Kongsi WhatsApp" href="https://wa.me/?text=You're%20invited%20to%20our%20wedding!" target="_blank">Share via WhatsApp</a>
     <a class="btn secondary" href="#cover">Back to Top ↑</a>
   </section>
@@ -491,42 +479,31 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <div id="lightbox" onclick="this.style.display='none'"><img id="lbImg" src=""></div>
 
 <script>
+// --- AUDIO FIX FOR MOBILE ---
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const openBtn = document.getElementById('openBtn');
-const langSwitch = document.getElementById('langSwitch');
-let currentLang = 'en';
-let hasStarted = false;
 
-// Audio context fix for modern browsers
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-function toggleLanguage() {
-  currentLang = currentLang === 'en' ? 'bm' : 'en';
-  document.querySelectorAll('.lang').forEach(el => {
-    const text = el.getAttribute(`data-${currentLang}`);
-    if (text) el.innerHTML = text;
-  });
-  langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
+// This forces the audio to "wake up" on any touch
+function unlockAudio() {
+    music.play().then(() => {
+        music.pause(); // Just a quick tap to wake it up
+    }).catch(e => console.log("Unlock failed"));
+    window.removeEventListener('touchstart', unlockAudio);
 }
+window.addEventListener('touchstart', unlockAudio);
 
-async function startMusic() {
-    if (hasStarted) return;
-    
-    // Resume audio context if suspended
-    if (audioCtx.state === 'suspended') {
-        await audioCtx.resume();
-    }
-
+function startMusic() {
     music.muted = false;
     music.volume = 1.0;
+    let playPromise = music.play();
     
-    try {
-        await music.play();
-        hasStarted = true;
-        musicBtn.innerHTML = "⏸️";
-    } catch (err) {
-        console.log("Autoplay blocked. Retrying on next click...");
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            musicBtn.innerHTML = "⏸️";
+        }).catch(error => {
+            console.log("Autoplay prevented. User must click Open.");
+        });
     }
 }
 
@@ -535,28 +512,32 @@ openBtn.addEventListener('click', function() {
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     document.getElementById('main-content').style.display = 'block';
     musicBtn.style.display = 'flex'; 
-    langSwitch.style.display = 'block';
     
+    // Intersection Observer for Reveal Animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('section').forEach(s => observer.observe(s));
     
-    setTimeout(() => {
-        document.getElementById('landing-cover').style.display = 'none';
-    }, 1200);
+    setTimeout(() => { document.getElementById('landing-cover').style.display = 'none'; }, 1200);
 });
-
-// Force audio play on any interaction if not started
-window.addEventListener('touchstart', startMusic, { once: true });
-window.addEventListener('mousedown', startMusic, { once: true });
 
 musicBtn.onclick = () => { 
     if(music.paused) { music.play(); musicBtn.innerHTML = "⏸️"; } 
     else { music.pause(); musicBtn.innerHTML = "🎵"; } 
 };
 
-// Countdown Logic
+// --- REST OF THE SCRIPT ---
+let currentLang = 'en';
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'bm' : 'en';
+  document.querySelectorAll('.lang').forEach(el => {
+    const text = el.getAttribute(`data-${currentLang}`);
+    if (text) el.innerHTML = text;
+  });
+  document.getElementById('langSwitch').innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
+}
+
 const weddingDate = new Date("May 31, 2026 16:30:00").getTime();
 setInterval(() => {
     const now = new Date().getTime(); const diff = weddingDate - now;
@@ -565,52 +546,23 @@ setInterval(() => {
     document.getElementById('countdown').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
 
-// Gallery / Lightbox
 document.querySelectorAll('.gallery-stack img').forEach(img => {
     img.onclick = () => { document.getElementById('lbImg').src = img.src; document.getElementById('lightbox').style.display = 'flex'; };
 });
 
-// Wishes Section Logic
 const stickerBtn = document.getElementById('stickerBtn');
 const stickerTray = document.getElementById('stickerTray');
 const msgInput = document.getElementById('guestMessage');
-const charCounter = document.getElementById('char-counter');
-const currentCount = document.getElementById('current-count');
 const wishesDisplay = document.getElementById('wishes-display');
 
-window.onload = function() {
-  const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
-  if (savedWishes.length === 0) {
-    addWishToDOM("Admin", "Wishing you both a lifetime of happiness! ✨", false);
-  } else {
-    savedWishes.reverse().forEach(w => addWishToDOM(w.name, w.message, false));
-  }
-};
-
 stickerBtn.onclick = (e) => { e.preventDefault(); stickerTray.style.display = stickerTray.style.display === 'grid' ? 'none' : 'grid'; };
-
 document.querySelectorAll('.sticker-item').forEach(item => {
-  item.onclick = () => {
-    if (msgInput.value.length + 2 <= 200) {
-      msgInput.value += item.innerText;
-      updateCharCount();
-      stickerTray.style.display = 'none';
-    }
-  };
+  item.onclick = () => { msgInput.value += item.innerText; stickerTray.style.display = 'none'; };
 });
 
-function updateCharCount() {
-  const len = msgInput.value.length;
-  currentCount.innerText = len;
-  if(len >= 200) charCounter.classList.add('limit-reached');
-  else charCounter.classList.remove('limit-reached');
-}
-msgInput.oninput = updateCharCount;
-
-function addWishToDOM(name, message, animate = true) {
+function addWishToDOM(name, message) {
   const newWish = document.createElement('div');
   newWish.className = 'wish-item';
-  if(!animate) newWish.style.animation = 'none';
   newWish.innerHTML = `<div class="wish-header"><span class="wish-name">${name}</span></div><p class="wish-text">${message}</p>`;
   wishesDisplay.prepend(newWish);
 }
@@ -619,18 +571,8 @@ document.getElementById('wishForm').onsubmit = function(e) {
   e.preventDefault();
   const name = document.getElementById('guestName').value;
   const msg = document.getElementById('guestMessage').value;
-  const submitBtn = document.getElementById('submitBtn');
-  const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
-  savedWishes.push({ name, message: msg });
-  localStorage.setItem('weddingWishes', JSON.stringify(savedWishes));
   addWishToDOM(name, msg);
-  submitBtn.innerText = "Sent! ❤️";
   this.reset();
-  currentCount.innerText = 0;
-  charCounter.classList.remove('limit-reached');
-  stickerTray.style.display = 'none';
-  wishesDisplay.scrollTop = 0;
-  setTimeout(() => { submitBtn.innerText = "Send >"; }, 3000);
 };
 </script>
 </body>
