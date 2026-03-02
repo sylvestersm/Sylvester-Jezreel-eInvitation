@@ -372,7 +372,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <p class="big">P100, Miri</p>
     <p class="soft">Lot 1203, Block 3, MCLD, Lutong, 98000 Miri, Sarawak</p>
     <div style="width: 100%; max-width: 550px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 5px solid white;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15945.719702220455!2d114.0044569!3d4.4608316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x321f50a418579d1b%3A0x8686d4e8992c10b1!2sLutong%2C%2098000%20Miri%2C%20Sarawak!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.123456789!2d113.987654321!3d4.456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMjcnMjQuNCJOIDExM8KwNTknMTUuNiJF!5e0!3m2!1sen!2smy!4v1234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
     <a class="btn" href="https://goo.gl/maps/xyz" target="_blank">Get Directions</a>
     <a class="btn secondary" href="#program">Next ↓</a>
@@ -497,7 +497,7 @@ function toggleMusic() {
 }
 
 openBtn.addEventListener('click', function() {
-  // Try to play immediately on click
+  // CRITICAL: Play on direct user click to satisfy mobile security
   music.muted = false;
   const playPromise = music.play();
 
@@ -505,7 +505,7 @@ openBtn.addEventListener('click', function() {
     playPromise.then(_ => {
       musicBtn.innerHTML = "⏸️";
     }).catch(error => {
-      console.log("Playback failed. User interaction needed.");
+      console.log("Auto-play was prevented by the browser.");
     });
   }
 
