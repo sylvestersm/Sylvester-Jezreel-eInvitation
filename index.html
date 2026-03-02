@@ -341,7 +341,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
     <h1 style="letter-spacing: 2px;">Sylvester & Jezreel</h1>
     <div class="divider"></div>
     <p class="big">31 May 2026</p>
-    <button class="btn lang" data-en="Open Invitation" data-bm="Buka Undangan" onclick="openInvitation()">Open Invitation</button>
+    <button class="btn lang" data-en="Open Invitation" data-bm="Buka Undangan" id="openBtn">Open Invitation</button>
   </div>
 </div>
 
@@ -493,6 +493,7 @@ h2 { font-size: 2.2rem; color: var(--dark-sage); }
 <script>
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
+const openBtn = document.getElementById('openBtn');
 const langSwitch = document.getElementById('langSwitch');
 let currentLang = 'en';
 
@@ -509,17 +510,22 @@ function toggleLanguage() {
   langSwitch.innerHTML = currentLang === 'en' ? 'EN | BM' : 'BM | EN';
 }
 
-function openInvitation() {
-    // FORCE PLAY IMMEDIATELY ON INTERACTION
-    // This is the most critical line for mobile sound
-    music.play().then(() => {
-        music.muted = false;
-        music.volume = 1.0;
-    }).catch(e => {
-        console.error("Audio playback failed:", e);
-    });
+// ATTACH DIRECT CLICK HANDLER
+openBtn.addEventListener('click', function() {
+    // 1. Try to play immediately
+    music.muted = false;
+    music.volume = 1.0;
+    
+    var playPromise = music.play();
 
-    // START ANIMATIONS
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            // 2. If it fails, alert the user with the specific error
+            alert("Music Error: " + error.message + "\nPlease ensure 'wedding song.mp3' is in the same folder as this file.");
+        });
+    }
+
+    // 3. Continue with the visual transition
     document.getElementById('landing-cover').style.transform = 'translateY(-100%)';
     document.getElementById('main-content').style.display = 'block';
     musicBtn.style.display = 'flex'; 
@@ -529,7 +535,7 @@ function openInvitation() {
     setTimeout(() => {
         document.getElementById('landing-cover').style.display = 'none';
     }, 1200);
-}
+});
 
 musicBtn.onclick = () => { 
     if(music.paused) { 
@@ -561,13 +567,11 @@ const charCounter = document.getElementById('char-counter');
 const currentCount = document.getElementById('current-count');
 const wishesDisplay = document.getElementById('wishes-display');
 
-// Initialize Wall on Load
 window.onload = function() {
   const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
   if (savedWishes.length === 0) {
     addWishToDOM("Admin", "Wishing you both a lifetime of happiness! ✨", false);
   } else {
-    // Show wishes (newest first)
     savedWishes.reverse().forEach(w => addWishToDOM(w.name, w.message, false));
   }
 };
@@ -613,15 +617,12 @@ document.getElementById('wishForm').onsubmit = function(e) {
   const msg = document.getElementById('guestMessage').value;
   const submitBtn = document.getElementById('submitBtn');
 
-  // Save Locally
   const savedWishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
   savedWishes.push({ name, message: msg });
   localStorage.setItem('weddingWishes', JSON.stringify(savedWishes));
 
-  // Add to Feed
   addWishToDOM(name, msg);
 
-  // Success UI
   submitBtn.innerText = "Sent! ❤️";
   this.reset();
   currentCount.innerText = 0;
